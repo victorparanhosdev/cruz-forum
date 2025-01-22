@@ -7,12 +7,25 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
-    },
+        black: '#000000',
+        green: {
+          950: '#002A25'
+        },
+        stone: {
+          700: '#44403C',
+          950: '#0C0A09'
+        },
+        'hover': {
+          'btn-gray': '#1A1A1A',
+          'btn-green': '#026354',
+          'btn-menu_card': '#1D282A'
+        },
+        white: '#FFFFFF',
+        gray: {
+          400: '888888',
+        }
+      }
   },
   plugins: [],
 } satisfies Config;
