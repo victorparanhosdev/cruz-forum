@@ -27,7 +27,12 @@ export default {
         }
       },
       extend: {
-      
+        minHeight: {
+          'view-without-fill': 'calc(100vh - 3rem)'
+        },
+        gridTemplateColumns: {
+          'view-login': '2fr 3fr'
+        }
       }
   },
   plugins: [],

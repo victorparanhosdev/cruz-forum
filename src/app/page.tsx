@@ -3,11 +3,11 @@ import Image from 'next/image'
 import { EnvelopeSimple } from '@phosphor-icons/react/dist/ssr'
 export default function Login() {
   return (
-    <main className="bg-stone-950 grid grid-cols-2 rounded-xl overflow-hidden max-w-[1392px] m-auto w-full ">
+    <main className="bg-stone-950 grid grid-cols-view-login rounded-xl overflow-hidden w-full min-h-view-without-fill">
 
-      <Image alt='' src="/bg.png" width={400} height={400} priority className='object-cover w-full h-full' />
+      <section className='bg-[url(/bg.png)] bg-no-repeat bg-bottom bg-cover'/>
 
-      <div className='min-w-[331px] m-auto flex flex-col items-center'>
+      <section className='min-w-[331px] p-6 m-auto flex flex-col items-center'>
         <Image alt='' src="/logo.png" width={400} height={400} priority className='max-w-64 mb-12' />
 
         <form action="" className='grid gap-4 w-full'>
@@ -35,7 +35,7 @@ export default function Login() {
 
 
 
-      </div>
+      </section>
 
     </main>
   );
