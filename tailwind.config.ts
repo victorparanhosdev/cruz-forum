@@ -9,7 +9,13 @@ export default {
   theme: {
       colors: {
         black: '#000000',
+        red: {
+          'error': '#ef44441a',
+          500: '#EF4444'
+        },
         green: {
+          200: '#A3F7DA',
+          400: '#08C19A',
           950: '#002A25'
         },
         stone: {
@@ -19,7 +25,7 @@ export default {
         'hover': {
           'btn-gray': '#1A1A1A',
           'btn-green': '#026354',
-          'btn-menu_card': '#1D282A'
+          'btn-menu_card': '#1D282A',
         },
         white: '#FFFFFF',
         gray: {
