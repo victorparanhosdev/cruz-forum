@@ -25,6 +25,9 @@ export default {
         gray: {
           400: '888888',
         }
+      },
+      extend: {
+      
       }
   },
   plugins: [],
