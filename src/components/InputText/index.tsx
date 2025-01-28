@@ -6,7 +6,7 @@ import { tv } from "tailwind-variants"
 
 
 const InputStyleVariants = tv({
-    base: 'border transition rounded-lg focus:ring-1 focus:ring-green-400 focus:border-green-200  text-white w-full bg-stone-950 focus:outline-none  py-2.5 pl-4 pr-9 group-hover:border-green-200 hover:bg-hover-btn-menu_card',
+    base: 'border transition rounded-lg focus:ring-1 focus:ring-green-400 focus:border-green-200 text-white w-full bg-stone-950 focus:outline-none  py-2.5 pl-4 pr-9 group-hover:border-green-200 hover:bg-hover-btn-menu_card',
     variants: {
         state: {
             default: 'border-white',
@@ -25,7 +25,7 @@ interface InputIconProps extends IconProps {
 
 const InputIcon = ({ icon: Icon, size = 20, weight = 'regular', ...rest }: InputIconProps) => {
     return (
-        <Icon {...rest} size={size} weight={weight} className={twMerge('absolute right-2 top-3 group-hover:text-green-200', rest.className)} />
+        <Icon {...rest} size={size} weight={weight} className={twMerge('absolute right-2 top-2/4 -translate-y-2/4 group-hover:text-green-200', rest.className)} />
     )
 }
 
@@ -74,7 +74,7 @@ const InputTextContent = ({ children, state = 'default', ...rest }: InputTextCon
 
     const styles = InputStyleVariants({state})
     return (
-        <div className='relative focus-within:text-green-200 group'>
+        <div className={`relative focus-within:text-green-200 group ${state === 'negative' ? 'text-red-500': ''}`}>
             <input {...rest} className={twMerge(styles, rest.className)} />
             {children}
         </div>
