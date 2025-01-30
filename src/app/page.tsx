@@ -1,6 +1,7 @@
 import { EnvelopeSimple } from '@phosphor-icons/react/dist/ssr'
 import { Input } from '@/components/InputText'
 import { Button } from '@/components/Button';
+import { Label } from '@/components/Label';
 export default function Login() {
   return (
     <main className="bg-stone-950 grid grid-cols-view-login rounded-xl overflow-hidden w-full min-h-view-without-fill">
@@ -11,12 +12,10 @@ export default function Login() {
         <img alt='' src="/logo.png" className='max-w-64 mb-12' />
 
         <form action="" className='grid gap-4 w-full'>
-          <Input.Root>
-            <Input.Label text='Entrar com E-mail' />
-            <Input.Content placeholder='victor@email.com' state='default'>
-              <Input.Icon icon={EnvelopeSimple} />
-            </Input.Content>
-          </Input.Root>
+          <div>
+            <Label text='Entrar com e-mail' />
+            <Input placeholder='victor@email.com' state='default' withIcon={<EnvelopeSimple size={20}/>}/>
+          </div>
 
 
 

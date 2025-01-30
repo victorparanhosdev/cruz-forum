@@ -1,16 +1,24 @@
-import { IconProps } from "@phosphor-icons/react"
-import { ElementType, HTMLAttributes, InputHTMLAttributes, LabelHTMLAttributes, ReactNode } from "react"
+import React from "react"
+import { forwardRef, HTMLAttributes, InputHTMLAttributes, ReactNode } from "react"
 import { twMerge } from 'tailwind-merge'
 import { tv } from "tailwind-variants"
 
 
-
 const InputStyleVariants = tv({
-    base: 'border transition rounded-lg focus:ring-1 focus:ring-green-400 focus:border-green-200 text-white w-full bg-stone-950 focus:outline-none  py-2.5 pl-4 pr-9 group-hover:border-green-200 hover:bg-hover-btn-menu_card',
+    slots: {
+        container: 'relative transition border rounded-lg focus-within:ring-1 py-2.5 pl-4 pr-9 bg-stone-950   ',
+        icon: ''
+    },
     variants: {
         state: {
-            default: 'border-white',
-            negative: 'border-red-500 bg-red-error hover:bg-stone-950 focus:bg-stone-950'
+            default: {
+                container: 'focus-within:ring-green-400 focus-within:border-green-200 hover:border-green-200 hover:bg-hover-btn-menu_card',
+                icon: 'text-white'
+            },
+            negative: {
+                container: 'border-red-900 bg-error-200 hover:bg-error-100 focus-within:bg-error-100 focus-within:ring-red-500',
+                icon: 'text-red-500'
+            }
         }
     },
 
@@ -19,72 +27,34 @@ const InputStyleVariants = tv({
     }
 })
 
-interface InputIconProps extends IconProps {
-    icon: ElementType
-}
-
-const InputIcon = ({ icon: Icon, size = 20, weight = 'regular', ...rest }: InputIconProps) => {
-    return (
-        <Icon {...rest} size={size} weight={weight} className={twMerge('absolute right-2 top-2/4 -translate-y-2/4 group-hover:text-green-200', rest.className)} />
-    )
-}
-
-
-interface InputLabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
-    text: string
-}
-
-const InputLabel = ({ text, ...rest }: InputLabelProps) => {
-    return (
-        <label {...rest} className={twMerge('mb-2 text-xs block', rest.className)}>{text}</label>
-    )
-}
 
 interface InputMsgErroProps extends HTMLAttributes<HTMLParagraphElement> {
     text: string
 }
 
-const InputMsgErro = ({ text, ...rest }: InputMsgErroProps) => {
+export const InputMsgErro = ({ text, ...rest }: InputMsgErroProps) => {
     return (
         <p {...rest} className={twMerge('text-red-500 text-xs font-normal mt-1', rest.className)}>{text}</p>
     )
 }
 
-
-interface InputTextProps extends HTMLAttributes<HTMLDivElement> {
-    children: ReactNode
-}
-
-const InputTextRoot = ({ children, ...rest }: InputTextProps) => {
-    return (
-        <div {...rest} className={twMerge('w-full', rest.className)}>
-            {children}
-        </div>
-
-    )
-}
-
-interface InputTextContentProps extends InputHTMLAttributes<HTMLInputElement> {
-    children?: ReactNode,
+interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {
+    withIcon?: ReactNode | undefined
     state: 'default'| 'negative'
 }
 
 
-const InputTextContent = ({ children, state = 'default', ...rest }: InputTextContentProps) => {
-
+export const Input = forwardRef<HTMLInputElement, InputTextProps>(({children, state = 'default', className, withIcon, ...props}, ref) => {
+ 
     const styles = InputStyleVariants({state})
+
     return (
-        <div className={`relative focus-within:text-green-200 group ${state === 'negative' ? 'text-red-500': ''}`}>
-            <input {...rest} className={twMerge(styles, rest.className)} />
-            {children}
+        <div className={twMerge(styles.container(), className)}>
+            <input style={{background: 'transparent'}} {...props} className="outline-none" ref={ref}/>
+            {withIcon && <span className={twMerge(styles.icon(), 'absolute right-2 top-2/4 -translate-y-2/4')}>{withIcon}</span>}
         </div>
     )
-}
+})
 
-export const Input = {
-    Root: InputTextRoot,
-    Icon: InputIcon,
-    Content: InputTextContent,
-    MsgError: InputMsgErro,
-    Label: InputLabel
-}
+Input.displayName = 'Input'
+

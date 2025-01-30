@@ -10,8 +10,8 @@ export default {
       colors: {
         black: '#000000',
         red: {
-          'error': '#ef44441a',
-          500: '#EF4444'
+          500: '#EF4444',
+          900: '#7F1D1D'
         },
         green: {
           200: '#A3F7DA',
@@ -23,6 +23,10 @@ export default {
         stone: {
           700: '#44403C',
           950: '#0C0A09'
+        },
+        'error': {
+          100: '#ef44440f',
+          200: '#ef44441a'
         },
         'hover': {
           'btn-gray': '#1A1A1A',
