@@ -45,7 +45,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {IconLeft && <IconLeft size={24} weight={isActive ? 'bold': 'regular'}/>}
-        {children}
+        <span className="whitespace-nowrap">{children}</span>
         {IconRight && <IconRight size={24} weight={isActive ? 'bold': 'regular'}/>}
       </button>
     )

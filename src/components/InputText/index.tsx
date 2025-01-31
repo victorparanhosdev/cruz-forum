@@ -6,7 +6,7 @@ import { tv } from "tailwind-variants"
 
 const InputStyleVariants = tv({
     slots: {
-        container: 'relative transition border rounded-lg focus-within:ring-1 py-2.5 pl-4 pr-9 bg-stone-950   ',
+        container: 'relative transition border rounded-lg focus-within:ring-1 bg-stone-950 w-full',
         icon: ''
     },
     variants: {
@@ -50,7 +50,7 @@ export const Input = forwardRef<HTMLInputElement, InputTextProps>(({children, st
 
     return (
         <div className={twMerge(styles.container(), className)}>
-            <input style={{background: 'transparent'}} {...props} className="outline-none" ref={ref}/>
+            <input style={{background: 'transparent'}} {...props} className="outline-none py-2.5 pl-4 pr-9 w-full" ref={ref}/>
             {withIcon && <span className={twMerge(styles.icon(), 'absolute right-2 top-2/4 -translate-y-2/4')}>{withIcon}</span>}
         </div>
     )

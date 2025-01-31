@@ -35,11 +35,16 @@ export default {
         },
         white: '#FFFFFF',
         gray: {
+          100: '#E7E7E7',
           400: '#888888',
           700: '#4F4F4F',
           800: '#454545',
           900: '#3D3D3D',
           950: '#161616'
+        },
+        'topico': {
+          100: '#1A1A1A',
+          200: '#141414'
         }
       },
       extend: {
@@ -47,7 +52,8 @@ export default {
           'view-without-fill': 'calc(100vh - 3rem)'
         },
         gridTemplateColumns: {
-          'view-login': '2fr 3fr'
+          'view-login': '2fr 3fr',
+          'view-home': '241px 1fr 241px'
         }
       }
   },

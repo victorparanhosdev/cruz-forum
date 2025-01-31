@@ -2,6 +2,8 @@ import { EnvelopeSimple } from '@phosphor-icons/react/dist/ssr'
 import { Input } from '@/components/InputText'
 import { Button } from '@/components/Button';
 import { Label } from '@/components/Label';
+
+
 export default function Login() {
   return (
     <main className="bg-stone-950 grid grid-cols-view-login rounded-xl overflow-hidden w-full min-h-view-without-fill">
@@ -9,7 +11,7 @@ export default function Login() {
       <section className='bg-[url(/bg.png)] bg-no-repeat bg-bottom bg-cover' />
 
       <section className='min-w-[331px] p-6 m-auto flex flex-col items-center'>
-        <img alt='' src="/logo.png" className='max-w-64 mb-12' />
+        <img alt='' src="/logo-login.png" className='max-w-64 mb-12' />
 
         <form action="" className='grid gap-4 w-full'>
           <div>
