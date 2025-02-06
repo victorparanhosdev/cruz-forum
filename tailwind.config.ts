@@ -13,15 +13,23 @@ export default {
           500: '#EF4444',
           900: '#7F1D1D'
         },
+        zinc: {
+          300: '#D4D4D8',
+          400: '#A1A1AA',
+          500: '#71717A',
+          700: '#3F3F46'
+        },
         green: {
           200: '#A3F7DA',
           400: '#08C19A',
+          700: '#007E68',
           800: '#026354',
           900: '#035146',
           950: '#002A25'
         },
         stone: {
           700: '#44403C',
+          900: '#1C1917',
           950: '#0C0A09'
         },
         'error': {
@@ -53,7 +61,8 @@ export default {
         },
         gridTemplateColumns: {
           'view-login': '2fr 3fr',
-          'view-home': '241px 1fr 241px'
+          'view-home': '241px 1fr 241px',
+          'view-all': '241px 1fr'
         }
       }
   },

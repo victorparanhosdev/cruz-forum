@@ -1,12 +1,12 @@
-import { LabelHTMLAttributes } from "react"
+import { LabelHTMLAttributes, ReactNode } from "react"
 import { twMerge } from "tailwind-merge"
 
 interface InputLabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
-    text: string
+    children: ReactNode
 }
 
-export const Label = ({ text, className, ...rest }: InputLabelProps) => {
+export const Label = ({className, children, ...rest }: InputLabelProps) => {
     return (
-        <label {...rest} className={twMerge('mb-2 text-xs block', className)}>{text}</label>
+        <label {...rest} className={twMerge('mb-2 text-xs block', className)}>{children}</label>
     )
 }

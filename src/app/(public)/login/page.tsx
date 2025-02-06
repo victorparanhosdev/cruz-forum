@@ -15,8 +15,8 @@ export default function Login() {
 
         <form action="" className='grid gap-4 w-full'>
           <div>
-            <Label text='Entrar com e-mail' />
-            <Input placeholder='victor@email.com' state='default' withIcon={<EnvelopeSimple size={20}/>}/>
+            <Label  >Entrar com e-mail</Label>
+            <Input placeholder='victor@email.com' state='default' withIcon={<EnvelopeSimple size={20} />} />
           </div>
 
 
