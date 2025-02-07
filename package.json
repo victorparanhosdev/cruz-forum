@@ -9,10 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/react": "^3.7.0",
+    "@emotion/react": "^11.14.0",
     "@phosphor-icons/react": "^2.1.7",
     "next": "^15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-icons": "^5.4.0",
     "tailwind-merge": "^2.6.0",
     "tailwind-variants": "^0.3.1"
   },

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ChakraUIProvider } from "@/providers/chakra-ui";
 
 
 const interFont = Inter({
@@ -19,11 +20,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <body
         className={`${interFont.className} antialiased bg-black p-6 text-white min-h-screen flex items-center justify-center`}
-      >
-        {children}
+      > <ChakraUIProvider>
+          {children}
+        </ChakraUIProvider>
+
       </body>
     </html>
   );
