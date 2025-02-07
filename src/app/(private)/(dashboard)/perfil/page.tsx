@@ -1,7 +1,7 @@
 import { Button } from "@/components/Button";
 import { Input } from "@/components/InputText";
 import { Label } from "@/components/Label";
-import { Menu } from "@/components/Menu";
+import { Menu } from "@/components/Navigation";
 
 import { BookmarkSimple, ChatCircleDots, ChatText, PencilSimpleLine, User } from "@phosphor-icons/react/dist/ssr";
 
@@ -62,7 +62,7 @@ export default function Perfil() {
                     </form>
 
                     <div className="grid grid-flow-col gap-2">
-                        <Button type="button" className="w-full" state="outline">Cancelar</Button>
+                        <Button type="button" className="w-full" state="outline-negative">Cancelar</Button>
                         <Button type="button" className="w-full">Salvar Alterações</Button>
                     </div>
                 </div>

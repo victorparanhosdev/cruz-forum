@@ -3,8 +3,6 @@ import { ArrowBendDownLeft, Heart, Trash } from "@phosphor-icons/react/dist/ssr"
 export const Comentarios = () => {
     return (
         <div className="p-4 bg-topico-200 rounded-lg grid gap-4 border border-stone-900">
-
-
             <div className="flex justify-between items-center">
                 <div className="flex gap-4">
                     <img src="https://github.com/victorparanhosdev.png" alt="" className="object-cover w-12 h-12 rounded-full" />
@@ -23,8 +21,6 @@ export const Comentarios = () => {
             <p className="text-base text-zinc-300">exemplo de descrição exemplo de descriexemplo de descrição exemplo de descriexemplo de descrição exemplo de descriexemplo de descrição exemplo de descriexemplo de descrição exemplo de descriexemplo de descrição exemplo de descriexemplo de descrição exemplo de do de descrição exemplo de descriexemplo de descrasdsadsdd</p>
 
             <button className="text-sm flex gap-2 items-center"><Heart size={24} />06 curtidas</button>
-
-
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import { Menu } from "@/components/Menu";
+import { Navigation } from "@/components/Navigation";
 
 export default function DashBoardLayout({
     children,
@@ -7,7 +7,7 @@ export default function DashBoardLayout({
 }>) {
     return (
         <div className="grid grid-cols-view-all min-h-view-without-fill gap-6 w-full">
-            <Menu />
+            <Navigation />
             {children}
         </div>
     );

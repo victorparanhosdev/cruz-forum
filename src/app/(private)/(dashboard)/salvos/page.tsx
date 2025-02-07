@@ -1,6 +1,5 @@
 import { Button } from "@/components/Button";
 import { Input } from "@/components/InputText";
-import { Menu } from "@/components/Menu";
 import { Topic } from "@/components/Topic";
 import { ArrowLeft, BookmarkSimple, CaretDoubleLeft, CaretDoubleRight, CaretLineLeft, CaretLineRight, FadersHorizontal, MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
 
@@ -11,7 +10,7 @@ export default function Salvos() {
 
             <section className="grid gap-4 pt-9">
                 <div className="flex gap-3">
-                    <Button iconLeft={ArrowLeft} state="text" className="pl-0">Voltar</Button>
+                    <Button iconLeft={ArrowLeft} state="transparent" >Voltar</Button>
                     <div className="flex gap-3  w-full">
                         <Input state="default" placeholder="Buscar um topico" withIcon={<MagnifyingGlass size={20} />} className="max-w-[418px]" />
                         <Button>Buscar</Button>
@@ -19,7 +18,7 @@ export default function Salvos() {
                 </div>
 
                 <div className="flex justify-between items-center">
-                    <Button className="px-0" state="text" size="sm" iconRight={FadersHorizontal}>Ordernar</Button>
+                    <Button  state="transparent"  iconRight={FadersHorizontal}>Ordernar</Button>
                     <p className="font-medium text-sm">Pagina de 1 a 6</p>
                 </div>
 

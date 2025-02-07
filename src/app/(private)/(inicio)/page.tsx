@@ -1,14 +1,14 @@
 import { Button } from "@/components/Button";
 import { Card } from "@/components/Card";
 import { Input } from "@/components/InputText";
-import { Menu } from "@/components/Menu";
+import { Navigation } from "@/components/Navigation";
 import { Topic } from "@/components/Topic";
 import { CaretDoubleLeft, CaretDoubleRight, CaretLineLeft, CaretLineRight, Chats, FadersHorizontal, ListPlus, MagnifyingGlass, StarFour } from "@phosphor-icons/react/dist/ssr";
 
-export default function Home() {
+export default function Inicio() {
     return (
         <div className="grid grid-cols-view-home min-h-view-without-fill gap-6 w-full">
-            <Menu />
+            <Navigation />
             <main className="bg-stone-950 rounded-xl px-4 py-12">
                 <h1 className="text-3xl font-bold flex gap-2">Feed <Chats weight="bold" size={36} /></h1>
 
@@ -22,7 +22,7 @@ export default function Home() {
                     </div>
 
                     <div className="flex justify-between items-center">
-                        <Button className="px-0" state="text" size="sm" iconRight={FadersHorizontal}>Ordernar</Button>
+                        <Button state="transparent" iconRight={FadersHorizontal}>Ordernar</Button>
                         <p className="font-medium text-sm">Pagina de 1 a 6</p>
                     </div>
 

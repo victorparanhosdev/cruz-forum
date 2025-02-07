@@ -1,6 +1,5 @@
 import { Button } from "@/components/Button";
 import { Comentarios } from "@/components/Comentarios";
-import { Menu } from "@/components/Menu";
 import { ArrowBendDownLeft, ArrowLeft, BookmarkSimple, Trash } from "@phosphor-icons/react/dist/ssr";
 
 export default function Salvos() {
@@ -9,7 +8,7 @@ export default function Salvos() {
 
 
             <section className="max-w-[950px] mx-auto ">
-                <Button state="text" className="pl-0 mb-4" iconLeft={ArrowLeft}>Voltar</Button>
+                <Button state="transparent" className="pl-0 mb-4" iconLeft={ArrowLeft}>Voltar</Button>
 
                 <div className="flex gap-6 items-center mb-4">
                     <img src="https://github.com/victorparanhosdev.png" alt="" className="w-32 h-32  object-cover rounded-full" />
@@ -56,7 +55,7 @@ export default function Salvos() {
                 </div>
 
                 <div className="flex justify-end w-full">
-                    <Button size="lg" className="py-4 px-6">Comentar</Button>
+                    <Button className="py-4 px-6">Comentar</Button>
                 </div>
             </section>
 
