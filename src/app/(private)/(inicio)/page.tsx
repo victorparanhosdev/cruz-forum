@@ -1,8 +1,4 @@
-import { Button } from "@/components/Button";
-import { Card } from "@/components/Card";
-import { Input } from "@/components/InputText";
-import { Navigation } from "@/components/Navigation";
-import { Topic } from "@/components/Topic";
+import { Button, Card, Input, Navigation, Topic } from "@/components";
 import { CaretDoubleLeft, CaretDoubleRight, CaretLineLeft, CaretLineRight, Chats, FadersHorizontal, ListPlus, MagnifyingGlass, StarFour } from "@phosphor-icons/react/dist/ssr";
 
 export default function Inicio() {

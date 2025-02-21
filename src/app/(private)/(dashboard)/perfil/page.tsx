@@ -1,8 +1,4 @@
-import { Button } from "@/components/Button";
-import { Input } from "@/components/InputText";
-import { Label } from "@/components/Label";
-import { Menu } from "@/components/Navigation";
-
+import { Button, Input, Label } from "@/components";
 import { BookmarkSimple, ChatCircleDots, ChatText, PencilSimpleLine, User } from "@phosphor-icons/react/dist/ssr";
 
 export default function Perfil() {

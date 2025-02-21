@@ -1,6 +1,4 @@
-import { Button } from "@/components/Button";
-import { Input } from "@/components/InputText";
-import { Topic } from "@/components/Topic";
+import { Button,Input, Topic } from "@/components"
 import { ArrowLeft, CaretDoubleLeft, CaretDoubleRight, CaretLineLeft, CaretLineRight, FadersHorizontal, ListDashes, MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
 
 export default function Topicos() {

@@ -1,6 +1,6 @@
 "use client"
 import { BookmarkSimple, Chats, ListDashes } from "@phosphor-icons/react/dist/ssr"
-import { Button } from "../Button"
+import { Button } from "@/components"
 import { usePathname } from "next/navigation"
 
 export const Menu = () => {

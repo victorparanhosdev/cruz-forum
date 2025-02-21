@@ -1,6 +1,4 @@
-import { Button } from "@/components/Button";
-import { Input } from "@/components/InputText";
-import { Topic } from "@/components/Topic";
+import { Button, Topic, Input } from "@/components";
 import { ArrowLeft, BookmarkSimple, CaretDoubleLeft, CaretDoubleRight, CaretLineLeft, CaretLineRight, FadersHorizontal, MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
 
 export default function Salvos() {

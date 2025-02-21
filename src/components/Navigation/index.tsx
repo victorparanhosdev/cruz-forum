@@ -1,7 +1,6 @@
 
 import { CaretDown } from "@phosphor-icons/react/dist/ssr"
-import { Menu } from "./menu"
-import { PopoverPerfil } from "../PopoverPerfil"
+import {PopoverPerfil, Menu} from '@/components'
 
 export const Navigation = () => {
 

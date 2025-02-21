@@ -1,5 +1,4 @@
-import { Button } from "@/components/Button";
-import { Comentarios } from "@/components/Comentarios";
+import { Button, Comentarios } from "@/components";
 import { ArrowBendDownLeft, ArrowLeft, BookmarkSimple, Trash } from "@phosphor-icons/react/dist/ssr";
 
 export default function Salvos() {
