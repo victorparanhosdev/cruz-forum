@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Button/> deve corresponder ao snapshot 1`] = `
+<DocumentFragment>
+  <button
+    class="transition rounded-lg text-base font-medium gap-2 flex items-center justify-center disabled:text-gray-700 disabled:bg-gray-400 bg-green-950 enabled:hover:bg-green-800 py-2.5 px-4"
+  >
+    <span
+      class="whitespace-nowrap text-base"
+    >
+      Clique aqui
+    </span>
+  </button>
+</DocumentFragment>
+`;

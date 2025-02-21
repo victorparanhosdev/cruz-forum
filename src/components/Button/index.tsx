@@ -1,6 +1,7 @@
-import React, { ElementType, forwardRef } from "react"
+import React, { ComponentType, forwardRef } from "react"
 import { twMerge } from "tailwind-merge"
 import { tv, type VariantProps } from "tailwind-variants"
+import { type IconProps } from "@phosphor-icons/react"
 
 const buttonStyles = tv({
   base: "transition rounded-lg text-base font-medium gap-2 flex items-center justify-center",
@@ -20,27 +21,27 @@ const buttonStyles = tv({
 interface ButtonProps extends VariantProps<typeof buttonStyles>, React.ButtonHTMLAttributes<HTMLButtonElement> {
   isActive?: boolean
   children: React.ReactNode
-  iconLeft?: ElementType,
-  iconRight?: ElementType
+  iconLeft?: ComponentType<IconProps> | undefined,
+  iconRight?: ComponentType<IconProps> | undefined
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ state, isActive = false, children, className, disabled, iconLeft: IconLeft, iconRight: IconRight, ...props }, ref) => {
+  ({ state, isActive =false, children, className, disabled, iconLeft: IconLeft, iconRight: IconRight, ...props }, ref) => {
 
     const styles = buttonStyles({state})
     return (
       <button
         ref={ref}
-        data-state={isActive}
-        aria-pressed={isActive}
-        aria-disabled={disabled} 
-        disabled={disabled}
+        data-state={isActive ? "true" : undefined}
+        aria-pressed={isActive ? "true" : undefined}
+        aria-disabled={disabled ? "true" : undefined} 
+        disabled={disabled ? true : undefined}
         className={twMerge(styles, className)}
         {...props}
       >
-        {IconLeft && <IconLeft size={24} weight={isActive ? 'bold': 'regular'}/>}
+        {IconLeft ? <IconLeft data-testid="icon-left" aria-hidden="true" data-weight={isActive ? 'bold' : 'regular'} size={24} weight={isActive ? 'bold': 'regular'}/> : undefined}
         <span className="whitespace-nowrap text-base">{children}</span>
-        {IconRight && <IconRight size={24} weight={isActive ? 'bold': 'regular'}/>}
+        {IconRight ? <IconRight data-testid="icon-right" aria-hidden="true" data-weight={isActive ? 'bold' : 'regular'} size={24} weight={isActive ? 'bold': 'regular'}/>: undefined}
       </button>
     )
   }
