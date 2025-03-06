@@ -6,7 +6,12 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["@chakra-ui/react"]
   },
   images: {
-    domains: ['github.com']
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'github.com',
+      },
+    ]
   },
 };
 
