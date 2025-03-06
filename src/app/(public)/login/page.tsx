@@ -1,6 +1,6 @@
 import { EnvelopeSimple } from '@phosphor-icons/react/dist/ssr'
 import { Label, Input, Button } from '@/components';
-
+import Image from "next/image";
 
 export default function Login() {
   return (
@@ -9,7 +9,7 @@ export default function Login() {
       <section className='bg-[url(/bg.png)] bg-no-repeat bg-bottom bg-cover' />
 
       <section className='min-w-[331px] p-6 m-auto flex flex-col items-center'>
-        <img alt='' src="/logo-login.png" className='max-w-64 mb-12' />
+        <Image alt='' src="/logo-login.png" className='max-w-64 mb-12' />
 
         <form action="" className='grid gap-4 w-full'>
           <div>
@@ -25,8 +25,8 @@ export default function Login() {
 
           <div className='grid gap-3'>
 
-            <button type='button' className='py-1 px-6 hover:enabled:bg-hover-btn-gray transition flex items-center gap-3 border border-stone-700 rounded-lg'><img alt="google" src="./google.svg" className='object-cover' />Fazer login com o Google</button>
-            <button type='button' className='py-1 px-6 hover:enabled:bg-hover-btn-gray transition flex items-center gap-3 border border-stone-700 rounded-lg'><img alt="facebook" src="./facebook.svg" className='object-cover' />Fazer login com o Facebook</button>
+            <button type='button' className='py-1 px-6 hover:enabled:bg-hover-btn-gray transition flex items-center gap-3 border border-stone-700 rounded-lg'><Image alt="google" src="/google.svg" className='object-cover' />Fazer login com o Google</button>
+            <button type='button' className='py-1 px-6 hover:enabled:bg-hover-btn-gray transition flex items-center gap-3 border border-stone-700 rounded-lg'><Image alt="facebook" src="/facebook.svg" className='object-cover' />Fazer login com o Facebook</button>
 
 
           </div>

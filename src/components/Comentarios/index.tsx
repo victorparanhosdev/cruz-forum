@@ -1,11 +1,11 @@
 import { ArrowBendDownLeft, Heart, Trash } from "@phosphor-icons/react/dist/ssr"
-
+import Image from "next/image";
 export const Comentarios = () => {
     return (
         <div className="p-4 bg-topico-200 rounded-lg grid gap-4 border border-stone-900">
             <div className="flex justify-between items-center">
                 <div className="flex gap-4">
-                    <img src="https://github.com/victorparanhosdev.png" alt="" className="object-cover w-12 h-12 rounded-full" />
+                    <Image width={48} height={48} src="https://github.com/victorparanhosdev.png" alt="" className="object-cover w-12 h-12 rounded-full" />
 
                     <div>
                         <h2>Victor Paranhos</h2>

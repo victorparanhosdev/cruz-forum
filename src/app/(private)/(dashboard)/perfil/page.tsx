@@ -1,6 +1,6 @@
 import { Button, Input, Label } from "@/components";
 import { BookmarkSimple, ChatCircleDots, ChatText, PencilSimpleLine, User } from "@phosphor-icons/react/dist/ssr";
-
+import Image from "next/image";
 export default function Perfil() {
     return (
         <main className="bg-stone-950 rounded-xl px-4 py-12 ">
@@ -13,7 +13,7 @@ export default function Perfil() {
 
                     <div className="relative w-fit">
                         <input type="file" name="upload-photo" id="upload-photo" className="sr-only" />
-                        <img src="https://github.com/victorparanhosdev.png" alt="" className="object-cover w-52 h-52 rounded-full" />
+                        <Image src="https://github.com/victorparanhosdev.png" alt="Foto de perfil" width={208} height={208} className="object-cover w-52 h-52 rounded-full"/>
                         <Label htmlFor="upload-photo" className="mb-0 cursor-pointer right-8 absolute bottom-0 rounded-full flex items-center bg-green-950 p-1.5"><PencilSimpleLine size={24} className="text-green-200" weight="fill" /></Label>
                     </div>
 

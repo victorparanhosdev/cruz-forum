@@ -44,7 +44,7 @@ interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 
-export const Input = forwardRef<HTMLInputElement, InputTextProps>(({children, state = 'default', className, withIcon, ...props}, ref) => {
+export const Input = forwardRef<HTMLInputElement, InputTextProps>(({state = 'default', className, withIcon, ...props}, ref) => {
  
     const styles = InputStyleVariants({state})
 
