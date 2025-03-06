@@ -9,7 +9,7 @@ export default function Login() {
       <section className='bg-[url(/bg.png)] bg-no-repeat bg-bottom bg-cover' />
 
       <section className='min-w-[331px] p-6 m-auto flex flex-col items-center'>
-        <Image alt='' src="/logo-login.png" className='max-w-64 mb-12' />
+        <Image width={256} alt='' src="/logo-login.png" className='max-w-64 mb-12' />
 
         <form action="" className='grid gap-4 w-full'>
           <div>
