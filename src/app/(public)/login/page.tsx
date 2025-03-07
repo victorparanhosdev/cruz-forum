@@ -9,7 +9,7 @@ export default function Login() {
       <section className='bg-[url(/bg.png)] bg-no-repeat bg-bottom bg-cover' />
 
       <section className='min-w-[331px] p-6 m-auto flex flex-col items-center'>
-        <Image width={256} alt='' src="/logo-login.png" className='max-w-64 mb-12' />
+        <Image width={256} height={104} alt='logo da aplicacao' src="/logo-login.png" className='max-w-64 mb-12' />
 
         <form action="" className='grid gap-4 w-full'>
           <div>
@@ -25,8 +25,8 @@ export default function Login() {
 
           <div className='grid gap-3'>
 
-            <button type='button' className='py-1 px-6 hover:enabled:bg-hover-btn-gray transition flex items-center gap-3 border border-stone-700 rounded-lg'><Image alt="google" src="/google.svg" className='object-cover' />Fazer login com o Google</button>
-            <button type='button' className='py-1 px-6 hover:enabled:bg-hover-btn-gray transition flex items-center gap-3 border border-stone-700 rounded-lg'><Image alt="facebook" src="/facebook.svg" className='object-cover' />Fazer login com o Facebook</button>
+            <button type='button' className='py-1 px-6 hover:enabled:bg-hover-btn-gray transition flex items-center gap-3 border border-stone-700 rounded-lg'><Image alt="google" height={49} width={48} src="/google.svg" className='object-cover' />Fazer login com o Google</button>
+            <button type='button' className='py-1 px-6 hover:enabled:bg-hover-btn-gray transition flex items-center gap-3 border border-stone-700 rounded-lg'><Image alt="facebook" height={49} width={48} src="/facebook.svg" className='object-cover' />Fazer login com o Facebook</button>
 
 
           </div>

@@ -6,7 +6,7 @@ export const Navigation = () => {
 
     return (
         <nav className="bg-stone-950 rounded-xl px-4 pt-12 flex flex-col gap-6">
-            <Image width={166} height={166} src="/logo-home.svg" alt="" className="max-w-[166px]" />
+            <Image width={166} height={54} src="/logo-home.svg" alt="logo da aplicacao" className="max-w-[166px]"/>
             <PopoverPerfil>
             <button className="flex gap-2 border border-green-200 rounded-xl items-center py-1 px-3">
                 <Image height={36} width={36} src="https://github.com/victorparanhosdev.png" alt="" className="object-cover h-9 w-9 rounded-full" />

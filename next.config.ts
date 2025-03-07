@@ -11,8 +11,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'github.com',
       },
-    ]
+    ],
+    dangerouslyAllowSVG: true,
   },
+
 };
 
 export default nextConfig;
