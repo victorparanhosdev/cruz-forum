@@ -1,5 +1,12 @@
-import { Button, Card, Input, Navigation, Topic } from '@/components'
-import { TopicDialog } from '@/components/TopicDialog'
+import {
+  Button,
+  Card,
+  Input,
+  Navigation,
+  Topic,
+  FilterPopover,
+  TopicDialog,
+} from '@/components'
 import {
   CaretDoubleLeft,
   CaretDoubleRight,
@@ -37,9 +44,11 @@ export default function Inicio() {
           </div>
 
           <div className="flex items-center justify-between">
-            <Button state="transparent" iconRight={FadersHorizontal}>
-              Ordernar
-            </Button>
+            <FilterPopover>
+              <Button state="transparent" iconRight={FadersHorizontal}>
+                Ordernar
+              </Button>
+            </FilterPopover>
             <p className="text-sm font-medium">Pagina de 1 a 6</p>
           </div>
 
@@ -67,7 +76,7 @@ export default function Inicio() {
 
         <div className="flex flex-col gap-4">
           {Array.from({ length: 5 }).map((_, index) => {
-            return <Card key={index} />
+            return <Card key={index} cardId={String(index)} />
           })}
         </div>
       </aside>

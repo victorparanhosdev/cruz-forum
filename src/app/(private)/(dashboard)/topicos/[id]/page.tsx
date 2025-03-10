@@ -1,4 +1,5 @@
 import { Button, Comentarios } from '@/components'
+import { AlertDialog } from '@/components/AlertDialog'
 import {
   ArrowBendDownLeft,
   ArrowLeft,
@@ -45,10 +46,10 @@ export default function Salvos() {
                 </div>
               </div>
               <div className="flex gap-2">
-                <button>
+                <AlertDialog>
                   <Trash className="text-red-500" size={36} />
-                </button>
-                <button>
+                </AlertDialog>
+                <button aria-label="Botao de Salvar">
                   <BookmarkSimple className="text-white" size={36} />
                 </button>
               </div>

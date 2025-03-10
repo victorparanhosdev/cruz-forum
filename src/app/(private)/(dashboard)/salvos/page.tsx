@@ -1,4 +1,4 @@
-import { Button, Topic, Input } from '@/components'
+import { Button, Topic, Input, FilterPopover } from '@/components'
 import {
   ArrowLeft,
   BookmarkSimple,
@@ -39,9 +39,11 @@ export default function Salvos() {
         </div>
 
         <div className="flex items-center justify-between">
-          <Button state="transparent" iconRight={FadersHorizontal}>
-            Ordernar
-          </Button>
+          <FilterPopover>
+            <Button state="transparent" iconRight={FadersHorizontal}>
+              Ordernar
+            </Button>
+          </FilterPopover>
           <p className="text-sm font-medium">Pagina de 1 a 6</p>
         </div>
 

@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+.chakra-dialog__backdrop.css-1yl0dyg {
+  backdrop-filter: blur(4px);
+  background: #00000090;
+}
+
 ::-webkit-scrollbar {
   background: #3f3f46;
   width: 0.6rem;

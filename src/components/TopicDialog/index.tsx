@@ -12,11 +12,17 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { ReactNode } from 'react'
-import { Button, Input, InputMsgErro, Label } from '@/components'
+import {
+  Button,
+  Input,
+  InputMsgErro,
+  Label,
+  TextArea,
+  TextAreaMsgErro,
+} from '@/components'
 import { useForm, UseFormRegister } from 'react-hook-form'
 import { z as zod } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { TextArea, TextAreaMsgErro } from '../TextArea'
 
 const createTopicSchema = zod.object({
   titulo: zod.string().min(6, {

@@ -1,4 +1,4 @@
-import { Button, Input, Topic } from '@/components'
+import { Button, FilterPopover, Input, Topic } from '@/components'
 import {
   ArrowLeft,
   CaretDoubleLeft,
@@ -37,9 +37,11 @@ export default function Topicos() {
         </div>
 
         <div className="flex items-center justify-between">
-          <Button state="transparent" iconRight={FadersHorizontal}>
-            Ordernar
-          </Button>
+          <FilterPopover>
+            <Button state="transparent" iconRight={FadersHorizontal}>
+              Ordernar
+            </Button>
+          </FilterPopover>
           <p className="text-sm font-medium">Pagina de 1 a 6</p>
         </div>
 
