@@ -1,7 +1,8 @@
 import { ArrowBendDownLeft, BookmarkSimple, ChatCircle, Heart } from "@phosphor-icons/react/dist/ssr"
 import Image from 'next/image'
+import Link from "next/link"
 
-export const Topic = () => {
+export const Topic = ({topicId}: {topicId: string}) => {
     return (
         <div className="bg-topico-200 border border-stone-700 rounded-xl py-4 px-6 grid gap-4 hover:bg-topico-100 transition-colors">
             <div className="flex justify-between items-start">
@@ -20,7 +21,7 @@ export const Topic = () => {
 
             <div className="text-sm flex gap-6 items-center">
                 <button className="flex gap-2 items-center"><Heart size={20} /> 6 curtidas</button>
-                <button className="flex gap-2 items-center"><ChatCircle size={20} /> 15 comentarios</button>
+                <Link href={`/topicos/${topicId}`}><button className="flex gap-2 items-center"><ChatCircle size={20} /> 15 comentarios</button></Link>
             </div>
 
 

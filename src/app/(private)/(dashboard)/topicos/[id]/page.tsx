@@ -1,6 +1,7 @@
 import { Button, Comentarios } from "@/components";
 import { ArrowBendDownLeft, ArrowLeft, BookmarkSimple, Trash } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Salvos() {
     return (
@@ -8,7 +9,8 @@ export default function Salvos() {
 
 
             <section className="max-w-[950px] mx-auto ">
-                <Button state="transparent" className="pl-0 mb-4" iconLeft={ArrowLeft}>Voltar</Button>
+
+                <Link href={"/"} className="flex">    <Button state="transparent" className="pl-0 mb-4" iconLeft={ArrowLeft}>Voltar</Button></Link>
 
                 <div className="flex gap-6 items-center mb-4">
                 <Image src="https://github.com/victorparanhosdev.png" alt="Foto de perfil" width={128} height={128} className="object-cover w-32 h-32 rounded-full"/>

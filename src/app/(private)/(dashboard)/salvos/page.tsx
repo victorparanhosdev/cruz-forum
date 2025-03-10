@@ -1,5 +1,6 @@
 import { Button, Topic, Input } from "@/components";
 import { ArrowLeft, BookmarkSimple, CaretDoubleLeft, CaretDoubleRight, CaretLineLeft, CaretLineRight, FadersHorizontal, MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
 
 export default function Salvos() {
     return (
@@ -8,7 +9,7 @@ export default function Salvos() {
 
             <section className="grid gap-4 pt-9">
                 <div className="flex gap-3">
-                    <Button iconLeft={ArrowLeft} state="transparent" >Voltar</Button>
+                <Link href={"/"} className="flex">    <Button iconLeft={ArrowLeft} state="transparent" >Voltar</Button></Link>
                     <div className="flex gap-3  w-full">
                         <Input state="default" placeholder="Buscar um topico" withIcon={<MagnifyingGlass size={20} />} className="max-w-[418px]" />
                         <Button>Buscar</Button>
@@ -25,8 +26,9 @@ export default function Salvos() {
 
                     <div className="grid gap-x-6 gap-y-4 grid-cols-2">
                         {Array.from({ length: 6 }).map((_, index) => {
+
                             return (
-                                <Topic key={index} />
+                                <Topic key={index} topicId={String(index)}/>
                             )
                         })}
                     </div>

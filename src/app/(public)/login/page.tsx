@@ -1,6 +1,7 @@
 import { EnvelopeSimple } from '@phosphor-icons/react/dist/ssr'
 import { Label, Input, Button } from '@/components';
 import Image from "next/image";
+import Link from 'next/link';
 
 export default function Login() {
   return (
@@ -19,7 +20,7 @@ export default function Login() {
 
 
 
-          <Button type='button' state='default'>Continue com seu e-mail</Button>
+          <Link href={"/"}><Button type='button' state='default' className='w-full'>Continue com seu e-mail</Button></Link>
 
           <p className='flex items-center gap-2 before:block before:content-[""] before:w-full before:h-px before:bg-stone-700 after:content-[""] after:block after:w-full after:h-px after:bg-stone-700 w-full font-medium'>ou</p>
 

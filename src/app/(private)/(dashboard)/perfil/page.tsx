@@ -1,6 +1,7 @@
 import { Button, Input, Label } from "@/components";
 import { BookmarkSimple, ChatCircleDots, ChatText, PencilSimpleLine, User } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
+import Link from "next/link";
 export default function Perfil() {
     return (
         <main className="bg-stone-950 rounded-xl px-4 py-12 ">
@@ -58,7 +59,7 @@ export default function Perfil() {
                     </form>
 
                     <div className="grid grid-flow-col gap-2">
-                        <Button type="button" className="w-full" state="outline-negative">Cancelar</Button>
+                        <Link href={"/"}><Button type="button" className="w-full" state="outline-negative">Cancelar</Button></Link>
                         <Button type="button" className="w-full">Salvar Alterações</Button>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog"
 import { ReactNode } from "react"
 import { Button, Input, InputMsgErro, Label } from "@/components"
-import { useForm } from 'react-hook-form'
+import { useForm, UseFormRegister } from 'react-hook-form'
 import { z as zod } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { TextArea, TextAreaMsgErro } from "../TextArea"
@@ -117,7 +117,7 @@ interface FormFieldProps {
   label: string
   name: 'titulo' | 'descricao'
   placeholder: string
-  register: any
+  register: UseFormRegister<CreateTopicFormData>;
   error?: string
   isTextArea?: boolean
 }
@@ -140,6 +140,7 @@ const FormField = ({
         <TextArea 
           state={state} 
           placeholder={placeholder} 
+          id={name}
           {...register(name)}
         />
       ) : (

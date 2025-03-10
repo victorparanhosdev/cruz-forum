@@ -29,7 +29,7 @@ export default function Inicio() {
                         <div className="grid gap-x-6 gap-y-4 grid-cols-2">
                             {Array.from({ length: 6 }).map((_, index) => {
                                 return (
-                                    <Topic key={index} />
+                                    <Topic key={index} topicId={String(index)}/>
                                 )
                             })}
                         </div>
