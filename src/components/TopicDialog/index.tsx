@@ -79,6 +79,7 @@ export const TopicDialog = ({ children }: TopicDialogProps) => {
             id="topic-form" 
             className="flex flex-col gap-4  min-h-[258px]" 
             onSubmit={handleSubmit(handleCreateTopic)}
+            name="topic-form"
           >
             <FormField 
               label="Titulo *:" 

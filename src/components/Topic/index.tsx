@@ -13,15 +13,15 @@ export const Topic = ({topicId}: {topicId: string}) => {
                         <span className="flex gap-2 text-xs text-gray-400"> <ArrowBendDownLeft size={14} /> publicado há 5 minutos atras</span>
                     </div>
                 </div>
-                <button><BookmarkSimple size={28} /></button>
+                <button aria-label="Botao para salvar o topico"><BookmarkSimple size={28} /></button>
 
             </div>
 
             <p className="text-gray-100 w-full line-clamp-3 text-xs">description description description description description description description description description description description description description description.s   dsfsfvsfe....</p>
 
             <div className="text-sm flex gap-6 items-center">
-                <button className="flex gap-2 items-center"><Heart size={20} /> 6 curtidas</button>
-                <Link href={`/topicos/${topicId}`}><button className="flex gap-2 items-center"><ChatCircle size={20} /> 15 comentarios</button></Link>
+                <button aria-label="Botao de curtir" className="flex gap-2 items-center"><Heart size={20} /> 6 curtidas</button>
+                <Link href={`/topicos/${topicId}`}><button aria-label="Botao de comentar" className="flex gap-2 items-center"><ChatCircle size={20} /> 15 comentarios</button></Link>
             </div>
 
 
