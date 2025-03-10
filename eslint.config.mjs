@@ -31,7 +31,8 @@ export default [
 
     rules: {
       'prettier/prettier': 'error',
-      'tailwindcss/classnames-order': 'warn',
+      'tailwindcss/classnames-order': 'warn', 
+      'tailwindcss/no-custom-classname': 'off',
     },
   },
 ]
