@@ -8,6 +8,7 @@ import {
 } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import Link from 'next/link'
+import { CommentForm } from './CreateComents'
 
 export default function Salvos() {
   return (
@@ -72,9 +73,7 @@ export default function Salvos() {
           </div>
         </div>
 
-        <div className="flex w-full justify-end">
-          <Button className="px-6 py-4">Comentar</Button>
-        </div>
+        <CommentForm />
       </section>
     </main>
   )
