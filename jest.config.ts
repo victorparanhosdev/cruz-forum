@@ -1,6 +1,6 @@
-import type {Config} from 'jest';
+import type { Config } from 'jest'
 import nextJest from 'next/jest.js'
- 
+
 const createJestConfig = nextJest({
   dir: './',
 })
@@ -8,23 +8,22 @@ const createJestConfig = nextJest({
 const config: Config = {
   clearMocks: true,
   collectCoverage: true,
-  coverageDirectory: "coverage",
-  coverageProvider: "v8",
+  coverageDirectory: 'coverage',
+  coverageProvider: 'v8',
   moduleFileExtensions: [
-    "js",
-    "mjs",
-    "cjs",
-    "jsx",
-    "ts",
-    "tsx",
-    "json",
-    "node"
+    'js',
+    'mjs',
+    'cjs',
+    'jsx',
+    'ts',
+    'tsx',
+    'json',
+    'node',
   ],
-  testEnvironment: "jsdom",
+  testEnvironment: 'jsdom',
   verbose: true,
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-  preset: "ts-jest",
-
-};
+  preset: 'ts-jest',
+}
 
 export default createJestConfig(config)

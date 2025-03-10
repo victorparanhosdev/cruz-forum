@@ -1,9 +1,9 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   /* config options here */
   experimental: {
-    optimizePackageImports: ["@chakra-ui/react"]
+    optimizePackageImports: ['@chakra-ui/react'],
   },
   images: {
     remotePatterns: [
@@ -14,7 +14,6 @@ const nextConfig: NextConfig = {
     ],
     dangerouslyAllowSVG: true,
   },
+}
 
-};
-
-export default nextConfig;
+export default nextConfig
