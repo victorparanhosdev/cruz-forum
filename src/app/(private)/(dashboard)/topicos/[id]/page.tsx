@@ -13,13 +13,9 @@ export default function Salvos() {
   return (
     <main className="rounded-xl bg-stone-950 px-4 py-12 ">
       <section className="mx-auto max-w-[950px] ">
-        <Link href={'/'} className="flex">
+        <Link href={'/'} className="mb-4 inline-flex">
           {' '}
-          <Button
-            state="transparent"
-            className="mb-4 pl-0"
-            iconLeft={ArrowLeft}
-          >
+          <Button state="transparent" className=" pl-0" iconLeft={ArrowLeft}>
             Voltar
           </Button>
         </Link>
