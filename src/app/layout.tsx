@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html className={interFont.className} lang="pt-BR" suppressHydrationWarning>
       <body
-        className={`antialiased bg-black text-white min-h-screen flex items-center justify-center`}
+        className={`flex min-h-screen items-center justify-center bg-black text-white antialiased`}
       >
         {' '}
         <ChakraUIProvider>{children}</ChakraUIProvider>

@@ -11,19 +11,19 @@ import { tv } from 'tailwind-variants'
 const InputStyleVariants = tv({
   slots: {
     container:
-      'relative transition border rounded-lg focus-within:ring-1 bg-stone-950 w-full',
+      'relative w-full rounded-lg border bg-stone-950 transition focus-within:ring-1',
     icon: '',
   },
   variants: {
     state: {
       default: {
         container:
-          'focus-within:ring-green-400 focus-within:border-green-200 hover:border-green-200 hover:bg-hover-btn-menu_card',
+          'focus-within:border-green-200 focus-within:ring-green-400 hover:border-green-200 hover:bg-hover-btn-menu_card',
         icon: 'text-white',
       },
       negative: {
         container:
-          'border-red-900 bg-error-200 hover:bg-error-100 focus-within:bg-error-100 focus-within:ring-red-500',
+          'border-red-900 bg-error-200 focus-within:bg-error-100 focus-within:ring-red-500 hover:bg-error-100',
         icon: 'text-red-500',
       },
     },
@@ -66,7 +66,7 @@ export const Input = forwardRef<HTMLInputElement, InputTextProps>(
         <input
           style={{ background: 'transparent' }}
           {...props}
-          className="outline-none py-2.5 pl-4 pr-9 w-full"
+          className="w-full py-2.5 pl-4 pr-9 outline-none"
           ref={ref}
         />
         {withIcon && (

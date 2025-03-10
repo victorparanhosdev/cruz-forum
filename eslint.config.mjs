@@ -1,5 +1,6 @@
 import typescriptEslint from '@typescript-eslint/eslint-plugin'
 import prettier from 'eslint-plugin-prettier'
+import tailwindcss from 'eslint-plugin-tailwindcss'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import js from '@eslint/js'
@@ -19,15 +20,18 @@ export default [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+    'plugin:tailwindcss/recommended',
   ),
   {
     plugins: {
       '@typescript-eslint': typescriptEslint,
       prettier,
+      tailwindcss,
     },
 
     rules: {
       'prettier/prettier': 'error',
+      'tailwindcss/classnames-order': 'warn',
     },
   },
 ]

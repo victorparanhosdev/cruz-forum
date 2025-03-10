@@ -95,9 +95,9 @@ describe('<Button/>', () => {
   })
 
   it('deverá sobrescrever estilos padrão com className personalizada', () => {
-    render(<Button className="bg-blue-500">Clique aqui</Button>)
+    render(<Button className="bg-green-400">Clique aqui</Button>)
     const button = screen.getByRole('button')
-    expect(button).toHaveClass('bg-blue-500')
+    expect(button).toHaveClass('bg-green-400')
     expect(button).not.toHaveClass('bg-green-950')
   })
 

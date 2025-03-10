@@ -10,13 +10,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 export default function Perfil() {
   return (
-    <main className="bg-stone-950 rounded-xl px-4 py-12 ">
-      <h1 className="text-3xl font-bold flex gap-2 mb-9">
+    <main className="rounded-xl bg-stone-950 px-4 py-12 ">
+      <h1 className="mb-9 flex gap-2 text-3xl font-bold">
         Perfil <User weight="bold" size={36} />
       </h1>
 
-      <div className="p-6 flex gap-20">
-        <div className="grid gap-9 justify-items-center">
+      <div className="flex gap-20 p-6">
+        <div className="grid justify-items-center gap-9">
           <div className="relative w-fit">
             <input
               type="file"
@@ -29,11 +29,11 @@ export default function Perfil() {
               alt="Foto de perfil"
               width={208}
               height={208}
-              className="object-cover w-52 h-52 rounded-full"
+              className="size-52 rounded-full object-cover"
             />
             <Label
               htmlFor="upload-photo"
-              className="mb-0 cursor-pointer right-8 absolute bottom-0 rounded-full flex items-center bg-green-950 p-1.5"
+              className="absolute bottom-0 right-8 mb-0 flex cursor-pointer items-center rounded-full bg-green-950 p-1.5"
             >
               <PencilSimpleLine
                 size={24}
@@ -44,28 +44,28 @@ export default function Perfil() {
           </div>
 
           <div className="text-center">
-            <h2 className="font-bold text-3xl whitespace-nowrap">
+            <h2 className="whitespace-nowrap text-3xl font-bold">
               Victor Paranhos
             </h2>
-            <p className="text-gray-400 text-sm">victor_paranhos@hotmail.com</p>
+            <p className="text-sm text-gray-400">victor_paranhos@hotmail.com</p>
           </div>
 
           <ul className="grid gap-4">
-            <li className="flex gap-2 items-center py-1 px-4">
+            <li className="flex items-center gap-2 px-4 py-1">
               <ChatText size={24} /> 12 Topicos publicados
             </li>
-            <li className="flex gap-2 items-center py-1 px-4">
+            <li className="flex items-center gap-2 px-4 py-1">
               <ChatCircleDots size={24} /> 6 comentarios
             </li>
-            <li className="flex gap-2 items-center py-1 px-4">
+            <li className="flex items-center gap-2 px-4 py-1">
               <BookmarkSimple size={24} />5 Topicos salvos
             </li>
           </ul>
         </div>
-        <div className="w-px min-h-full bg-gray-800" />
+        <div className="min-h-full w-px bg-gray-800" />
 
         <div className="grid gap-9">
-          <h2 className="font-medium text-2xl">Alterar Dados: </h2>
+          <h2 className="text-2xl font-medium">Alterar Dados: </h2>
 
           <form action="" className="grid gap-4">
             <div>

@@ -10,34 +10,34 @@ import Link from 'next/link'
 
 export default function Salvos() {
   return (
-    <main className="bg-stone-950 rounded-xl px-4 py-12 ">
-      <section className="max-w-[950px] mx-auto ">
+    <main className="rounded-xl bg-stone-950 px-4 py-12 ">
+      <section className="mx-auto max-w-[950px] ">
         <Link href={'/'} className="flex">
           {' '}
           <Button
             state="transparent"
-            className="pl-0 mb-4"
+            className="mb-4 pl-0"
             iconLeft={ArrowLeft}
           >
             Voltar
           </Button>
         </Link>
 
-        <div className="flex gap-6 items-center mb-4">
+        <div className="mb-4 flex items-center gap-6">
           <Image
             src="https://github.com/victorparanhosdev.png"
             alt="Foto de perfil"
             width={128}
             height={128}
-            className="object-cover w-32 h-32 rounded-full"
+            className="size-32 rounded-full object-cover"
           />
           <div className="grid gap-2.5">
-            <div className="justify-between flex">
+            <div className="flex justify-between">
               <div>
                 <h1 className="text-4xl font-bold">Titulo do Topico</h1>
                 <div className="flex items-center gap-2">
                   <ArrowBendDownLeft size={16} />
-                  <span className="text-zinc-500 text-sm">
+                  <span className="text-sm text-zinc-500">
                     topico publicado há{' '}
                     <span className="font-semibold">5 dias</span> por{' '}
                     <strong className="text-zinc-400">Lorena Brito</strong>
@@ -68,15 +68,15 @@ export default function Salvos() {
         <div className="mb-4">
           <p className="mb-4 text-sm">Comentarios: </p>
 
-          <div className="grid gap-4 max-h-[474px] overflow-auto">
+          <div className="grid max-h-[474px] gap-4 overflow-auto">
             {Array.from({ length: 10 }).map((_, index) => {
               return <Comentarios key={index} />
             })}
           </div>
         </div>
 
-        <div className="flex justify-end w-full">
-          <Button className="py-4 px-6">Comentar</Button>
+        <div className="flex w-full justify-end">
+          <Button className="px-6 py-4">Comentar</Button>
         </div>
       </section>
     </main>

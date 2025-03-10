@@ -3,7 +3,7 @@ import { PopoverPerfil, Menu } from '@/components'
 import Image from 'next/image'
 export const Navigation = () => {
   return (
-    <nav className="bg-stone-950 rounded-xl px-4 pt-12 flex flex-col gap-6">
+    <nav className="flex flex-col gap-6 rounded-xl bg-stone-950 px-4 pt-12">
       <Image
         width={166}
         height={54}
@@ -12,17 +12,17 @@ export const Navigation = () => {
         className="max-w-[166px]"
       />
       <PopoverPerfil>
-        <button className="flex gap-2 border border-green-200 rounded-xl items-center py-1 px-3">
+        <button className="flex items-center gap-2 rounded-xl border border-green-200 px-3 py-1">
           <Image
             height={36}
             width={36}
             src="https://github.com/victorparanhosdev.png"
             alt=""
-            className="object-cover h-9 w-9 rounded-full"
+            className="size-9 rounded-full object-cover"
           />
-          <div className="flex flex-col max-w-[110px]">
-            <p className="text-sm font-bold truncate">Victor Paranhos</p>
-            <span className="text-xs  truncate">victorparanhos@email.com</span>
+          <div className="flex max-w-[110px] flex-col">
+            <p className="truncate text-sm font-bold">Victor Paranhos</p>
+            <span className="truncate  text-xs">victorparanhos@email.com</span>
           </div>
           <CaretDown size={16} />
         </button>
@@ -30,7 +30,7 @@ export const Navigation = () => {
 
       <Menu />
 
-      <div className="w-full h-px bg-gray-900"></div>
+      <div className="h-px w-full bg-gray-900"></div>
     </nav>
   )
 }

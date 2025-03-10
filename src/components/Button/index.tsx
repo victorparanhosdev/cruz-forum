@@ -4,15 +4,15 @@ import { tv, type VariantProps } from 'tailwind-variants'
 import { type IconProps } from '@phosphor-icons/react'
 
 const buttonStyles = tv({
-  base: 'transition rounded-lg text-base font-medium gap-2 flex items-center justify-center',
+  base: 'flex items-center justify-center gap-2 rounded-lg text-base font-medium transition',
   variants: {
     state: {
       default:
-        'disabled:text-gray-700 disabled:bg-gray-400 bg-green-950 enabled:hover:bg-green-800 py-2.5 px-4',
+        'bg-green-950 px-4 py-2.5 enabled:hover:bg-green-800 disabled:bg-gray-400 disabled:text-gray-700',
       'outline-negative':
-        'bg-none border border-red-900 enabled:hover:bg-error-100 disabled:bg-gray-950 disabled:text-gray-800 disabled:border-gray-900 py-2 px-4',
-      menu: 'bg-none hover:bg-hover-btn-menu_card w-full data-[state=true]:bg-green-900 data-[state=true]:font-bold px-4 py-2 text-start justify-start',
-      transparent: 'py-2 gap-1 hover:enabled:text-green-200',
+        'border border-red-900 bg-none px-4 py-2 enabled:hover:bg-error-100 disabled:border-gray-900 disabled:bg-gray-950 disabled:text-gray-800',
+      menu: 'w-full justify-start bg-none px-4 py-2 text-start hover:bg-hover-btn-menu_card data-[state=true]:bg-green-900 data-[state=true]:font-bold',
+      transparent: 'gap-1 py-2 hover:enabled:text-green-200',
     },
   },
   defaultVariants: {

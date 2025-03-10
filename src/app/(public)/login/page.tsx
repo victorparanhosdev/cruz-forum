@@ -5,19 +5,19 @@ import Link from 'next/link'
 
 export default function Login() {
   return (
-    <main className="bg-stone-950 grid grid-cols-view-login rounded-xl overflow-hidden w-full min-h-view-without-fill">
-      <section className="bg-[url(/bg.png)] bg-no-repeat bg-bottom bg-cover" />
+    <main className="grid min-h-view-without-fill w-full grid-cols-view-login overflow-hidden rounded-xl bg-stone-950">
+      <section className="bg-[url(/bg.png)] bg-cover bg-bottom bg-no-repeat" />
 
-      <section className="min-w-[331px] p-6 m-auto flex flex-col items-center">
+      <section className="m-auto flex min-w-[331px] flex-col items-center p-6">
         <Image
           width={256}
           height={104}
           alt="logo da aplicacao"
           src="/logo-login.png"
-          className="max-w-64 mb-12"
+          className="mb-12 max-w-64"
         />
 
-        <form action="" className="grid gap-4 w-full">
+        <form action="" className="grid w-full gap-4">
           <div>
             <Label>Entrar com e-mail</Label>
             <Input
@@ -33,14 +33,14 @@ export default function Login() {
             </Button>
           </Link>
 
-          <p className='flex items-center gap-2 before:block before:content-[""] before:w-full before:h-px before:bg-stone-700 after:content-[""] after:block after:w-full after:h-px after:bg-stone-700 w-full font-medium'>
+          <p className='flex w-full items-center gap-2 font-medium before:block before:h-px before:w-full before:bg-stone-700 before:content-[""] after:block after:h-px after:w-full after:bg-stone-700 after:content-[""]'>
             ou
           </p>
 
           <div className="grid gap-3">
             <button
               type="button"
-              className="py-1 px-6 hover:enabled:bg-hover-btn-gray transition flex items-center gap-3 border border-stone-700 rounded-lg"
+              className="flex items-center gap-3 rounded-lg border border-stone-700 px-6 py-1 transition hover:enabled:bg-hover-btn-gray"
             >
               <Image
                 alt="google"
@@ -53,7 +53,7 @@ export default function Login() {
             </button>
             <button
               type="button"
-              className="py-1 px-6 hover:enabled:bg-hover-btn-gray transition flex items-center gap-3 border border-stone-700 rounded-lg"
+              className="flex items-center gap-3 rounded-lg border border-stone-700 px-6 py-1 transition hover:enabled:bg-hover-btn-gray"
             >
               <Image
                 alt="facebook"

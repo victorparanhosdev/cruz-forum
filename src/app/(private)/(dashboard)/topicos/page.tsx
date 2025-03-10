@@ -13,8 +13,8 @@ import Link from 'next/link'
 
 export default function Topicos() {
   return (
-    <main className="bg-stone-950 rounded-xl px-4 py-12">
-      <h1 className="text-3xl font-bold flex gap-2">
+    <main className="rounded-xl bg-stone-950 px-4 py-12">
+      <h1 className="flex gap-2 text-3xl font-bold">
         Meus Topicos
         <ListDashes weight="bold" size={36} />
       </h1>
@@ -25,7 +25,7 @@ export default function Topicos() {
               Voltar
             </Button>
           </Link>
-          <div className="flex gap-3  w-full">
+          <div className="flex w-full  gap-3">
             <Input
               state="default"
               placeholder="Buscar um topico"
@@ -36,21 +36,21 @@ export default function Topicos() {
           </div>
         </div>
 
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <Button state="transparent" iconRight={FadersHorizontal}>
             Ordernar
           </Button>
-          <p className="font-medium text-sm">Pagina de 1 a 6</p>
+          <p className="text-sm font-medium">Pagina de 1 a 6</p>
         </div>
 
         <div className="grid gap-4">
-          <div className="grid gap-x-6 gap-y-4 grid-cols-2">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-4">
             {Array.from({ length: 6 }).map((_, index) => {
               return <Topic key={index} topicId={String(index)} />
             })}
           </div>
 
-          <div className="flex gap-2 items-center place-content-end">
+          <div className="flex place-content-end items-center gap-2">
             <CaretDoubleLeft size={24} />
             <CaretLineLeft size={24} />
             <CaretLineRight size={24} />

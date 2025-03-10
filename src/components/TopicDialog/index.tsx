@@ -63,7 +63,7 @@ export const TopicDialog = ({ children }: TopicDialogProps) => {
   return (
     <DialogRoot placement="center" onOpenChange={handleDialogClose}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="bg-gray-950 rounded-lg" padding={6}>
+      <DialogContent className="rounded-lg bg-gray-950" padding={6}>
         <DialogHeader padding={0} marginBottom={4}>
           <DialogTitle className="text-2xl font-medium">
             Criar Tópico
@@ -73,7 +73,7 @@ export const TopicDialog = ({ children }: TopicDialogProps) => {
         <DialogBody padding={0}>
           <form
             id="topic-form"
-            className="flex flex-col gap-4  min-h-[258px]"
+            className="flex min-h-[258px] flex-col  gap-4"
             onSubmit={handleSubmit(handleCreateTopic)}
             name="topic-form"
           >

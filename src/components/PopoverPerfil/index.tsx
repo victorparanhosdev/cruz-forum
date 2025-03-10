@@ -8,7 +8,7 @@ export const PopoverPerfil = ({ children }: { children: ReactNode }) => {
     <Popover.PopoverRoot positioning={{ sameWidth: true }}>
       <Popover.PopoverTrigger asChild>{children}</Popover.PopoverTrigger>
       <Popover.PopoverContent
-        className="bg-zinc-950 rounded-lg border border-gray-900"
+        className="rounded-lg border border-gray-900 bg-zinc-950"
         width="auto"
         overflow="hidden"
       >
@@ -18,12 +18,12 @@ export const PopoverPerfil = ({ children }: { children: ReactNode }) => {
               Perfil
             </Button>
           </Link>
-          <div className="w-full h-px bg-gray-900"></div>
+          <div className="h-px w-full bg-gray-900"></div>
           <Link href={'/login'}>
             <Button
               state="menu"
               iconLeft={SignOut}
-              className="text-red-500 hover:text-red-400 hover:bg-red-950 rounded-none"
+              className="rounded-none text-red-500 hover:bg-red-950 hover:text-red-400"
             >
               Sair da conta
             </Button>

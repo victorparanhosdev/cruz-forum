@@ -6,13 +6,13 @@ import { tv } from 'tailwind-variants'
 const TextAreaStyleVariants = tv({
   slots: {
     container:
-      'w-full bg-stone-950 border block focus:ring-1 py-2.5 px-4 overflow-hidden outline-none rounded-lg min-h-28 resize-none outline-none',
+      'block min-h-28 w-full resize-none overflow-hidden rounded-lg border bg-stone-950 px-4 py-2.5 outline-none focus:ring-1',
   },
   variants: {
     state: {
       default: {
         container:
-          'focus:ring-green-400 focus:border-green-200 hover:border-green-200 hover:bg-hover-btn-menu_card',
+          'hover:border-green-200 hover:bg-hover-btn-menu_card focus:border-green-200 focus:ring-green-400',
       },
       negative: {
         container:

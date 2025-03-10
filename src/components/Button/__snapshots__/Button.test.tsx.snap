@@ -3,7 +3,7 @@
 exports[`<Button/> deve corresponder ao snapshot 1`] = `
 <DocumentFragment>
   <button
-    class="transition rounded-lg text-base font-medium gap-2 flex items-center justify-center disabled:text-gray-700 disabled:bg-gray-400 bg-green-950 enabled:hover:bg-green-800 py-2.5 px-4"
+    class="flex items-center justify-center gap-2 rounded-lg text-base font-medium transition bg-green-950 px-4 py-2.5 enabled:hover:bg-green-800 disabled:bg-gray-400 disabled:text-gray-700"
   >
     <span
       class="whitespace-nowrap text-base"

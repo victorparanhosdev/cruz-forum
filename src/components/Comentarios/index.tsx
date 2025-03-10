@@ -2,22 +2,22 @@ import { ArrowBendDownLeft, Heart, Trash } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 export const Comentarios = () => {
   return (
-    <div className="p-4 bg-topico-200 rounded-lg grid gap-4 border border-stone-900">
-      <div className="flex justify-between items-center">
+    <div className="grid gap-4 rounded-lg border border-stone-900 bg-topico-200 p-4">
+      <div className="flex items-center justify-between">
         <div className="flex gap-4">
           <Image
             width={48}
             height={48}
             src="https://github.com/victorparanhosdev.png"
             alt=""
-            className="object-cover w-12 h-12 rounded-full"
+            className="size-12 rounded-full object-cover"
           />
 
           <div>
             <h2>Victor Paranhos</h2>
             <div className="flex items-center gap-1">
               <ArrowBendDownLeft size={16} />
-              <span className="text-zinc-500 text-xs">
+              <span className="text-xs text-zinc-500">
                 topico publicado{' '}
                 <strong className="font-semibold">há 5 dias</strong>{' '}
               </span>
@@ -38,7 +38,7 @@ export const Comentarios = () => {
         de descriexemplo de descrasdsadsdd
       </p>
 
-      <button className="text-sm flex gap-2 items-center">
+      <button className="flex items-center gap-2 text-sm">
         <Heart size={24} />
         06 curtidas
       </button>

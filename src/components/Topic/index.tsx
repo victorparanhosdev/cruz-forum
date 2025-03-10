@@ -9,15 +9,15 @@ import Link from 'next/link'
 
 export const Topic = ({ topicId }: { topicId: string }) => {
   return (
-    <div className="bg-topico-200 border border-stone-700 rounded-xl py-4 px-6 grid gap-4 hover:bg-topico-100 transition-colors">
-      <div className="flex justify-between items-start">
+    <div className="grid gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100">
+      <div className="flex items-start justify-between">
         <div className="flex gap-4">
           <Image
             height={64}
             width={64}
             src="https://github.com/victorparanhosdev.png"
             alt=""
-            className="h-16 w-16 rounded-full object-cover"
+            className="size-16 rounded-full object-cover"
           />
           <div>
             <h2 className="text-2xl font-bold">Titulo do Topico</h2>
@@ -32,23 +32,23 @@ export const Topic = ({ topicId }: { topicId: string }) => {
         </button>
       </div>
 
-      <p className="text-gray-100 w-full line-clamp-3 text-xs">
+      <p className="line-clamp-3 w-full text-xs text-gray-100">
         description description description description description description
         description description description description description description
         description description.s dsfsfvsfe....
       </p>
 
-      <div className="text-sm flex gap-6 items-center">
+      <div className="flex items-center gap-6 text-sm">
         <button
           aria-label="Botao de curtir"
-          className="flex gap-2 items-center"
+          className="flex items-center gap-2"
         >
           <Heart size={20} /> 6 curtidas
         </button>
         <Link href={`/topicos/${topicId}`}>
           <button
             aria-label="Botao de comentar"
-            className="flex gap-2 items-center"
+            className="flex items-center gap-2"
           >
             <ChatCircle size={20} /> 15 comentarios
           </button>

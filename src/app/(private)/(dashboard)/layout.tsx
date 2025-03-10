@@ -6,7 +6,7 @@ export default function DashBoardLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="grid grid-cols-view-all min-h-view-without-fill gap-6 w-full p-6">
+    <div className="grid min-h-view-without-fill w-full grid-cols-view-all gap-6 p-6">
       <Navigation />
       {children}
     </div>
