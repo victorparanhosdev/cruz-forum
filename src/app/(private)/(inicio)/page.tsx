@@ -1,9 +1,10 @@
 import { Button, Card, Input, Navigation, Topic } from "@/components";
+import { TopicDialog } from "@/components/TopicDialog";
 import { CaretDoubleLeft, CaretDoubleRight, CaretLineLeft, CaretLineRight, Chats, FadersHorizontal, ListPlus, MagnifyingGlass, StarFour } from "@phosphor-icons/react/dist/ssr";
 
 export default function Inicio() {
     return (
-        <div className="grid grid-cols-view-home min-h-view-without-fill gap-6 w-full">
+        <div className="grid grid-cols-view-home min-h-view-without-fill gap-6 w-full p-6">
             <Navigation />
             <main className="bg-stone-950 rounded-xl px-4 py-12">
                 <h1 className="text-3xl font-bold flex gap-2">Feed <Chats weight="bold" size={36} /></h1>
@@ -14,7 +15,7 @@ export default function Inicio() {
                             <Input state="default" placeholder="Buscar um topico" withIcon={<MagnifyingGlass size={20} />} />
                             <Button>Buscar</Button>
                         </div>
-                        <Button iconLeft={ListPlus}>Criar tópico</Button>
+                        <TopicDialog><Button iconLeft={ListPlus}>Criar tópico</Button></TopicDialog>
                     </div>
 
                     <div className="flex justify-between items-center">

@@ -20,9 +20,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html className={interFont.className} lang="pt-BR" suppressHydrationWarning>
       <body
-        className={`${interFont.className} antialiased bg-black p-6 text-white min-h-screen flex items-center justify-center`}
+        className={`antialiased bg-black text-white min-h-screen flex items-center justify-center`}
       > <ChakraUIProvider>
           {children}
         </ChakraUIProvider>
