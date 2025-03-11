@@ -30,14 +30,14 @@ export const Comentarios = ({
             <div className="flex items-center gap-1">
               <ArrowBendDownLeft size={16} />
               <span className="text-xs text-zinc-500">
-                topico publicado{' '}
-                <strong className="font-semibold">há 5 dias</strong>{' '}
+                topico publicado
+                <strong className="font-semibold">há 5 dias</strong>
               </span>
             </div>
           </div>
         </div>
 
-        <button>
+        <button aria-label="Excluir o comentario">
           <Trash className="text-red-500" size={28} />
         </button>
       </div>
@@ -50,7 +50,10 @@ export const Comentarios = ({
         de descriexemplo de descrasdsadsdd
       </p>
 
-      <button className="flex items-center gap-2 text-sm">
+      <button
+        aria-label="Curtir Comentario"
+        className="flex items-center gap-2 text-sm"
+      >
         <Heart size={24} />
         06 curtidas
       </button>

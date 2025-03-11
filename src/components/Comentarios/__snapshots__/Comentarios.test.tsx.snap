@@ -44,18 +44,19 @@ exports[`<Comentarios/> deve corresponder ao snapshot 1`] = `
             <span
               class="text-xs text-zinc-500"
             >
-              topico publicado 
+              topico publicado
               <strong
                 class="font-semibold"
               >
                 há 5 dias
               </strong>
-               
             </span>
           </div>
         </div>
       </div>
-      <button>
+      <button
+        aria-label="Excluir o comentario"
+      >
         <svg
           class="text-red-500"
           fill="currentColor"
@@ -76,6 +77,7 @@ exports[`<Comentarios/> deve corresponder ao snapshot 1`] = `
       exemplo de descrição exemplo de descriexemplo de descrição exemplo de descriexemplo de descrição exemplo de descriexemplo de descrição exemplo de descriexemplo de descrição exemplo de descriexemplo de descrição exemplo de descriexemplo de descrição exemplo de do de descrição exemplo de descriexemplo de descrasdsadsdd
     </p>
     <button
+      aria-label="Curtir Comentario"
       class="flex items-center gap-2 text-sm"
     >
       <svg

@@ -43,7 +43,7 @@ export default function Salvos() {
                 </div>
               </div>
               <div className="flex gap-2">
-                <AlertDialog>
+                <AlertDialog aria-label="Excluir o topico">
                   <Trash className="text-red-500" size={36} />
                 </AlertDialog>
                 <button aria-label="Botao de Salvar">

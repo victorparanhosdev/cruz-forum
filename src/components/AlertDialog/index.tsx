@@ -11,17 +11,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { ReactNode } from 'react'
+import { ComponentProps, ReactNode } from 'react'
 import { Button } from '@/components'
 
-interface AlertDialogProps {
+interface AlertDialogProps extends ComponentProps<typeof DialogTrigger> {
   children: ReactNode
 }
 
-export const AlertDialog = ({ children }: AlertDialogProps) => {
+export const AlertDialog = ({ children, ...props }: AlertDialogProps) => {
   return (
     <DialogRoot placement="center" role="alertdialog">
-      <DialogTrigger className="flex cursor-pointer items-center">
+      <DialogTrigger {...props} className="flex cursor-pointer items-center">
         {children}
       </DialogTrigger>
       <DialogContent className="rounded-lg bg-gray-950" padding={6}>
