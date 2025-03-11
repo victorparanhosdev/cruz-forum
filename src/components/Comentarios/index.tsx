@@ -1,8 +1,20 @@
 import { ArrowBendDownLeft, Heart, Trash } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
-export const Comentarios = () => {
+import { HTMLAttributes } from 'react'
+import { twMerge } from 'tailwind-merge'
+
+export const Comentarios = ({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className="grid gap-4 rounded-lg border border-stone-900 bg-topico-200 p-4">
+    <div
+      {...props}
+      className={twMerge(
+        'grid gap-4 rounded-lg border border-stone-900 bg-topico-200 p-4',
+        className,
+      )}
+    >
       <div className="flex items-center justify-between">
         <div className="flex gap-4">
           <Image

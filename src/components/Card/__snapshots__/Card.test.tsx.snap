@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Card/> deve corresponder ao snapshot 1`] = `
+<DocumentFragment>
+  <a
+    href="/topicos/123"
+  >
+    <div
+      class="flex cursor-pointer gap-2.5 rounded-lg border border-white px-3 py-2 hover:border-green-200 hover:bg-hover-btn-gray"
+    >
+      <img
+        alt="Imagem do perfil"
+        class="size-8 rounded-full object-cover"
+        data-nimg="1"
+        decoding="async"
+        height="32"
+        loading="lazy"
+        src="/_next/image?url=https%3A%2F%2Fgithub.com%2Fvictorparanhosdev.png&w=64&q=75"
+        srcset="/_next/image?url=https%3A%2F%2Fgithub.com%2Fvictorparanhosdev.png&w=32&q=75 1x, /_next/image?url=https%3A%2F%2Fgithub.com%2Fvictorparanhosdev.png&w=64&q=75 2x"
+        style="color: transparent;"
+        width="32"
+      />
+      <div>
+        <p
+          class="text-sm font-medium"
+        >
+          Título do Tópico
+        </p>
+        <span
+          class="flex items-center gap-1 text-[10px] text-gray-400"
+        >
+          <svg
+            fill="currentColor"
+            height="16"
+            viewBox="0 0 256 256"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M232,56A104.11,104.11,0,0,1,128,160H51.31l34.35,34.34a8,8,0,0,1-11.32,11.32l-48-48a8,8,0,0,1,0-11.32l48-48a8,8,0,0,1,11.32,11.32L51.31,144H128a88.1,88.1,0,0,0,88-88,8,8,0,0,1,16,0Z"
+            />
+          </svg>
+           comentado há 6 minutos
+        </span>
+      </div>
+    </div>
+  </a>
+</DocumentFragment>
+`;

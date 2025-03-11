@@ -33,7 +33,7 @@ const createTopicSchema = zod.object({
   }),
 })
 
-type CreateTopicFormData = zod.infer<typeof createTopicSchema>
+export type CreateTopicFormData = zod.infer<typeof createTopicSchema>
 
 const DEFAULT_FORM_VALUES: CreateTopicFormData = {
   titulo: '',

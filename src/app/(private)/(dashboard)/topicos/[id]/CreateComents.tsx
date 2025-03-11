@@ -31,7 +31,7 @@ export const CommentForm = () => {
           <TextArea
             state="default"
             placeholder="Escreva aqui o comentário..."
-            className="min-h-full w-full resize-y overflow-auto"
+            className="min-h-full w-full resize-y overflow-auto bg-black"
           />
           <div className="flex items-center gap-3">
             <button aria-label="Cancelar comentário" onClick={handleCancel}>

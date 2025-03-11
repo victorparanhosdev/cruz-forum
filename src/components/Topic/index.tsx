@@ -6,10 +6,22 @@ import {
 } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import Link from 'next/link'
+import { HTMLAttributes } from 'react'
+import { twMerge } from 'tailwind-merge'
 
-export const Topic = ({ topicId }: { topicId: string }) => {
+interface TopicProps extends HTMLAttributes<HTMLDivElement> {
+  topicId: string
+}
+
+export const Topic = ({ topicId, className, ...props }: TopicProps) => {
   return (
-    <div className="grid gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100">
+    <div
+      {...props}
+      className={twMerge(
+        'grid gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100',
+        className,
+      )}
+    >
       <div className="flex items-start justify-between">
         <div className="flex gap-4">
           <Image

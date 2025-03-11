@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextArea/> deve corresponder ao snapshot 1`] = `
+<DocumentFragment>
+  <textarea
+    class="block min-h-28 w-full resize-none overflow-hidden rounded-lg border bg-stone-950 px-4 py-2.5 outline-none focus:ring-1 hover:border-green-200 hover:bg-hover-btn-menu_card focus:border-green-200 focus:ring-green-400"
+    placeholder="Digite algo"
+  />
+</DocumentFragment>
+`;

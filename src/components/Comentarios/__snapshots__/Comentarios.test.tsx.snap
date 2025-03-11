@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Comentarios/> deve corresponder ao snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="grid gap-4 rounded-lg border border-stone-900 bg-topico-200 p-4"
+  >
+    <div
+      class="flex items-center justify-between"
+    >
+      <div
+        class="flex gap-4"
+      >
+        <img
+          alt=""
+          class="size-12 rounded-full object-cover"
+          data-nimg="1"
+          decoding="async"
+          height="48"
+          loading="lazy"
+          src="/_next/image?url=https%3A%2F%2Fgithub.com%2Fvictorparanhosdev.png&w=96&q=75"
+          srcset="/_next/image?url=https%3A%2F%2Fgithub.com%2Fvictorparanhosdev.png&w=48&q=75 1x, /_next/image?url=https%3A%2F%2Fgithub.com%2Fvictorparanhosdev.png&w=96&q=75 2x"
+          style="color: transparent;"
+          width="48"
+        />
+        <div>
+          <h2>
+            Victor Paranhos
+          </h2>
+          <div
+            class="flex items-center gap-1"
+          >
+            <svg
+              fill="currentColor"
+              height="16"
+              viewBox="0 0 256 256"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M232,56A104.11,104.11,0,0,1,128,160H51.31l34.35,34.34a8,8,0,0,1-11.32,11.32l-48-48a8,8,0,0,1,0-11.32l48-48a8,8,0,0,1,11.32,11.32L51.31,144H128a88.1,88.1,0,0,0,88-88,8,8,0,0,1,16,0Z"
+              />
+            </svg>
+            <span
+              class="text-xs text-zinc-500"
+            >
+              topico publicado 
+              <strong
+                class="font-semibold"
+              >
+                há 5 dias
+              </strong>
+               
+            </span>
+          </div>
+        </div>
+      </div>
+      <button>
+        <svg
+          class="text-red-500"
+          fill="currentColor"
+          height="28"
+          viewBox="0 0 256 256"
+          width="28"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"
+          />
+        </svg>
+      </button>
+    </div>
+    <p
+      class="text-base text-zinc-300"
+    >
+      exemplo de descrição exemplo de descriexemplo de descrição exemplo de descriexemplo de descrição exemplo de descriexemplo de descrição exemplo de descriexemplo de descrição exemplo de descriexemplo de descrição exemplo de descriexemplo de descrição exemplo de do de descrição exemplo de descriexemplo de descrasdsadsdd
+    </p>
+    <button
+      class="flex items-center gap-2 text-sm"
+    >
+      <svg
+        fill="currentColor"
+        height="24"
+        viewBox="0 0 256 256"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40ZM128,214.8C109.74,204.16,32,155.69,32,102A46.06,46.06,0,0,1,78,56c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,155.61,146.24,204.15,128,214.8Z"
+        />
+      </svg>
+      06 curtidas
+    </button>
+  </div>
+</DocumentFragment>
+`;

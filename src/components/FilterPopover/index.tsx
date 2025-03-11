@@ -37,7 +37,7 @@ export const FilterPopover = ({ children }: { children: ReactNode }) => {
             </li>
             <li className="flex w-full cursor-pointer items-center gap-2.5 whitespace-nowrap px-4 py-2.5 transition hover:bg-hover-btn-menu_card ">
               <CaretUpDown size={20} />
-              Ordernar A-Z
+              Ordenar A-Z
             </li>
           </ul>
         </Popover.PopoverBody>

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Componente InputMsgErro deve corresponder ao snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="relative w-full rounded-lg border bg-stone-950 transition focus-within:ring-1 focus-within:border-green-200 focus-within:ring-green-400 hover:border-green-200 hover:bg-hover-btn-menu_card"
+  >
+    <input
+      class="w-full py-2.5 pl-4 pr-9 outline-none"
+      placeholder="Digite algo"
+      style="background: transparent;"
+    />
+  </div>
+</DocumentFragment>
+`;

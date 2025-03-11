@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Componente Label deve renderizar o label com as props corretas e corresponder ao snapshot final 1`] = `
+<DocumentFragment>
+  <label
+    class="mb-2 text-xs block custom-class"
+    for="input-id"
+  >
+    Meu Label
+  </label>
+</DocumentFragment>
+`;
