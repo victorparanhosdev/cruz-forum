@@ -70,7 +70,6 @@ export default function Inicio() {
       </main>
       <aside className="rounded-xl bg-stone-950 px-4 pt-12">
         <h2 className="mb-8 flex items-center gap-1 text-sm">
-          {' '}
           <StarFour size={16} /> Mais Relevantes
         </h2>
 
