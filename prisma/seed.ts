@@ -32,9 +32,9 @@ const userData: Prisma.UserCreateInput[] = [
     comments: {
       create: [
         {
-          descricao: 'Isso mesmo',
+          descricao: 'saas',
           likes: 10,
-        },
+        }
       ]
     }
   },
