@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,6 +14,7 @@ model User {
   emailVerified DateTime?
   image         String?
   topics        Topic[]
+  comments      Comment[]
   accounts      Account[]
   sessions      Session[]
 
@@ -59,7 +59,19 @@ model Topic {
   descricao String
   authorId  Int
   author    User    @relation(fields: [authorId], references: [id])
-
+  comments  Comment[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Comment {
+  id         Int      @id @default(autoincrement())
+  descricao  String
+  likes      Int
+  authorId   Int
+  author     User     @relation(fields: [authorId], references: [id])
+  topicId    Int?
+  topic      Topic?   @relation(fields: [topicId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
