@@ -6,8 +6,14 @@ import {
   PencilSimpleLine,
   User,
 } from '@phosphor-icons/react/dist/ssr'
+import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Perfil',
+}
+
 export default function Perfil() {
   return (
     <main className="rounded-xl bg-stone-950 px-4 py-12 ">

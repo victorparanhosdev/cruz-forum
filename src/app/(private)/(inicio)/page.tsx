@@ -18,6 +18,11 @@ import {
   MagnifyingGlass,
   StarFour,
 } from '@phosphor-icons/react/dist/ssr'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Feed',
+}
 
 export default function Inicio() {
   return (

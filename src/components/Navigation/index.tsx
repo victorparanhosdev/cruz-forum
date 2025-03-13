@@ -1,3 +1,4 @@
+'use client'
 import { CaretDown } from '@phosphor-icons/react/dist/ssr'
 import { PopoverPerfil, Menu } from '@/components'
 import Image from 'next/image'

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { ChakraUIProvider } from '@/providers/chakra-ui'
+import { SessionProviderNextAuth } from '@/providers/sessionProvider'
 
 const interFont = Inter({
   subsets: ['latin'],
@@ -9,8 +10,23 @@ const interFont = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Cruz Forum',
-  description: 'Forum App',
+  title: {
+    template: '%s | Cruz Forum',
+    default: 'Cruz Forum',
+  },
+  description:
+    'Comunidade online para criar tópicos, debater ideias e interagir com outros usuários de forma colaborativa',
+  keywords: [
+    'fórum',
+    'discussão',
+    'comunidade',
+    'tópicos',
+    'debate',
+    'interação',
+  ],
+  authors: [{ name: 'Victor Paranhos' }],
+  creator: 'Victor Paranhos',
+  publisher: 'Cruz Forum',
 }
 
 export default function RootLayout({
@@ -23,8 +39,9 @@ export default function RootLayout({
       <body
         className={`flex min-h-screen items-center justify-center bg-black text-white antialiased`}
       >
-        {' '}
-        <ChakraUIProvider>{children}</ChakraUIProvider>
+        <SessionProviderNextAuth>
+          <ChakraUIProvider>{children}</ChakraUIProvider>
+        </SessionProviderNextAuth>
       </body>
     </html>
   )

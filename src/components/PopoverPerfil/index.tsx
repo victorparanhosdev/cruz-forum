@@ -1,9 +1,14 @@
+'use client'
 import { Popover, Button } from '@/components'
 import { ReactNode } from 'react'
 import { SignOut, User } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
+import { signOut } from 'next-auth/react'
 
 export const PopoverPerfil = ({ children }: { children: ReactNode }) => {
+  function handleSignOut() {
+    signOut()
+  }
   return (
     <Popover.PopoverRoot positioning={{ sameWidth: true }}>
       <Popover.PopoverTrigger asChild>{children}</Popover.PopoverTrigger>
@@ -19,15 +24,15 @@ export const PopoverPerfil = ({ children }: { children: ReactNode }) => {
             </Button>
           </Link>
           <div className="h-px w-full bg-gray-900"></div>
-          <Link href={'/login'}>
-            <Button
-              state="menu"
-              iconLeft={SignOut}
-              className="rounded-none text-red-500 hover:bg-red-950 hover:text-red-400"
-            >
-              Sair da conta
-            </Button>
-          </Link>
+
+          <Button
+            state="menu"
+            onClick={handleSignOut}
+            iconLeft={SignOut}
+            className="rounded-none text-red-500 hover:bg-red-950 hover:text-red-400"
+          >
+            Sair da conta
+          </Button>
         </Popover.PopoverBody>
       </Popover.PopoverContent>
     </Popover.PopoverRoot>

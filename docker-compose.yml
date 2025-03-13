@@ -5,7 +5,7 @@ services:
     image: postgres:16
     container_name: my_postgres
     ports:
-      - "5431:5432"  # Mapeia a porta do container para a 5431 no host
+      - '5431:5432' # Mapeia a porta do container para a 5431 no host
     environment:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
@@ -23,7 +23,7 @@ services:
       - .:/app
     command: sh -c "npm install && npx prisma generate && npx prisma db push"
     environment:
-      DATABASE_URL: "postgresql://myuser:mypassword@postgres:5432/mydatabase"
+      DATABASE_URL: 'postgresql://myuser:mypassword@postgres:5432/mydatabase'
     networks:
       - app_network
     depends_on:

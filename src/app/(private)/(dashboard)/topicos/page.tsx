@@ -9,7 +9,12 @@ import {
   ListDashes,
   MagnifyingGlass,
 } from '@phosphor-icons/react/dist/ssr'
+import { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Meus Topicos',
+}
 
 export default function Topicos() {
   return (

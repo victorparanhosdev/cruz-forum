@@ -3,6 +3,13 @@ import { Label, Input, Button } from '@/components'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { Metadata } from 'next'
+import { AuthButtons } from './AuthButtons'
+
+export const metadata: Metadata = {
+  title: 'Login',
+}
+
 export default function Login() {
   return (
     <main className="grid min-h-view-without-fill w-full grid-cols-view-login overflow-hidden rounded-xl bg-stone-950">
@@ -37,34 +44,7 @@ export default function Login() {
             ou
           </p>
 
-          <div className="grid gap-3">
-            <button
-              type="button"
-              className="flex items-center gap-3 rounded-lg border border-stone-700 px-6 py-1 transition hover:enabled:bg-hover-btn-gray"
-            >
-              <Image
-                alt="google"
-                height={49}
-                width={48}
-                src="/google.svg"
-                className="object-cover"
-              />
-              Fazer login com o Google
-            </button>
-            <button
-              type="button"
-              className="flex items-center gap-3 rounded-lg border border-stone-700 px-6 py-1 transition hover:enabled:bg-hover-btn-gray"
-            >
-              <Image
-                alt="facebook"
-                height={49}
-                width={48}
-                src="/facebook.svg"
-                className="object-cover"
-              />
-              Fazer login com o Facebook
-            </button>
-          </div>
+          <AuthButtons />
         </form>
       </section>
     </main>

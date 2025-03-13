@@ -9,7 +9,12 @@ import {
   FadersHorizontal,
   MagnifyingGlass,
 } from '@phosphor-icons/react/dist/ssr'
+import { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Salvos',
+}
 
 export default function Salvos() {
   return (

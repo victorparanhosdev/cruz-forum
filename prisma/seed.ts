@@ -34,9 +34,9 @@ const userData: Prisma.UserCreateInput[] = [
         {
           descricao: 'saas',
           likes: 10,
-        }
-      ]
-    }
+        },
+      ],
+    },
   },
 ]
 

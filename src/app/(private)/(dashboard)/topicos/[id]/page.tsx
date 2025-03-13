@@ -9,8 +9,13 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { CommentForm } from './CreateComents'
+import { Metadata } from 'next'
 
-export default function Salvos() {
+export const metadata: Metadata = {
+  title: 'Topico',
+}
+
+export default function TopicId() {
   return (
     <main className="rounded-xl bg-stone-950 px-4 py-12 ">
       <section className="mx-auto max-w-[950px] ">
