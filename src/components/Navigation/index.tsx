@@ -1,8 +1,14 @@
-'use client'
 import { CaretDown } from '@phosphor-icons/react/dist/ssr'
 import { PopoverPerfil, Menu } from '@/components'
 import Image from 'next/image'
-export const Navigation = () => {
+import { getServerSession } from 'next-auth'
+import { Skeleton } from '@chakra-ui/react'
+
+export const Navigation = async () => {
+  const { user } = await getServerSession()
+
+  const isUserActive = !!user
+
   return (
     <nav className="flex flex-col gap-6 rounded-xl bg-stone-950 px-4 pt-12">
       <Image
@@ -17,13 +23,21 @@ export const Navigation = () => {
           <Image
             height={36}
             width={36}
-            src="https://github.com/victorparanhosdev.png"
+            src={isUserActive ? user.image : '/placeholderperfil.png'}
             alt=""
             className="size-9 rounded-full object-cover"
           />
-          <div className="flex max-w-[110px] flex-col">
-            <p className="truncate text-sm font-bold">Victor Paranhos</p>
-            <span className="truncate  text-xs">victorparanhos@email.com</span>
+          <div className="flex max-w-[110px] flex-col w-full">
+            {isUserActive ? (
+              <p className="truncate text-sm font-bold">{user.name}</p>
+            ) : (
+              <Skeleton className="h-4 min-w-24 w-full bg-zinc-700" />
+            )}
+            {isUserActive ? (
+              <span className="truncate  text-xs">{user.email}</span>
+            ) : (
+              <Skeleton className="mt-1 h-3 min-w-24 w-full bg-zinc-700" />
+            )}
           </div>
           <CaretDown size={16} />
         </button>

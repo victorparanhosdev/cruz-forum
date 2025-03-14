@@ -27,6 +27,7 @@ interface ButtonProps
   children: React.ReactNode
   iconLeft?: ComponentType<IconProps> | undefined
   iconRight?: ComponentType<IconProps> | undefined
+  classNameIcon?: string
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -39,6 +40,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled,
       iconLeft: IconLeft,
       iconRight: IconRight,
+      classNameIcon,
       ...props
     },
     ref,
@@ -61,6 +63,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             data-weight={isActive ? 'bold' : 'regular'}
             size={24}
             weight={isActive ? 'bold' : 'regular'}
+            className={classNameIcon}
           />
         ) : undefined}
         <span className="whitespace-nowrap text-base">{children}</span>
@@ -71,6 +74,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             data-weight={isActive ? 'bold' : 'regular'}
             size={24}
             weight={isActive ? 'bold' : 'regular'}
+            className={classNameIcon}
           />
         ) : undefined}
       </button>
