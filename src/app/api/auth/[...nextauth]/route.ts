@@ -1,9 +1,9 @@
-import NextAuth from 'next-auth'
+import NextAuth, { AuthOptions } from 'next-auth'
 import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import prisma from '@/lib/prisma'
 
-const handler = NextAuth({
+export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -15,6 +15,7 @@ const handler = NextAuth({
           name: profile.name,
           email: profile.email,
           image: profile.picture,
+          
         }
       },
     }),
@@ -24,11 +25,11 @@ const handler = NextAuth({
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async session({ session, user }) {
-      return {
-        ...session,
-        user,
+    async session({ session, token }) {
+      if (token.sub) {
+        session.user.id = token.sub
       }
+      return session
     },
     async jwt({ token, account, profile }) {
       if (account && profile) {
@@ -43,6 +44,7 @@ const handler = NextAuth({
 
   //   },
   // }
-})
+}
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }

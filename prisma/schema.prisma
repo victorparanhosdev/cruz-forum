@@ -57,6 +57,7 @@ model Topic {
   id        Int       @id @default(autoincrement())
   title     String
   descricao String
+  likes     Int       @default(0)
   userId    Int
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   comments  Comment[] 
