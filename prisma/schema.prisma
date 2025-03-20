@@ -8,13 +8,18 @@ datasource db {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
+  id            String          @id @default(uuid())
   name          String?
-  email         String    @unique
+  email         String          @unique
   emailVerified DateTime?
   image         String?
+
+  // Relações
   topics        Topic[]
   comments      Comment[]
+  topicLikes    TopicLike[]   
+  commentLikes  CommentLike[]
+  savedTopics   SavedTopic[] 
   accounts      Account[]
   sessions      Session[]
 
@@ -22,8 +27,72 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model Topic {
+  id        String  @id @default(uuid())
+  title     String
+  descricao String
+  userId    String
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Relações
+  comments  Comment[]
+  likes     TopicLike[] 
+  savedBy   SavedTopic[] 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Comment {
+  id        String  @id @default(uuid())
+  descricao String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topicId   String
+  topic     Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  likes     CommentLike[] 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SavedTopic {
+  id        String   @id @default(uuid())
+  savedAt   DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topicId   String
+  topic     Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, topicId])
+}
+
+model TopicLike {
+  id      String  @id @default(uuid())
+  userId  String
+  topicId String
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topic   Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+
+  @@unique([userId, topicId])
+}
+
+model CommentLike {
+  id        String  @id @default(uuid())
+  userId    String
+  commentId String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+
+  @@unique([userId, commentId])
+}
+
 model Account {
-  userId            Int
+  userId            String
   type              String
   provider          String
   providerAccountId String
@@ -43,36 +112,12 @@ model Account {
 }
 
 model Session {
-  id           Int      @id @default(autoincrement())
+  id           String   @id @default(uuid())
   sessionToken String   @unique
-  userId       Int
+  userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model Topic {
-  id        Int       @id @default(autoincrement())
-  title     String
-  descricao String
-  likes     Int       @default(0)
-  userId    Int
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  comments  Comment[] 
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-}
-
-model Comment {
-  id        Int      @id @default(autoincrement())
-  descricao String
-  likes     Int
-  userId    Int     
-  user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Topic Topic[]
 }

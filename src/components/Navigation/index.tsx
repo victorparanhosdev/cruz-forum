@@ -17,6 +17,7 @@ export const Navigation = async () => {
         src="/logo-home.svg"
         alt="logo da aplicacao"
         className="max-w-[166px]"
+        priority
       />
       <PopoverPerfil>
         <button className="flex items-center gap-2 rounded-xl border border-green-200 px-3 py-1">

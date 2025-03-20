@@ -1,3 +1,4 @@
+import { ApiResponse } from '@/app/api/topics/route'
 import {
   Button,
   Card,
@@ -19,7 +20,21 @@ import {
   StarFour,
 } from '@phosphor-icons/react/dist/ssr'
 import { Metadata } from 'next'
+import { Suspense } from 'react'
 
+async function CardFeed() {
+  const res = await fetch('http://localhost:3000/api/topics')
+
+  const { data }: ApiResponse = await res.json()
+
+  return (
+    <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+      {data.map((topic) => {
+        return <Topic key={topic.id} data={topic} />
+      })}
+    </div>
+  )
+}
 export const metadata: Metadata = {
   title: 'Feed',
 }
@@ -58,11 +73,9 @@ export default function Inicio() {
           </div>
 
           <div className="grid gap-4">
-            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-              {Array.from({ length: 6 }).map((_, index) => {
-                return <Topic key={index} topicId={String(index)} />
-              })}
-            </div>
+            <Suspense fallback={<h1>Carregando....</h1>}>
+              <CardFeed />
+            </Suspense>
 
             <div className="flex place-content-end items-center gap-2">
               <CaretDoubleLeft size={24} />
@@ -87,3 +100,4 @@ export default function Inicio() {
     </div>
   )
 }
+

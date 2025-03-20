@@ -28,15 +28,7 @@ const userData: Prisma.UserCreateInput[] = [
           descricao: 'https://www.twitter.com/prisma',
         },
       ],
-    },
-    comments: {
-      create: [
-        {
-          descricao: 'saas',
-          likes: 10,
-        },
-      ],
-    },
+    }
   },
 ]
 

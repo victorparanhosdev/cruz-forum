@@ -1,3 +1,4 @@
+import { TopicWithMeta } from '@/app/api/topics/route'
 import {
   ArrowBendDownLeft,
   BookmarkSimple,
@@ -10,10 +11,11 @@ import { HTMLAttributes } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 interface TopicProps extends HTMLAttributes<HTMLDivElement> {
-  topicId: string
+  data: TopicWithMeta
 }
 
-export const Topic = ({ topicId, className, ...props }: TopicProps) => {
+export const Topic = ({ data, className, ...props }: TopicProps) => {
+
   return (
     <div
       {...props}
@@ -27,14 +29,13 @@ export const Topic = ({ topicId, className, ...props }: TopicProps) => {
           <Image
             height={64}
             width={64}
-            src="https://github.com/victorparanhosdev.png"
+            src={data.image ?? '/placeholderperfil.png'}
             alt=""
             className="size-16 rounded-full object-cover"
           />
           <div>
-            <h2 className="text-2xl font-bold">Titulo do Topico</h2>
+            <h2 className="text-2xl font-bold">{data.title}</h2>
             <span className="flex gap-2 text-xs text-gray-400">
-              {' '}
               <ArrowBendDownLeft size={14} /> publicado há 5 minutos atras
             </span>
           </div>
@@ -44,10 +45,7 @@ export const Topic = ({ topicId, className, ...props }: TopicProps) => {
         </button>
       </div>
 
-      <p className="line-clamp-3 w-full text-xs text-gray-100">
-        description description description description description description
-        description description description description description description
-        description description.s dsfsfvsfe....
+      <p className="line-clamp-3 w-full text-xs text-gray-100">{data.descricao}
       </p>
 
       <div className="flex items-center gap-6 text-sm">
@@ -55,14 +53,14 @@ export const Topic = ({ topicId, className, ...props }: TopicProps) => {
           aria-label="Botao de curtir"
           className="flex items-center gap-2"
         >
-          <Heart size={20} /> 6 curtidas
+          <Heart size={20} /> {data.likes} curtidas
         </button>
-        <Link href={`/topicos/${topicId}`}>
+        <Link href={`/topicos/${data.id}`}>
           <button
             aria-label="Botao de comentar"
             className="flex items-center gap-2"
           >
-            <ChatCircle size={20} /> 15 comentarios
+            <ChatCircle size={20} /> {data.comments} comentarios
           </button>
         </Link>
       </div>

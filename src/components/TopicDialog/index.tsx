@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 import {
   Button,
   Input,
@@ -23,9 +23,9 @@ import {
 import { useForm, UseFormRegister } from 'react-hook-form'
 import { z as zod } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-
+import { useRouter } from 'next/navigation'
 const createTopicSchema = zod.object({
-  titulo: zod.string().min(6, {
+  title: zod.string().min(6, {
     message: 'Titulo é obrigatório e deve conter no minimo 6 caracteres',
   }),
   descricao: zod.string().min(1, {
@@ -36,7 +36,7 @@ const createTopicSchema = zod.object({
 export type CreateTopicFormData = zod.infer<typeof createTopicSchema>
 
 const DEFAULT_FORM_VALUES: CreateTopicFormData = {
-  titulo: '',
+  title: '',
   descricao: '',
 }
 
@@ -45,10 +45,12 @@ interface TopicDialogProps {
 }
 
 export const TopicDialog = ({ children }: TopicDialogProps) => {
+ const [isClosedModal, setClosedModal] = useState(false)
+ const router = useRouter()
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm<CreateTopicFormData>({
     resolver: zodResolver(createTopicSchema),
@@ -56,18 +58,30 @@ export const TopicDialog = ({ children }: TopicDialogProps) => {
   })
 
   const handleCreateTopic = async (data: CreateTopicFormData) => {
-    const { descricao, titulo } = data
-    console.log(titulo, descricao)
+    
+    const { descricao, title } = data
+
+      await fetch('http://localhost:3000/api/topics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, descricao }),
+      }).then(res => res.json()).catch(console.error)
+
+      handleDialogClose({open: false})
+      router.refresh()
+    
   }
 
   const handleDialogClose = ({ open }: { open: boolean }) => {
     if (!open) {
       reset(DEFAULT_FORM_VALUES)
     }
+    setClosedModal(open)
+
   }
 
   return (
-    <DialogRoot placement="center" onOpenChange={handleDialogClose}>
+    <DialogRoot open={isClosedModal} placement="center" onOpenChange={handleDialogClose}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="rounded-lg bg-gray-950" padding={6}>
         <DialogHeader padding={0} marginBottom={4}>
@@ -85,10 +99,10 @@ export const TopicDialog = ({ children }: TopicDialogProps) => {
           >
             <FormField
               label="Titulo *:"
-              name="titulo"
+              name="title"
               placeholder="Escreva o titulo"
               register={register}
-              error={errors.titulo?.message}
+              error={errors.title?.message}
             />
 
             <FormField
@@ -109,7 +123,7 @@ export const TopicDialog = ({ children }: TopicDialogProps) => {
             </Button>
           </DialogActionTrigger>
           <Button type="submit" form="topic-form" className="w-full">
-            Criar
+            {isSubmitting ? 'Carregando': 'Criar'}
           </Button>
         </DialogFooter>
 
@@ -121,7 +135,7 @@ export const TopicDialog = ({ children }: TopicDialogProps) => {
 
 interface FormFieldProps {
   label: string
-  name: 'titulo' | 'descricao'
+  name: 'title' | 'descricao'
   placeholder: string
   register: UseFormRegister<CreateTopicFormData>
   error?: string
