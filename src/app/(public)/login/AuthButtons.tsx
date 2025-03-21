@@ -26,7 +26,7 @@ export const AuthButtons = () => {
   })
 
   async function handleSignIn(provider: string) {
-    await signIn(provider, { redirect: false, callbackUrl: '/' })
+    await signIn(provider, { callbackUrl: '/' })
   }
   async function handleFormEmailSubmit({ email }: SchemaFormEmailProps) {
     await signIn('email', { email, callbackUrl: '/' })

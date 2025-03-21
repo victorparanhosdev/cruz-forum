@@ -8,6 +8,8 @@ import {
   FilterPopover,
   TopicDialog,
 } from '@/components'
+import { CreateTopicFormData } from '@/components/TopicDialog'
+import { fetchAPI } from '@/lib/fetchAPI'
 import {
   CaretDoubleLeft,
   CaretDoubleRight,
@@ -20,11 +22,17 @@ import {
   StarFour,
 } from '@phosphor-icons/react/dist/ssr'
 import { Metadata } from 'next'
+import { revalidateTag } from 'next/cache'
 import { Suspense } from 'react'
 
 async function CardFeed() {
-  const res = await fetch('http://localhost:3000/api/topics')
-
+  const res = await fetch('http://localhost:3000/api/topics', {
+    cache: 'force-cache',
+    next: {
+      tags: ['feed'],
+      revalidate: 60,
+    },
+  })
   const { data }: ApiResponse = await res.json()
 
   return (
@@ -37,6 +45,20 @@ async function CardFeed() {
 }
 export const metadata: Metadata = {
   title: 'Feed',
+}
+
+async function handleCreateTopicsFeed({
+  descricao,
+  title,
+}: CreateTopicFormData) {
+  'use server'
+  await fetchAPI({
+    url: 'http://localhost:3000/api/topics',
+    method: 'POST',
+    data: { descricao, title },
+  })
+
+  revalidateTag('feed')
 }
 
 export default function Inicio() {
@@ -58,7 +80,7 @@ export default function Inicio() {
               />
               <Button>Buscar</Button>
             </div>
-            <TopicDialog>
+            <TopicDialog onCreateTopic={handleCreateTopicsFeed}>
               <Button iconLeft={ListPlus}>Criar tópico</Button>
             </TopicDialog>
           </div>
@@ -100,4 +122,3 @@ export default function Inicio() {
     </div>
   )
 }
-

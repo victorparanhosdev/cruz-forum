@@ -15,7 +15,6 @@ interface TopicProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const Topic = ({ data, className, ...props }: TopicProps) => {
-
   return (
     <div
       {...props}
@@ -45,7 +44,8 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
         </button>
       </div>
 
-      <p className="line-clamp-3 w-full text-xs text-gray-100">{data.descricao}
+      <p className="line-clamp-3 w-full text-xs text-gray-100">
+        {data.descricao}
       </p>
 
       <div className="flex items-center gap-6 text-sm">

@@ -20,8 +20,9 @@ export type ApiResponse = {
   }
 }
 
-
-const getOrderBy = (_sort: string | null): Prisma.TopicOrderByWithRelationInput => {
+const getOrderBy = (
+  _sort: string | null,
+): Prisma.TopicOrderByWithRelationInput => {
   switch (_sort) {
     case 'topic':
       return { title: Prisma.SortOrder.asc }
@@ -36,8 +37,9 @@ const getOrderBy = (_sort: string | null): Prisma.TopicOrderByWithRelationInput 
   }
 }
 
-
-export async function GET(req: NextRequest): Promise<NextResponse<ApiResponse | { error: string }>> {
+export async function GET(
+  req: NextRequest,
+): Promise<NextResponse<ApiResponse | { error: string }>> {
   try {
     const { searchParams } = new URL(req.url)
     const page = parseInt(searchParams.get('page') || '1')
@@ -81,8 +83,10 @@ export async function GET(req: NextRequest): Promise<NextResponse<ApiResponse | 
 
       topics = getTopics
         .sort((a, b) => {
-          const aRelevance = a._count.comments + a._count.likes + a._count.savedBy
-          const bRelevance = b._count.comments + b._count.likes + b._count.savedBy
+          const aRelevance =
+            a._count.comments + a._count.likes + a._count.savedBy
+          const bRelevance =
+            b._count.comments + b._count.likes + b._count.savedBy
           return bRelevance - aRelevance
         })
         .map((item) => ({
@@ -140,12 +144,16 @@ export async function GET(req: NextRequest): Promise<NextResponse<ApiResponse | 
       },
     })
   } catch (error) {
-    return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 })
+    return NextResponse.json(
+      { error: 'Erro interno do servidor' },
+      { status: 500 },
+    )
   }
 }
 
-// POST
-export async function POST(req: NextRequest): Promise<NextResponse<Topic | { error: string }>> {
+export async function POST(
+  req: NextRequest,
+): Promise<NextResponse<Topic | { error: string }>> {
   try {
     const session = await getServerSession(authOptions)
 
@@ -158,7 +166,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<Topic | { err
       )
     }
 
-    const { title, descricao }: { title: string; descricao: string } = await req.json()
+    const { title, descricao }: { title: string; descricao: string } =
+      await req.json()
 
     if (!title || !descricao) {
       throw new Error('É obrigatório o Título e a Descrição')

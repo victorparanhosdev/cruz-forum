@@ -23,7 +23,7 @@ import {
 import { useForm, UseFormRegister } from 'react-hook-form'
 import { z as zod } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
+
 const createTopicSchema = zod.object({
   title: zod.string().min(6, {
     message: 'Titulo é obrigatório e deve conter no minimo 6 caracteres',
@@ -42,11 +42,11 @@ const DEFAULT_FORM_VALUES: CreateTopicFormData = {
 
 interface TopicDialogProps {
   children: ReactNode
+  onCreateTopic: ({ descricao, title }: CreateTopicFormData) => Promise<void>
 }
 
-export const TopicDialog = ({ children }: TopicDialogProps) => {
- const [isClosedModal, setClosedModal] = useState(false)
- const router = useRouter()
+export const TopicDialog = ({ onCreateTopic, children }: TopicDialogProps) => {
+  const [isClosedModal, setClosedModal] = useState(false)
   const {
     handleSubmit,
     register,
@@ -57,19 +57,12 @@ export const TopicDialog = ({ children }: TopicDialogProps) => {
     defaultValues: DEFAULT_FORM_VALUES,
   })
 
-  const handleCreateTopic = async (data: CreateTopicFormData) => {
-    
-    const { descricao, title } = data
-
-      await fetch('http://localhost:3000/api/topics', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, descricao }),
-      }).then(res => res.json()).catch(console.error)
-
-      handleDialogClose({open: false})
-      router.refresh()
-    
+  const handleCreateTopic = async ({
+    title,
+    descricao,
+  }: CreateTopicFormData) => {
+    await onCreateTopic({ title, descricao })
+    handleDialogClose({ open: false })
   }
 
   const handleDialogClose = ({ open }: { open: boolean }) => {
@@ -77,11 +70,14 @@ export const TopicDialog = ({ children }: TopicDialogProps) => {
       reset(DEFAULT_FORM_VALUES)
     }
     setClosedModal(open)
-
   }
 
   return (
-    <DialogRoot open={isClosedModal} placement="center" onOpenChange={handleDialogClose}>
+    <DialogRoot
+      open={isClosedModal}
+      placement="center"
+      onOpenChange={handleDialogClose}
+    >
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="rounded-lg bg-gray-950" padding={6}>
         <DialogHeader padding={0} marginBottom={4}>
@@ -123,7 +119,7 @@ export const TopicDialog = ({ children }: TopicDialogProps) => {
             </Button>
           </DialogActionTrigger>
           <Button type="submit" form="topic-form" className="w-full">
-            {isSubmitting ? 'Carregando': 'Criar'}
+            {isSubmitting ? 'Carregando' : 'Criar'}
           </Button>
         </DialogFooter>
 

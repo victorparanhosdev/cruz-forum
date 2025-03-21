@@ -15,7 +15,6 @@ export const authOptions: AuthOptions = {
           name: profile.name,
           email: profile.email,
           image: profile.picture,
-          
         }
       },
     }),
@@ -36,6 +35,7 @@ export const authOptions: AuthOptions = {
         token.accessToken = account.access_token
         token.refreshToken = account.refresh_token
       }
+
       return token
     },
   },

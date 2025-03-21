@@ -28,7 +28,7 @@ const userData: Prisma.UserCreateInput[] = [
           descricao: 'https://www.twitter.com/prisma',
         },
       ],
-    }
+    },
   },
 ]
 
