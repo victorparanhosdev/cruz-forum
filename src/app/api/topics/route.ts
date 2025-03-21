@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma'
-import { Prisma, Topic, User } from '@prisma/client'
+import { Prisma, Topic } from '@prisma/client'
 import { getServerSession } from 'next-auth'
 import { NextRequest, NextResponse } from 'next/server'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
@@ -143,9 +143,9 @@ export async function GET(
         totalPages,
       },
     })
-  } catch (error) {
+  } catch (erro) {
     return NextResponse.json(
-      { error: 'Erro interno do servidor' },
+      { error: 'Erro interno do servidor', erro },
       { status: 500 },
     )
   }

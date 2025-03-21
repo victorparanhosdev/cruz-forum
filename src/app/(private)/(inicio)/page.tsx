@@ -2,7 +2,6 @@ import { ApiResponse } from '@/app/api/topics/route'
 import {
   Button,
   Card,
-  Input,
   Navigation,
   Topic,
   FilterPopover,
@@ -10,6 +9,7 @@ import {
 } from '@/components'
 import { CreateTopicFormData } from '@/components/TopicDialog'
 import { fetchAPI } from '@/lib/fetchAPI'
+
 import {
   CaretDoubleLeft,
   CaretDoubleRight,
@@ -18,31 +18,38 @@ import {
   Chats,
   FadersHorizontal,
   ListPlus,
-  MagnifyingGlass,
   StarFour,
 } from '@phosphor-icons/react/dist/ssr'
 import { Metadata } from 'next'
 import { revalidateTag } from 'next/cache'
 import { Suspense } from 'react'
 
-async function CardFeed() {
-  const res = await fetch('http://localhost:3000/api/topics', {
-    cache: 'force-cache',
+import { SearchTopic } from './SearchTopic'
+
+async function CardFeed({ searchTitle }: { searchTitle?: string }) {
+  const url = searchTitle
+    ? `http://localhost:3000/api/topics?title=${encodeURIComponent(searchTitle)}`
+    : 'http://localhost:3000/api/topics'
+
+  const res = await fetch(url, {
     next: {
       tags: ['feed'],
-      revalidate: 60,
     },
   })
+
   const { data }: ApiResponse = await res.json()
 
   return (
     <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-      {data.map((topic) => {
-        return <Topic key={topic.id} data={topic} />
-      })}
+      {data.length > 0 ? (
+        data.map((topic) => <Topic key={topic.id} data={topic} />)
+      ) : (
+        <p className="col-span-2 text-center py-4">Nenhum tópico encontrado</p>
+      )}
     </div>
   )
 }
+
 export const metadata: Metadata = {
   title: 'Feed',
 }
@@ -61,7 +68,9 @@ async function handleCreateTopicsFeed({
   revalidateTag('feed')
 }
 
-export default function Inicio() {
+export default async function Inicio(params) {
+  const searchParams = await params.searchParams
+
   return (
     <div className="grid min-h-view-without-fill w-full grid-cols-view-home gap-6 p-6">
       <Navigation />
@@ -72,14 +81,7 @@ export default function Inicio() {
 
         <section className="grid gap-4 pt-9">
           <div className="flex gap-4">
-            <div className="flex w-full  gap-3">
-              <Input
-                state="default"
-                placeholder="Buscar um topico"
-                withIcon={<MagnifyingGlass size={20} />}
-              />
-              <Button>Buscar</Button>
-            </div>
+            <SearchTopic />
             <TopicDialog onCreateTopic={handleCreateTopicsFeed}>
               <Button iconLeft={ListPlus}>Criar tópico</Button>
             </TopicDialog>
@@ -96,7 +98,7 @@ export default function Inicio() {
 
           <div className="grid gap-4">
             <Suspense fallback={<h1>Carregando....</h1>}>
-              <CardFeed />
+              <CardFeed searchTitle={searchParams?.title} />
             </Suspense>
 
             <div className="flex place-content-end items-center gap-2">
