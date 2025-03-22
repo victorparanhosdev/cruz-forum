@@ -2,7 +2,7 @@ import prisma from '@/lib/prisma'
 import { Prisma, Topic } from '@prisma/client'
 import { getServerSession } from 'next-auth'
 import { NextRequest, NextResponse } from 'next/server'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options'
 
 export type TopicWithMeta = Topic & {
   likes: number
@@ -44,7 +44,7 @@ export async function GET(
     const { searchParams } = new URL(req.url)
     const page = parseInt(searchParams.get('page') || '1')
     const perPage = parseInt(searchParams.get('per_page') || '6')
-    const titleSearch = searchParams.get('title') || ''
+    const titleSearch = searchParams.get('q') || ''
     const _sort = searchParams.get('_sort')
     const skip = (page - 1) * perPage
     const orderBy = getOrderBy(_sort)

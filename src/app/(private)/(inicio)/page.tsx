@@ -28,7 +28,7 @@ import { SearchTopic } from './SearchTopic'
 
 async function CardFeed({ searchTitle }: { searchTitle?: string }) {
   const url = searchTitle
-    ? `http://localhost:3000/api/topics?title=${encodeURIComponent(searchTitle)}`
+    ? `http://localhost:3000/api/topics?q=${encodeURIComponent(searchTitle)}`
     : 'http://localhost:3000/api/topics'
 
   const res = await fetch(url, {
@@ -68,7 +68,7 @@ async function handleCreateTopicsFeed({
   revalidateTag('feed')
 }
 
-export default async function Inicio(params) {
+export default async function Inicio(params: { searchParams: any }) {
   const searchParams = await params.searchParams
 
   return (
@@ -98,7 +98,7 @@ export default async function Inicio(params) {
 
           <div className="grid gap-4">
             <Suspense fallback={<h1>Carregando....</h1>}>
-              <CardFeed searchTitle={searchParams?.title} />
+              <CardFeed searchTitle={searchParams?.q} />
             </Suspense>
 
             <div className="flex place-content-end items-center gap-2">

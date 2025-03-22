@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 type RequestParams = {
   url: string
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
-  data?: Record<string, unknown> 
+  data?: Record<string, unknown>
 }
 
 export async function fetchAPI<T>({

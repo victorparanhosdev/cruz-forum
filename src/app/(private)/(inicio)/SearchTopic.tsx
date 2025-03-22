@@ -27,7 +27,7 @@ export function SearchTopic() {
   })
 
   async function handleSearchTopic({ title }: SchemaFormSearchTopicProps) {
-    params.set('title', title)
+    params.set('q', title)
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
   }
 
