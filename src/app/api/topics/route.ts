@@ -4,14 +4,14 @@ import { getServerSession } from 'next-auth'
 import { NextRequest, NextResponse } from 'next/server'
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options'
 
-export type TopicWithMeta = Topic & {
+export type TopicFeed = Topic & {
   likes: number
   comments: number
   image: string | null
 }
 
-export type ApiResponse = {
-  data: TopicWithMeta[]
+export type TopicWithPaginationProps = {
+  data: TopicFeed[]
   meta: {
     currentPage: number
     perPage: number
@@ -39,7 +39,7 @@ const getOrderBy = (
 
 export async function GET(
   req: NextRequest,
-): Promise<NextResponse<ApiResponse | { error: string }>> {
+): Promise<NextResponse<TopicWithPaginationProps | { error: string }>> {
   try {
     const { searchParams } = new URL(req.url)
     const page = parseInt(searchParams.get('page') || '1')
@@ -58,7 +58,7 @@ export async function GET(
         }
       : {}
 
-    let topics: TopicWithMeta[]
+    let topics: TopicFeed[]
 
     if (_sort === 'relevant') {
       const getTopics = await prisma.topic.findMany({

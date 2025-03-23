@@ -25,12 +25,18 @@ import { z as zod } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 const createTopicSchema = zod.object({
-  title: zod.string().min(6, {
-    message: 'Titulo é obrigatório e deve conter no minimo 6 caracteres',
-  }),
-  descricao: zod.string().min(1, {
-    message: 'Descrição é obrigatório',
-  }),
+  title: zod
+    .string()
+    .min(1, {
+      message: 'Titulo é obrigatório',
+    })
+    .max(60, 'O maximo é ate 60 caracteres'),
+  descricao: zod
+    .string()
+    .min(1, {
+      message: 'Descrição é obrigatório',
+    })
+    .max(200, 'O maximo permitido é ate 200 caracteres'),
 })
 
 export type CreateTopicFormData = zod.infer<typeof createTopicSchema>

@@ -30,7 +30,9 @@ export const Navigation = async () => {
           />
           <div className="flex max-w-[110px] flex-col w-full">
             {isUserActive ? (
-              <p className="truncate text-sm font-bold">{user.name}</p>
+              <p className="truncate text-sm font-bold text-start">
+                {user.name}
+              </p>
             ) : (
               <Skeleton className="h-4 min-w-24 w-full bg-zinc-700" />
             )}

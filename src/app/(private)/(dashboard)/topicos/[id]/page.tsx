@@ -10,17 +10,72 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { CommentForm } from './CreateComents'
 import { Metadata } from 'next'
+import { fetchAPI } from '@/lib/fetchAPI'
+import { revalidateTag } from 'next/cache'
 
 export const metadata: Metadata = {
   title: 'Topico',
 }
 
-export default function TopicId() {
+export interface AllCommentsTopic {
+  id: string
+  descricao: string
+  userId: string
+  topicId: string
+  createdAt: string
+  updatedAt: string
+  image: string
+  name: string
+  likes: number
+}
+
+export interface TopicWithAllComents {
+  id: string
+  title: string
+  descricao: string
+  userId: string
+  createdAt: string
+  updatedAt: string
+  comments: AllCommentsTopic[]
+  image: string
+  name: string
+}
+async function handleAddComments({
+  comments,
+  topicId,
+}: {
+  comments: string
+  topicId: string
+}) {
+  'use server'
+
+  await fetchAPI({
+    url: `http://localhost:3000/api/comments/${topicId}`,
+    method: 'POST',
+    data: { descricao: comments },
+  })
+
+  revalidateTag('topic-comments')
+}
+
+export default async function TopicId({ params }) {
+  const getParams = await params
+
+  const response: TopicWithAllComents = await fetch(
+    `http://localhost:3000/api/comments/${getParams.id}`,
+    {
+      next: {
+        tags: ['topic-comments'],
+      },
+    },
+  )
+    .then((res) => res.json())
+    .catch(console.error)
+
   return (
     <main className="rounded-xl bg-stone-950 px-4 py-12 ">
       <section className="mx-auto max-w-[950px] ">
         <Link href={'/'} className="mb-4 inline-flex">
-          {' '}
           <Button state="transparent" className=" pl-0" iconLeft={ArrowLeft}>
             Voltar
           </Button>
@@ -28,22 +83,22 @@ export default function TopicId() {
 
         <div className="mb-4 flex items-center gap-6">
           <Image
-            src="https://github.com/victorparanhosdev.png"
+            src={response.image ?? '/placeholderperfil.png'}
             alt="Foto de perfil"
             width={128}
             height={128}
             className="size-32 rounded-full object-cover"
           />
-          <div className="grid gap-2.5">
+          <div className="grid gap-2.5 w-full">
             <div className="flex justify-between">
               <div>
-                <h1 className="text-4xl font-bold">Titulo do Topico</h1>
+                <h1 className="text-4xl font-bold">{response.title}</h1>
                 <div className="flex items-center gap-2">
                   <ArrowBendDownLeft size={16} />
                   <span className="text-sm text-zinc-500">
                     topico publicado há{' '}
                     <span className="font-semibold">5 dias</span> por{' '}
-                    <strong className="text-zinc-400">Lorena Brito</strong>
+                    <strong className="text-zinc-400">{response.name}</strong>
                   </span>
                 </div>
               </div>
@@ -57,14 +112,7 @@ export default function TopicId() {
               </div>
             </div>
 
-            <p className="text-base text-zinc-300">
-              exemplo de descrição exemplo de descriexemplo de descrição exemplo
-              de descriexemplo de descrição exemplo de descriexemplo de
-              descrição exemplo de descriexemplo de descrição exemplo de
-              descriexemplo de descrição exemplo de descriexemplo de descrição
-              exemplo de descriexemplo de descrição exemplo de descriexemplo de
-              descrição ex.
-            </p>
+            <p className="text-base text-zinc-300">{response.descricao}</p>
           </div>
         </div>
 
@@ -72,13 +120,19 @@ export default function TopicId() {
           <p className="mb-4 text-sm">Comentarios: </p>
 
           <div className="grid max-h-[474px] gap-4 overflow-auto">
-            {Array.from({ length: 10 }).map((_, index) => {
-              return <Comentarios key={index} />
-            })}
+            {response.comments.length > 0 ? (
+              response.comments.map((comment) => {
+                return <Comentarios key={comment.id} dataComment={comment} />
+              })
+            ) : (
+              <div className="grid place-items-center border border-stone-900 rounded-lg min-h-[162px] p-4">
+                <h1>Nenhuma comentario por enquanto</h1>
+              </div>
+            )}
           </div>
         </div>
 
-        <CommentForm />
+        <CommentForm onAddComments={handleAddComments} topicId={getParams.id} />
       </section>
     </main>
   )

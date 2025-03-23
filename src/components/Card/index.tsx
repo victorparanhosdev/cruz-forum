@@ -1,3 +1,4 @@
+import { CardRelevantProps } from '@/app/(private)/(inicio)/page'
 import { ArrowBendDownLeft } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -5,12 +6,12 @@ import { HTMLAttributes } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  cardId: string
+  dataCard: CardRelevantProps
 }
 
-export const Card = ({ cardId, className, ...props }: CardProps) => {
+export const Card = ({ dataCard, className, ...props }: CardProps) => {
   return (
-    <Link href={`/topicos/${cardId}`}>
+    <Link href={`/topicos/${dataCard.id}`}>
       <div
         {...props}
         className={twMerge(
@@ -21,12 +22,12 @@ export const Card = ({ cardId, className, ...props }: CardProps) => {
         <Image
           width={32}
           height={32}
-          src="https://github.com/victorparanhosdev.png"
+          src={dataCard.image ?? '/placeholderperfil.png'}
           alt="Imagem do perfil"
           className="size-8 rounded-full object-cover"
         />
         <div>
-          <p className="text-sm font-medium">Título do Tópico</p>
+          <p className="text-sm font-medium">{dataCard.title}</p>
           <span className="flex items-center gap-1 text-[10px] text-gray-400">
             <ArrowBendDownLeft size={16} /> comentado há 6 minutos
           </span>

@@ -1,4 +1,4 @@
-import { ApiResponse } from '@/app/api/topics/route'
+import { TopicWithPaginationProps } from '@/app/api/topics/route'
 import {
   Button,
   Card,
@@ -25,6 +25,7 @@ import { revalidateTag } from 'next/cache'
 import { Suspense } from 'react'
 
 import { SearchTopic } from './SearchTopic'
+import { SkeletonTopic } from '@/components/Topic'
 
 async function CardFeed({ searchTitle }: { searchTitle?: string }) {
   const url = searchTitle
@@ -37,15 +38,40 @@ async function CardFeed({ searchTitle }: { searchTitle?: string }) {
     },
   })
 
-  const { data }: ApiResponse = await res.json()
+  const { data }: TopicWithPaginationProps = await res.json()
+  await new Promise((resolve) => setTimeout(resolve, 300))
 
   return (
-    <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+    <div className="grid grid-cols-2 gap-x-6 gap-y-4 min-h-[650px]">
       {data.length > 0 ? (
         data.map((topic) => <Topic key={topic.id} data={topic} />)
       ) : (
-        <p className="col-span-2 text-center py-4">Nenhum tópico encontrado</p>
+        <p className=" col-span-2 text-center py-4">Nenhum tópico encontrado</p>
       )}
+    </div>
+  )
+}
+export type CardRelevantProps = {
+  id: string
+  title: string
+  createdAt: string
+  image: string
+}
+
+async function CardRelevant() {
+  const url = 'http://localhost:3000/api/topics/relevant'
+
+  const res = await fetch(url)
+
+  const data: CardRelevantProps[] = await res.json()
+
+  await new Promise((resolve) => setTimeout(resolve, 300))
+
+  return (
+    <div className="flex flex-col gap-4">
+      {data.map((dataCard: CardRelevantProps) => {
+        return <Card key={dataCard.id} dataCard={dataCard} />
+      })}
     </div>
   )
 }
@@ -97,7 +123,7 @@ export default async function Inicio(params: { searchParams: any }) {
           </div>
 
           <div className="grid gap-4">
-            <Suspense fallback={<h1>Carregando....</h1>}>
+            <Suspense fallback={<SkeletonTopic />}>
               <CardFeed searchTitle={searchParams?.q} />
             </Suspense>
 
@@ -115,11 +141,9 @@ export default async function Inicio(params: { searchParams: any }) {
           <StarFour size={16} /> Mais Relevantes
         </h2>
 
-        <div className="flex flex-col gap-4">
-          {Array.from({ length: 5 }).map((_, index) => {
-            return <Card key={index} cardId={String(index)} />
-          })}
-        </div>
+        <Suspense fallback={<h1>Carregando....</h1>}>
+          <CardRelevant />
+        </Suspense>
       </aside>
     </div>
   )

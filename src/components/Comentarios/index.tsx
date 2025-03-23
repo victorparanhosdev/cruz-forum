@@ -1,17 +1,23 @@
+import { AllCommentsTopic } from '@/app/(private)/(dashboard)/topicos/[id]/page'
 import { ArrowBendDownLeft, Heart, Trash } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import { HTMLAttributes } from 'react'
 import { twMerge } from 'tailwind-merge'
 
+interface ComentariosProps extends HTMLAttributes<HTMLDivElement> {
+  dataComment: AllCommentsTopic
+}
+
 export const Comentarios = ({
+  dataComment,
   className,
   ...props
-}: HTMLAttributes<HTMLDivElement>) => {
+}: ComentariosProps) => {
   return (
     <div
       {...props}
       className={twMerge(
-        'grid gap-4 rounded-lg border border-stone-900 bg-topico-200 p-4',
+        'grid gap-4 rounded-lg border border-stone-900 bg-topico-200 p-4 h-max',
         className,
       )}
     >
@@ -20,13 +26,13 @@ export const Comentarios = ({
           <Image
             width={48}
             height={48}
-            src="https://github.com/victorparanhosdev.png"
+            src={dataComment.image ?? '/placeholderperfil.png'}
             alt=""
             className="size-12 rounded-full object-cover"
           />
 
           <div>
-            <h2>Victor Paranhos</h2>
+            <h2>{dataComment.name}</h2>
             <div className="flex items-center gap-1">
               <ArrowBendDownLeft size={16} />
               <span className="text-xs text-zinc-500">
@@ -42,20 +48,14 @@ export const Comentarios = ({
         </button>
       </div>
 
-      <p className="text-base text-zinc-300">
-        exemplo de descrição exemplo de descriexemplo de descrição exemplo de
-        descriexemplo de descrição exemplo de descriexemplo de descrição exemplo
-        de descriexemplo de descrição exemplo de descriexemplo de descrição
-        exemplo de descriexemplo de descrição exemplo de do de descrição exemplo
-        de descriexemplo de descrasdsadsdd
-      </p>
+      <p className="text-base text-zinc-300">{dataComment.descricao}</p>
 
       <button
         aria-label="Curtir Comentario"
         className="flex items-center gap-2 text-sm"
       >
         <Heart size={24} />
-        06 curtidas
+        {dataComment.likes} curtidas
       </button>
     </div>
   )

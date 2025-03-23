@@ -1,4 +1,4 @@
-import { TopicWithMeta } from '@/app/api/topics/route'
+import { TopicFeed } from '@/app/api/topics/route'
 import {
   ArrowBendDownLeft,
   BookmarkSimple,
@@ -9,9 +9,24 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { HTMLAttributes } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { Skeleton } from '@chakra-ui/react'
 
 interface TopicProps extends HTMLAttributes<HTMLDivElement> {
-  data: TopicWithMeta
+  data: TopicFeed
+}
+
+export const SkeletonTopic = () => {
+  return (
+    <div className="grid grid-cols-2 gap-x-6 gap-y-4 min-h-[650px]">
+      {Array.from({ length: 6 }).map((_, index) => {
+        return (
+          <Skeleton asChild key={index}>
+            <div className="grid gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100 h-[206px]" />
+          </Skeleton>
+        )
+      })}
+    </div>
+  )
 }
 
 export const Topic = ({ data, className, ...props }: TopicProps) => {
@@ -19,11 +34,11 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
     <div
       {...props}
       className={twMerge(
-        'grid gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100',
+        'grid gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100 min-h-[206px] h-max',
         className,
       )}
     >
-      <div className="flex items-start justify-between">
+      <div className="flex items-start justify-between gap-4">
         <div className="flex gap-4">
           <Image
             height={64}
@@ -32,8 +47,8 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
             alt=""
             className="size-16 rounded-full object-cover"
           />
-          <div>
-            <h2 className="text-2xl font-bold">{data.title}</h2>
+          <div className="w-full h-[72px]">
+            <h2 className="text-lg font-bold ">{data.title}</h2>
             <span className="flex gap-2 text-xs text-gray-400">
               <ArrowBendDownLeft size={14} /> publicado há 5 minutos atras
             </span>
@@ -44,7 +59,7 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
         </button>
       </div>
 
-      <p className="line-clamp-3 w-full text-xs text-gray-100">
+      <p className="line-clamp-3 w-full text-xs text-gray-100 h-12">
         {data.descricao}
       </p>
 

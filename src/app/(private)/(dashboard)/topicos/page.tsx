@@ -1,4 +1,3 @@
-
 import { Button, FilterPopover, Input, Topic } from '@/components'
 import {
   ArrowLeft,
@@ -17,68 +16,66 @@ export const metadata: Metadata = {
   title: 'Meus Topicos',
 }
 
-
-
 export default function Topicos() {
-
-
   const postsData = [
     {
-      id: "post-001",
-      title: "Como melhorar sua produtividade",
-      descricao: "Dicas e truques para aumentar sua produtividade no dia a dia",
-      userId: "user-123",
-      createdAt: new Date("2025-02-15T10:30:00Z"),
-      updatedAt: new Date("2025-02-15T14:45:00Z"),
+      id: 'post-001',
+      title: 'Como melhorar sua produtividade',
+      descricao: 'Dicas e truques para aumentar sua produtividade no dia a dia',
+      userId: 'user-123',
+      createdAt: new Date('2025-02-15T10:30:00Z'),
+      updatedAt: new Date('2025-02-15T14:45:00Z'),
       likes: 42,
       comments: 7,
-      image: null 
+      image: null,
     },
     {
-      id: "post-002",
-      title: "Receita de bolo de chocolate vegano",
-      descricao: "Uma deliciosa receita de bolo de chocolate sem ingredientes de origem animal",
-      userId: "user-456",
-      createdAt: new Date("2025-03-01T08:15:00Z"),
-      updatedAt: new Date("2025-03-01T08:15:00Z"),
+      id: 'post-002',
+      title: 'Receita de bolo de chocolate vegano',
+      descricao:
+        'Uma deliciosa receita de bolo de chocolate sem ingredientes de origem animal',
+      userId: 'user-456',
+      createdAt: new Date('2025-03-01T08:15:00Z'),
+      updatedAt: new Date('2025-03-01T08:15:00Z'),
       likes: 28,
       comments: 12,
-      image: null
+      image: null,
     },
     {
-      id: "post-003",
-      title: "Guia para iniciantes em programação",
-      descricao: "Tudo o que você precisa saber para começar a programar",
-      userId: "user-789",
-      createdAt: new Date("2025-03-10T16:20:00Z"),
-      updatedAt: new Date("2025-03-12T11:05:00Z"),
+      id: 'post-003',
+      title: 'Guia para iniciantes em programação',
+      descricao: 'Tudo o que você precisa saber para começar a programar',
+      userId: 'user-789',
+      createdAt: new Date('2025-03-10T16:20:00Z'),
+      updatedAt: new Date('2025-03-12T11:05:00Z'),
       likes: 105,
       comments: 23,
-      image: null
+      image: null,
     },
     {
-      id: "post-004",
-      title: "Os melhores destinos para viajar em 2025",
-      descricao: "Conheça os lugares mais incríveis para visitar este ano",
-      userId: "user-123",
-      createdAt: new Date("2025-01-05T12:00:00Z"),
-      updatedAt: new Date("2025-01-07T09:30:00Z"),
+      id: 'post-004',
+      title: 'Os melhores destinos para viajar em 2025',
+      descricao: 'Conheça os lugares mais incríveis para visitar este ano',
+      userId: 'user-123',
+      createdAt: new Date('2025-01-05T12:00:00Z'),
+      updatedAt: new Date('2025-01-07T09:30:00Z'),
       likes: 87,
       comments: 15,
-      image: null 
+      image: null,
     },
     {
-      id: "post-005",
-      title: "Meditação para iniciantes",
-      descricao: "Aprenda técnicas simples de meditação para reduzir o estresse",
-      userId: "user-456",
-      createdAt: new Date("2025-03-18T07:45:00Z"),
-      updatedAt: new Date("2025-03-18T07:45:00Z"),
+      id: 'post-005',
+      title: 'Meditação para iniciantes',
+      descricao:
+        'Aprenda técnicas simples de meditação para reduzir o estresse',
+      userId: 'user-456',
+      createdAt: new Date('2025-03-18T07:45:00Z'),
+      updatedAt: new Date('2025-03-18T07:45:00Z'),
       likes: 36,
       comments: 8,
-      image: null
-    }
-  ];
+      image: null,
+    },
+  ]
 
   return (
     <main className="rounded-xl bg-stone-950 px-4 py-12">
@@ -116,7 +113,7 @@ export default function Topicos() {
         <div className="grid gap-4">
           <div className="grid grid-cols-2 gap-x-6 gap-y-4">
             {postsData.map((topic, index) => {
-              return <Topic key={index} data={topic}/>
+              return <Topic key={index} data={topic} />
             })}
           </div>
 
