@@ -54,9 +54,11 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
             </span>
           </div>
         </div>
-        <button aria-label="Botao para salvar o topico">
-          <BookmarkSimple size={28} />
-        </button>
+        {!data.isAuthorTopic && (
+          <button aria-label="Botao para salvar o topico">
+            <BookmarkSimple size={28} />
+          </button>
+        )}
       </div>
 
       <p className="line-clamp-3 w-full text-xs text-gray-100 h-12">
@@ -70,7 +72,7 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
         >
           <Heart size={20} /> {data.likes} curtidas
         </button>
-        <Link href={`/topicos/${data.id}`}>
+        <Link href={`/topicos/${data.slug}`}>
           <button
             aria-label="Botao de comentar"
             className="flex items-center gap-2"

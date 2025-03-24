@@ -12,62 +12,70 @@ import { CommentForm } from './CreateComents'
 import { Metadata } from 'next'
 import { fetchAPI } from '@/lib/fetchAPI'
 import { revalidateTag } from 'next/cache'
+import { Suspense } from 'react'
+import { TopicCommentsProps } from '@/app/api/topics/[slug]/comments/route'
 
 export const metadata: Metadata = {
   title: 'Topico',
 }
 
-export interface AllCommentsTopic {
-  id: string
-  descricao: string
-  userId: string
-  topicId: string
-  createdAt: string
-  updatedAt: string
-  image: string
-  name: string
-  likes: number
-}
-
-export interface TopicWithAllComents {
+interface TopicIdProps {
   id: string
   title: string
   descricao: string
   userId: string
   createdAt: string
   updatedAt: string
-  comments: AllCommentsTopic[]
+  slug: number
   image: string
   name: string
 }
+
 async function handleAddComments({
   comments,
-  topicId,
+  topicSlug,
 }: {
   comments: string
-  topicId: string
+  topicSlug: number
 }) {
   'use server'
 
   await fetchAPI({
-    url: `http://localhost:3000/api/comments/${topicId}`,
+    url: `http://localhost:3000/api/topics/${topicSlug}/comments`,
     method: 'POST',
     data: { descricao: comments },
   })
 
-  revalidateTag('topic-comments')
+  revalidateTag('comments')
+}
+
+async function ComentariosCard({ topicSlug }: { topicSlug: number }) {
+  const responseComents: TopicCommentsProps[] = await fetchAPI({
+    url: `http://localhost:3000/api/topics/${topicSlug}/comments`,
+    method: 'GET',
+    next: { tags: ['comments'] },
+  })
+
+  return (
+    <div className="grid max-h-[474px] gap-4 overflow-auto">
+      {Array.isArray(responseComents) && responseComents.length > 0 ? (
+        responseComents.map((comment) => {
+          return <Comentarios key={comment.id} dataComment={comment} />
+        })
+      ) : (
+        <div className="grid place-items-center border border-stone-900 rounded-lg min-h-[162px] p-4">
+          <h1>Nenhuma comentario por enquanto</h1>
+        </div>
+      )}
+    </div>
+  )
 }
 
 export default async function TopicId({ params }) {
   const getParams = await params
 
-  const response: TopicWithAllComents = await fetch(
-    `http://localhost:3000/api/comments/${getParams.id}`,
-    {
-      next: {
-        tags: ['topic-comments'],
-      },
-    },
+  const response: TopicIdProps = await fetch(
+    `http://localhost:3000/api/topics/${getParams.slug}`,
   )
     .then((res) => res.json())
     .catch(console.error)
@@ -118,21 +126,15 @@ export default async function TopicId({ params }) {
 
         <div className="mb-4">
           <p className="mb-4 text-sm">Comentarios: </p>
-
-          <div className="grid max-h-[474px] gap-4 overflow-auto">
-            {response.comments.length > 0 ? (
-              response.comments.map((comment) => {
-                return <Comentarios key={comment.id} dataComment={comment} />
-              })
-            ) : (
-              <div className="grid place-items-center border border-stone-900 rounded-lg min-h-[162px] p-4">
-                <h1>Nenhuma comentario por enquanto</h1>
-              </div>
-            )}
-          </div>
+          <Suspense fallback={<h1>Carregando....</h1>}>
+            <ComentariosCard topicSlug={response.slug} />
+          </Suspense>
         </div>
 
-        <CommentForm onAddComments={handleAddComments} topicId={getParams.id} />
+        <CommentForm
+          onAddComments={handleAddComments}
+          topicSlug={response.slug}
+        />
       </section>
     </main>
   )

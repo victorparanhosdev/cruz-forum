@@ -2,7 +2,7 @@ import { CircleNotch } from '@phosphor-icons/react/dist/ssr'
 
 export default function Loading() {
   return (
-    <main className="min-h-screen grid place-content-center bg-slate-950">
+    <main className="min-h-screen grid place-content-center bg-black w-full">
       <div className="max-w-60 text-center space-y-4 flex flex-col items-center">
         <div className="w-10 h-10 m-auto">
           <CircleNotch className="animate-spin h-full w-full text-white" />

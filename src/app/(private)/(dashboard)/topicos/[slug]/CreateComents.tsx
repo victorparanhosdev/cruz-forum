@@ -16,17 +16,17 @@ const SchemaFormComments = z.object({
 type CommentFormProps = {
   onAddComments: ({
     comments,
-    topicId,
+    topicSlug,
   }: {
     comments: string
-    topicId: string
+    topicSlug: number
   }) => Promise<void>
-  topicId: string
+  topicSlug: number
 }
 
 type SchemaFormCommentsProps = z.infer<typeof SchemaFormComments>
 
-export const CommentForm = ({ onAddComments, topicId }: CommentFormProps) => {
+export const CommentForm = ({ onAddComments, topicSlug }: CommentFormProps) => {
   const [isCommentActive, setCommentActive] = useState(false)
 
   const { data } = useSession()
@@ -47,7 +47,7 @@ export const CommentForm = ({ onAddComments, topicId }: CommentFormProps) => {
   }
 
   async function handleFormSubmit({ comments }: SchemaFormCommentsProps) {
-    await onAddComments({ comments, topicId })
+    await onAddComments({ comments, topicSlug })
     handleCancel()
   }
 

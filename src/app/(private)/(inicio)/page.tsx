@@ -27,35 +27,38 @@ import { Suspense } from 'react'
 import { SearchTopic } from './SearchTopic'
 import { SkeletonTopic } from '@/components/Topic'
 
+export const metadata: Metadata = {
+  title: 'Feed',
+}
+
+export type CardRelevantProps = {
+  id: string
+  title: string
+  createdAt: string
+  image: string
+  slug: number
+}
+
 async function CardFeed({ searchTitle }: { searchTitle?: string }) {
   const url = searchTitle
     ? `http://localhost:3000/api/topics?q=${encodeURIComponent(searchTitle)}`
     : 'http://localhost:3000/api/topics'
 
-  const res = await fetch(url, {
-    next: {
-      tags: ['feed'],
-    },
+  const { data }: TopicWithPaginationProps = await fetchAPI({
+    url,
+    method: 'GET',
+    next: { tags: ['feed'] },
   })
-
-  const { data }: TopicWithPaginationProps = await res.json()
-  await new Promise((resolve) => setTimeout(resolve, 300))
 
   return (
     <div className="grid grid-cols-2 gap-x-6 gap-y-4 min-h-[650px]">
-      {data.length > 0 ? (
+      {Array.isArray(data) && data.length > 0 ? (
         data.map((topic) => <Topic key={topic.id} data={topic} />)
       ) : (
         <p className=" col-span-2 text-center py-4">Nenhum tópico encontrado</p>
       )}
     </div>
   )
-}
-export type CardRelevantProps = {
-  id: string
-  title: string
-  createdAt: string
-  image: string
 }
 
 async function CardRelevant() {
@@ -65,8 +68,6 @@ async function CardRelevant() {
 
   const data: CardRelevantProps[] = await res.json()
 
-  await new Promise((resolve) => setTimeout(resolve, 300))
-
   return (
     <div className="flex flex-col gap-4">
       {data.map((dataCard: CardRelevantProps) => {
@@ -74,10 +75,6 @@ async function CardRelevant() {
       })}
     </div>
   )
-}
-
-export const metadata: Metadata = {
-  title: 'Feed',
 }
 
 async function handleCreateTopicsFeed({

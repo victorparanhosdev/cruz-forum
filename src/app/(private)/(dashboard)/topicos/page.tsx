@@ -1,3 +1,4 @@
+import { TopicFeed } from '@/app/api/topics/route'
 import { Button, FilterPopover, Input, Topic } from '@/components'
 import {
   ArrowLeft,
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 }
 
 export default function Topicos() {
-  const postsData = [
+  const postsData: TopicFeed[] = [
     {
       id: 'post-001',
       title: 'Como melhorar sua produtividade',
@@ -28,6 +29,8 @@ export default function Topicos() {
       likes: 42,
       comments: 7,
       image: null,
+      isAuthorTopic: false,
+      slug: 10
     },
     {
       id: 'post-002',
@@ -40,6 +43,8 @@ export default function Topicos() {
       likes: 28,
       comments: 12,
       image: null,
+      isAuthorTopic: false,
+      slug: 10
     },
     {
       id: 'post-003',
@@ -51,6 +56,8 @@ export default function Topicos() {
       likes: 105,
       comments: 23,
       image: null,
+      isAuthorTopic: false,
+      slug: 10
     },
     {
       id: 'post-004',
@@ -62,6 +69,8 @@ export default function Topicos() {
       likes: 87,
       comments: 15,
       image: null,
+      isAuthorTopic: false,
+      slug: 10
     },
     {
       id: 'post-005',
@@ -74,6 +83,8 @@ export default function Topicos() {
       likes: 36,
       comments: 8,
       image: null,
+      isAuthorTopic: false,
+      slug: 10
     },
   ]
 

@@ -32,7 +32,8 @@ model Topic {
   title     String
   descricao String
   userId    String
-  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  slug      Int      @unique @default(autoincrement())
 
   // Relações
   comments  Comment[]

@@ -11,7 +11,7 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 
 export const Card = ({ dataCard, className, ...props }: CardProps) => {
   return (
-    <Link href={`/topicos/${dataCard.id}`}>
+    <Link href={`/topicos/${dataCard.slug}`}>
       <div
         {...props}
         className={twMerge(

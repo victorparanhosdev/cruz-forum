@@ -8,6 +8,7 @@ export type TopicFeed = Topic & {
   likes: number
   comments: number
   image: string | null
+  isAuthorTopic: boolean
 }
 
 export type TopicWithPaginationProps = {
@@ -41,6 +42,17 @@ export async function GET(
   req: NextRequest,
 ): Promise<NextResponse<TopicWithPaginationProps | { error: string }>> {
   try {
+    const session = await getServerSession(authOptions)
+
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Usuário não autenticado' },
+        {
+          status: 401,
+        },
+      )
+    }
+
     const { searchParams } = new URL(req.url)
     const page = parseInt(searchParams.get('page') || '1')
     const perPage = parseInt(searchParams.get('per_page') || '6')
@@ -96,6 +108,7 @@ export async function GET(
           comments: item._count.comments,
           image: item.user.image,
           user: undefined,
+          isAuthorTopic: Boolean(item.userId === session.user.id),
         }))
     } else {
       topics = await prisma.topic
@@ -127,6 +140,7 @@ export async function GET(
             comments: item._count.comments,
             image: item.user.image,
             user: undefined,
+            isAuthorTopic: Boolean(item.userId === session.user.id),
           })),
         )
     }

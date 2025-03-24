@@ -2,14 +2,20 @@ import { cookies } from 'next/headers'
 
 type RequestParams = {
   url: string
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
   data?: Record<string, unknown>
+  next?: NextFetchRequestConfig
+}
+
+type NextFetchRequestConfig = {
+  tags?: string[]
 }
 
 export async function fetchAPI<T>({
   url,
-  method,
+  method = 'GET',
   data,
+  next,
 }: RequestParams): Promise<T> {
   const cookieStore = await cookies()
   const cookieString = cookieStore
@@ -24,6 +30,7 @@ export async function fetchAPI<T>({
       Cookie: cookieString,
     },
     body: data ? JSON.stringify(data) : undefined,
+    next,
   }
 
   try {

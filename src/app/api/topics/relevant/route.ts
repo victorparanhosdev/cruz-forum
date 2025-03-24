@@ -8,6 +8,7 @@ export async function GET() {
         id: true,
         title: true,
         createdAt: true,
+        slug: true,
         user: {
           select: {
             image: true,
@@ -34,6 +35,7 @@ export async function GET() {
         title: item.title,
         createdAt: item.createdAt,
         image: item.user.image,
+        slug: item.slug,
       }))
       .slice(0, 5)
 

@@ -124,7 +124,12 @@ export const TopicDialog = ({ onCreateTopic, children }: TopicDialogProps) => {
               Cancelar
             </Button>
           </DialogActionTrigger>
-          <Button type="submit" form="topic-form" className="w-full">
+          <Button
+            disabled={isSubmitting}
+            type="submit"
+            form="topic-form"
+            className="w-full"
+          >
             {isSubmitting ? 'Carregando' : 'Criar'}
           </Button>
         </DialogFooter>

@@ -1,11 +1,11 @@
-import { AllCommentsTopic } from '@/app/(private)/(dashboard)/topicos/[id]/page'
+import { TopicCommentsProps } from '@/app/api/topics/[slug]/comments/route'
 import { ArrowBendDownLeft, Heart, Trash } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import { HTMLAttributes } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 interface ComentariosProps extends HTMLAttributes<HTMLDivElement> {
-  dataComment: AllCommentsTopic
+  dataComment: TopicCommentsProps
 }
 
 export const Comentarios = ({
