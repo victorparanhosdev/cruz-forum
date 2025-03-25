@@ -21,7 +21,7 @@ export async function DELETE(req: NextRequest, { params }) {
 
   if (!topic) {
     return NextResponse.json(
-      { error: 'Tópico não encontrado' },
+      { error: 'Tópico não existe' },
       { status: 404 },
     )
   }

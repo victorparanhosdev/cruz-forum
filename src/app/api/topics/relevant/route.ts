@@ -39,7 +39,7 @@ export async function GET() {
       }))
       .slice(0, 5)
 
-    return NextResponse.json(topicsRelevants)
+    return NextResponse.json(topicsRelevants, {status: 200})
   } catch (erro) {
     return NextResponse.json(
       { error: 'Erro interno do servidor', erro },

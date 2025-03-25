@@ -104,6 +104,10 @@ export async function POST(req: NextRequest, { params }) {
 
   const { descricao } = body
 
+  if(!descricao) {
+    return NextResponse.json({error: 'descrição não encontrada'}, {status: 404})
+  }
+
   try {
     const topic = await prisma.topic.findUnique({
       where: {
