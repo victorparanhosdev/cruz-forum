@@ -1,5 +1,4 @@
 'use client'
-
 import {
   DialogActionTrigger,
   DialogBody,
@@ -11,16 +10,58 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { ComponentProps, ReactNode } from 'react'
+import { ComponentProps, ReactNode, useState } from 'react'
 import { Button } from '@/components'
-
+import { toaster } from '@/components/ui/toaster'
+import { CircleNotch } from '@phosphor-icons/react'
+import { useRouter } from 'next/navigation'
 interface AlertDialogProps extends ComponentProps<typeof DialogTrigger> {
   children: ReactNode
+  topicSlug: number
+  onDeleteTopic: (topicSlug: number) => Promise<void>
 }
 
-export const AlertDialog = ({ children, ...props }: AlertDialogProps) => {
+export const AlertDialog = ({
+  topicSlug,
+  onDeleteTopic,
+  children,
+  ...props
+}: AlertDialogProps) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
+
+  async function handleDeleteTopic() {
+    setIsLoading(true)
+
+    try {
+      await onDeleteTopic(topicSlug)
+    } catch (error) {
+      console.error('Erro ao deletar tópico:', error)
+    }
+
+    toaster.success({
+      title: 'Deletado com sucesso!',
+      description: 'O tópico foi removido com sucesso.',
+      duration: 3000,
+    })
+    setIsLoading(false)
+    setIsOpen(false)
+
+    router.push('/')
+  }
+
+  const handleDialogClose = ({ open }: { open: boolean }) => {
+    setIsOpen(open)
+  }
+
   return (
-    <DialogRoot placement="center" role="alertdialog">
+    <DialogRoot
+      open={isOpen}
+      onOpenChange={handleDialogClose}
+      placement="center"
+      role="alertdialog"
+    >
       <DialogTrigger {...props} className="flex cursor-pointer items-center">
         {children}
       </DialogTrigger>
@@ -42,9 +83,19 @@ export const AlertDialog = ({ children, ...props }: AlertDialogProps) => {
           <DialogActionTrigger asChild>
             <Button state="outline-negative">Cancelar</Button>
           </DialogActionTrigger>
-          <Button type="button" form="topic-form">
-            Continue
-          </Button>
+
+          {isLoading ? (
+            <Button className="min-w-[101.16px] min-h-11">
+              <CircleNotch
+                className="animate-spin h-full w-full text-white"
+                size={20}
+              />
+            </Button>
+          ) : (
+            <Button type="button" onClick={handleDeleteTopic}>
+              Continue
+            </Button>
+          )}
         </DialogFooter>
 
         <DialogCloseTrigger />

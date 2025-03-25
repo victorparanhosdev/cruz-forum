@@ -43,12 +43,16 @@ export const Comentarios = ({
           </div>
         </div>
 
-        <button aria-label="Excluir o comentario">
-          <Trash className="text-red-500" size={28} />
-        </button>
+        {dataComment.isAuthorComment && (
+          <button aria-label="Excluir o comentario">
+            <Trash className="text-red-500" size={28} />
+          </button>
+        )}
       </div>
 
-      <p className="text-base text-zinc-300">{dataComment.descricao}</p>
+      <p className="text-base text-zinc-300 break-words break-all">
+        {dataComment.descricao}
+      </p>
 
       <button
         aria-label="Curtir Comentario"

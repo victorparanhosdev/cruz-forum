@@ -64,7 +64,11 @@ async function CardFeed({ searchTitle }: { searchTitle?: string }) {
 async function CardRelevant() {
   const url = 'http://localhost:3000/api/topics/relevant'
 
-  const res = await fetch(url)
+  const res = await fetch(url, {
+    next: {
+      tags: ['feed'],
+    },
+  })
 
   const data: CardRelevantProps[] = await res.json()
 

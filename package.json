@@ -43,6 +43,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
+    "critters": "^0.0.23",
     "eslint-config-next": "15.2.2",
     "eslint-config-prettier": "^10.1.1",
     "globals": "^16.0.0",

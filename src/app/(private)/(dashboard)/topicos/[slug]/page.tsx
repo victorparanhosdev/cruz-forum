@@ -11,7 +11,7 @@ import Link from 'next/link'
 import { CommentForm } from './CreateComents'
 import { Metadata } from 'next'
 import { fetchAPI } from '@/lib/fetchAPI'
-import { revalidateTag } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { Suspense } from 'react'
 import { TopicCommentsProps } from '@/app/api/topics/[slug]/comments/route'
 
@@ -29,6 +29,7 @@ interface TopicIdProps {
   slug: number
   image: string
   name: string
+  isAuthorTopic: boolean
 }
 
 async function handleAddComments({
@@ -71,14 +72,32 @@ async function ComentariosCard({ topicSlug }: { topicSlug: number }) {
   )
 }
 
+async function handleDeleteTopic(topicSlug: number) {
+  'use server'
+
+  try {
+    await fetchAPI({
+      url: `http://localhost:3000/api/topics/${topicSlug}/delete`,
+      method: 'DELETE',
+    })
+
+    revalidatePath('/')
+
+  
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+
 export default async function TopicId({ params }) {
   const getParams = await params
 
-  const response: TopicIdProps = await fetch(
-    `http://localhost:3000/api/topics/${getParams.slug}`,
-  )
-    .then((res) => res.json())
-    .catch(console.error)
+  const response: TopicIdProps = await fetchAPI({
+    url: `http://localhost:3000/api/topics/${getParams.slug}`,
+    method: 'GET',
+  })
 
   return (
     <main className="rounded-xl bg-stone-950 px-4 py-12 ">
@@ -96,6 +115,7 @@ export default async function TopicId({ params }) {
             width={128}
             height={128}
             className="size-32 rounded-full object-cover"
+            priority
           />
           <div className="grid gap-2.5 w-full">
             <div className="flex justify-between">
@@ -111,12 +131,19 @@ export default async function TopicId({ params }) {
                 </div>
               </div>
               <div className="flex gap-2">
-                <AlertDialog aria-label="Excluir o topico">
-                  <Trash className="text-red-500" size={36} />
-                </AlertDialog>
-                <button aria-label="Botao de Salvar">
-                  <BookmarkSimple className="text-white" size={36} />
-                </button>
+                {response.isAuthorTopic ? (
+                  <AlertDialog
+                    onDeleteTopic={handleDeleteTopic}
+                    topicSlug={response.slug}
+                    aria-label="Excluir o topico"
+                  >
+                    <Trash className="text-red-500" size={36} />
+                  </AlertDialog>
+                ) : (
+                  <button aria-label="Botao de Salvar">
+                    <BookmarkSimple className="text-white" size={36} />
+                  </button>
+                )}
               </div>
             </div>
 

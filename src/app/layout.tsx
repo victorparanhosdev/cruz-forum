@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   creator: 'Victor Paranhos',
   publisher: 'Cruz Forum',
 }
-
+import { Toaster } from '@/components/ui/toaster'
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,7 +40,9 @@ export default function RootLayout({
         className={`flex min-h-screen items-center justify-center bg-black text-white antialiased`}
       >
         <SessionProviderNextAuth>
-          <ChakraUIProvider>{children}</ChakraUIProvider>
+          <ChakraUIProvider>
+            {children} <Toaster />
+          </ChakraUIProvider>
         </SessionProviderNextAuth>
       </body>
     </html>

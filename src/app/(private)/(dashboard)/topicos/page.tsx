@@ -30,7 +30,7 @@ export default function Topicos() {
       comments: 7,
       image: null,
       isAuthorTopic: false,
-      slug: 10
+      slug: 10,
     },
     {
       id: 'post-002',
@@ -44,7 +44,7 @@ export default function Topicos() {
       comments: 12,
       image: null,
       isAuthorTopic: false,
-      slug: 10
+      slug: 10,
     },
     {
       id: 'post-003',
@@ -57,7 +57,7 @@ export default function Topicos() {
       comments: 23,
       image: null,
       isAuthorTopic: false,
-      slug: 10
+      slug: 10,
     },
     {
       id: 'post-004',
@@ -70,7 +70,7 @@ export default function Topicos() {
       comments: 15,
       image: null,
       isAuthorTopic: false,
-      slug: 10
+      slug: 10,
     },
     {
       id: 'post-005',
@@ -84,7 +84,7 @@ export default function Topicos() {
       comments: 8,
       image: null,
       isAuthorTopic: false,
-      slug: 10
+      slug: 10,
     },
   ]
 

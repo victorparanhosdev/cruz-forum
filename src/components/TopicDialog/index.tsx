@@ -23,6 +23,8 @@ import {
 import { useForm, UseFormRegister } from 'react-hook-form'
 import { z as zod } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toaster } from '../ui/toaster'
+import { CircleNotch } from '@phosphor-icons/react'
 
 const createTopicSchema = zod.object({
   title: zod
@@ -67,7 +69,18 @@ export const TopicDialog = ({ onCreateTopic, children }: TopicDialogProps) => {
     title,
     descricao,
   }: CreateTopicFormData) => {
-    await onCreateTopic({ title, descricao })
+    try {
+      await onCreateTopic({ title, descricao })
+
+      toaster.success({
+        title: 'Topico criado com sucesso!',
+        description: 'O tópico foi criado com sucesso.',
+        duration: 3000,
+      })
+    } catch (error) {
+      console.error(error)
+    }
+
     handleDialogClose({ open: false })
   }
 
@@ -124,14 +137,18 @@ export const TopicDialog = ({ onCreateTopic, children }: TopicDialogProps) => {
               Cancelar
             </Button>
           </DialogActionTrigger>
-          <Button
-            disabled={isSubmitting}
-            type="submit"
-            form="topic-form"
-            className="w-full"
-          >
-            {isSubmitting ? 'Carregando' : 'Criar'}
-          </Button>
+          {isSubmitting ? (
+            <Button className="min-w-[225.45px] min-h-11">
+              <CircleNotch
+                className="animate-spin h-full w-full text-white"
+                size={20}
+              />
+            </Button>
+          ) : (
+            <Button type="submit" form="topic-form" className="w-full">
+              Criar
+            </Button>
+          )}
         </DialogFooter>
 
         <DialogCloseTrigger />

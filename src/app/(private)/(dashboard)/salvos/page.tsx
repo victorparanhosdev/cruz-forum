@@ -29,7 +29,7 @@ export default function Salvos() {
       comments: 7,
       image: null,
       isAuthorTopic: false,
-      slug: 20
+      slug: 20,
     },
     {
       id: 'post-002',
@@ -43,7 +43,7 @@ export default function Salvos() {
       comments: 12,
       image: null,
       isAuthorTopic: false,
-      slug: 20
+      slug: 20,
     },
     {
       id: 'post-003',
@@ -56,7 +56,7 @@ export default function Salvos() {
       comments: 23,
       image: null,
       isAuthorTopic: false,
-      slug: 20
+      slug: 20,
     },
     {
       id: 'post-004',
@@ -68,8 +68,8 @@ export default function Salvos() {
       likes: 87,
       comments: 15,
       image: null,
-       isAuthorTopic: false,
-       slug: 20
+      isAuthorTopic: false,
+      slug: 20,
     },
     {
       id: 'post-005',
@@ -82,8 +82,8 @@ export default function Salvos() {
       likes: 36,
       comments: 8,
       image: null,
-       isAuthorTopic: false,
-       slug: 20
+      isAuthorTopic: false,
+      slug: 20,
     },
   ]
 
