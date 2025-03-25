@@ -3,7 +3,7 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   /* config options here */
   experimental: {
-    optimizePackageImports: ['@chakra-ui/react']
+    optimizePackageImports: ['@chakra-ui/react'],
   },
   images: {
     remotePatterns: [
@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
     ],
     dangerouslyAllowSVG: true,
   },
-  reactStrictMode: true
+  reactStrictMode: true,
 }
 
 export default nextConfig

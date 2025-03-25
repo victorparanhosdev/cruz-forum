@@ -95,7 +95,6 @@ async function handleDeleteTopic(topicSlug: number) {
     console.log('Deu errado:', error)
     return { error: 'Erro desconhecido ao excluir o tópico.' }
   }
-
 }
 
 export default async function TopicId({ params }) {

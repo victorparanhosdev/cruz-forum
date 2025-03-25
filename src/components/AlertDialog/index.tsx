@@ -56,14 +56,12 @@ export const AlertDialog = ({
           description: res?.message || 'O tópico foi removido com sucesso.',
           duration: 3000,
         })
-        
+
         setIsLoading(false)
         setIsOpen(false)
         router.replace('/')
       })
       .catch(console.error)
-
-  
   }
 
   const handleDialogClose = ({ open }: { open: boolean }) => {
