@@ -49,13 +49,15 @@ async function CardFeed({ searchTitle }: { searchTitle?: string }) {
     method: 'GET',
     next: { tags: ['feed'] },
   })
+    .then((res) => res.json())
+    .catch(console.error)
 
   return (
-    <div className="grid grid-cols-2 gap-x-6 gap-y-4 min-h-[650px]">
+    <div className="grid min-h-[650px] grid-cols-2 gap-x-6 gap-y-4">
       {Array.isArray(data) && data.length > 0 ? (
         data.map((topic) => <Topic key={topic.id} data={topic} />)
       ) : (
-        <p className=" col-span-2 text-center py-4">Nenhum tópico encontrado</p>
+        <p className=" col-span-2 py-4 text-center">Nenhum tópico encontrado</p>
       )}
     </div>
   )
@@ -95,7 +97,9 @@ async function handleCreateTopicsFeed({
   revalidateTag('feed')
 }
 
-export default async function Inicio(params: { searchParams: any }) {
+export default async function Inicio(params: {
+  searchParams: Promise<{ q?: string }>
+}) {
   const searchParams = await params.searchParams
 
   return (

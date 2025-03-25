@@ -17,11 +17,11 @@ interface TopicProps extends HTMLAttributes<HTMLDivElement> {
 
 export const SkeletonTopic = () => {
   return (
-    <div className="grid grid-cols-2 gap-x-6 gap-y-4 min-h-[650px]">
+    <div className="grid min-h-[650px] grid-cols-2 gap-x-6 gap-y-4">
       {Array.from({ length: 6 }).map((_, index) => {
         return (
           <Skeleton asChild key={index}>
-            <div className="grid gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100 h-[206px]" />
+            <div className="grid h-[206px] gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100" />
           </Skeleton>
         )
       })}
@@ -47,7 +47,7 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
             alt=""
             className="size-16 rounded-full object-cover"
           />
-          <div className="w-full h-[72px]">
+          <div className="h-[72px] w-full">
             <h2 className="text-lg font-bold ">{data.title}</h2>
             <span className="flex gap-2 text-xs text-gray-400">
               <ArrowBendDownLeft size={14} /> publicado há 5 minutos atras
@@ -61,7 +61,7 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
         )}
       </div>
 
-      <p className="line-clamp-3 w-full text-xs text-gray-100 h-12">
+      <p className="line-clamp-3 h-12 w-full text-xs text-gray-100">
         {data.descricao}
       </p>
 

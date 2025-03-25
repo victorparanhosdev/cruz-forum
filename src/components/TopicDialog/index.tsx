@@ -138,9 +138,9 @@ export const TopicDialog = ({ onCreateTopic, children }: TopicDialogProps) => {
             </Button>
           </DialogActionTrigger>
           {isSubmitting ? (
-            <Button className="min-w-[225.45px] min-h-11">
+            <Button className="min-h-11 min-w-[225.45px]">
               <CircleNotch
-                className="animate-spin h-full w-full text-white"
+                className="h-full w-full animate-spin text-white"
                 size={20}
               />
             </Button>

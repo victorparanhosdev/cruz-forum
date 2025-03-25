@@ -11,7 +11,7 @@ import Link from 'next/link'
 import { CommentForm } from './CreateComents'
 import { Metadata } from 'next'
 import { fetchAPI } from '@/lib/fetchAPI'
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidateTag } from 'next/cache'
 import { Suspense } from 'react'
 import { TopicCommentsProps } from '@/app/api/topics/[slug]/comments/route'
 
@@ -56,6 +56,8 @@ async function ComentariosCard({ topicSlug }: { topicSlug: number }) {
     method: 'GET',
     next: { tags: ['comments'] },
   })
+    .then((res) => res.json())
+    .catch(console.error)
 
   return (
     <div className="grid max-h-[474px] gap-4 overflow-auto">
@@ -64,7 +66,7 @@ async function ComentariosCard({ topicSlug }: { topicSlug: number }) {
           return <Comentarios key={comment.id} dataComment={comment} />
         })
       ) : (
-        <div className="grid place-items-center border border-stone-900 rounded-lg min-h-[162px] p-4">
+        <div className="grid min-h-[162px] place-items-center rounded-lg border border-stone-900 p-4">
           <h1>Nenhuma comentario por enquanto</h1>
         </div>
       )}
@@ -76,20 +78,25 @@ async function handleDeleteTopic(topicSlug: number) {
   'use server'
 
   try {
-    await fetchAPI({
+    const response = await fetchAPI({
       url: `http://localhost:3000/api/topics/${topicSlug}/delete`,
       method: 'DELETE',
     })
 
-    revalidatePath('/')
+    if (!response.ok) {
+      const errorData = await response.json()
+      console.log('Erro:', errorData)
+      return errorData
+    }
 
-  
+    const data = await response.json()
+    return data
   } catch (error) {
-    console.log(error)
+    console.log('Deu errado:', error)
+    return { error: 'Erro desconhecido ao excluir o tópico.' }
   }
+
 }
-
-
 
 export default async function TopicId({ params }) {
   const getParams = await params
@@ -98,6 +105,8 @@ export default async function TopicId({ params }) {
     url: `http://localhost:3000/api/topics/${getParams.slug}`,
     method: 'GET',
   })
+    .then((res) => res.json())
+    .catch(console.error)
 
   return (
     <main className="rounded-xl bg-stone-950 px-4 py-12 ">
@@ -117,7 +126,7 @@ export default async function TopicId({ params }) {
             className="size-32 rounded-full object-cover"
             priority
           />
-          <div className="grid gap-2.5 w-full">
+          <div className="grid w-full gap-2.5">
             <div className="flex justify-between">
               <div>
                 <h1 className="text-4xl font-bold">{response.title}</h1>

@@ -50,7 +50,7 @@ export const Comentarios = ({
         )}
       </div>
 
-      <p className="text-base text-zinc-300 break-words break-all">
+      <p className="break-words break-all text-base text-zinc-300">
         {dataComment.descricao}
       </p>
 

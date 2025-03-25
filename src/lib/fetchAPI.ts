@@ -7,16 +7,12 @@ type RequestParams = {
   next?: NextFetchRequestConfig
 }
 
-type NextFetchRequestConfig = {
-  tags?: string[]
-}
-
-export async function fetchAPI<T>({
+export async function fetchAPI({
   url,
   method = 'GET',
   data,
   next,
-}: RequestParams): Promise<T> {
+}: RequestParams): Promise<Response> {
   const cookieStore = await cookies()
   const cookieString = cookieStore
     .getAll()
@@ -33,14 +29,5 @@ export async function fetchAPI<T>({
     next,
   }
 
-  try {
-    const response = await fetch(url, options)
-    if (!response.ok) {
-      throw new Error(`Erro ao fazer requisição: ${response.statusText}`)
-    }
-    return (await response.json()) as T
-  } catch (error) {
-    console.error('Erro na requisição:', error)
-    throw error
-  }
+  return fetch(url, options)
 }

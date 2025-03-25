@@ -28,18 +28,18 @@ export const Navigation = async () => {
             alt=""
             className="size-9 rounded-full object-cover"
           />
-          <div className="flex max-w-[110px] flex-col w-full">
+          <div className="flex w-full max-w-[110px] flex-col">
             {isUserActive ? (
-              <p className="truncate text-sm font-bold text-start">
+              <p className="truncate text-start text-sm font-bold">
                 {user.name}
               </p>
             ) : (
-              <Skeleton className="h-4 min-w-24 w-full bg-zinc-700" />
+              <Skeleton className="h-4 w-full min-w-24 bg-zinc-700" />
             )}
             {isUserActive ? (
               <span className="truncate  text-xs">{user.email}</span>
             ) : (
-              <Skeleton className="mt-1 h-3 min-w-24 w-full bg-zinc-700" />
+              <Skeleton className="mt-1 h-3 w-full min-w-24 bg-zinc-700" />
             )}
           </div>
           <CaretDown size={16} />

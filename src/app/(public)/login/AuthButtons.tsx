@@ -54,7 +54,7 @@ export const AuthButtons = () => {
         <Button
           type="submit"
           state="default"
-          className={`w-full flex items-center`}
+          className={`flex w-full items-center`}
           classNameIcon="animate-spin text-white"
           iconLeft={isSubmitting && CircleNotch}
           disabled={isSubmitting}

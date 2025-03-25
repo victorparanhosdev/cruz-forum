@@ -42,10 +42,9 @@ export async function DELETE(req: NextRequest, { params }) {
       { message: `Tópico ${topic.title} excluído com sucesso` },
       { status: 200 },
     )
-  } catch (error) {
-    console.error('Erro ao excluir tópico:', error)
+  } catch {
     return NextResponse.json(
-      { error: 'Erro interno ao excluir o tópico' },
+      { error: 'Erro internal 500: Erro ao excluir o tópico' },
       { status: 500 },
     )
   }

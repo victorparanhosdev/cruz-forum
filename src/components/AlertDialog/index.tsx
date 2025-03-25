@@ -15,10 +15,16 @@ import { Button } from '@/components'
 import { toaster } from '@/components/ui/toaster'
 import { CircleNotch } from '@phosphor-icons/react'
 import { useRouter } from 'next/navigation'
+
+interface DeleteTopicResponse {
+  message?: string
+  error?: string
+}
+
 interface AlertDialogProps extends ComponentProps<typeof DialogTrigger> {
   children: ReactNode
   topicSlug: number
-  onDeleteTopic: (topicSlug: number) => Promise<void>
+  onDeleteTopic: (topicSlug: number) => Promise<DeleteTopicResponse>
 }
 
 export const AlertDialog = ({
@@ -34,21 +40,30 @@ export const AlertDialog = ({
   async function handleDeleteTopic() {
     setIsLoading(true)
 
-    try {
-      await onDeleteTopic(topicSlug)
-    } catch (error) {
-      console.error('Erro ao deletar tópico:', error)
-    }
+    await onDeleteTopic(topicSlug)
+      .then((res) => {
+        if (res.error) {
+          return toaster.create({
+            title: 'Error',
+            description: res.error,
+            duration: 3000,
+            type: 'error',
+          })
+        }
 
-    toaster.success({
-      title: 'Deletado com sucesso!',
-      description: 'O tópico foi removido com sucesso.',
-      duration: 3000,
-    })
-    setIsLoading(false)
-    setIsOpen(false)
+        toaster.success({
+          title: 'Deletado com sucesso!',
+          description: res?.message || 'O tópico foi removido com sucesso.',
+          duration: 3000,
+        })
+        
+        setIsLoading(false)
+        setIsOpen(false)
+        router.replace('/')
+      })
+      .catch(console.error)
 
-    router.push('/')
+  
   }
 
   const handleDialogClose = ({ open }: { open: boolean }) => {
@@ -85,9 +100,9 @@ export const AlertDialog = ({
           </DialogActionTrigger>
 
           {isLoading ? (
-            <Button className="min-w-[101.16px] min-h-11">
+            <Button className="min-h-11 min-w-[101.16px]">
               <CircleNotch
-                className="animate-spin h-full w-full text-white"
+                className="h-full w-full animate-spin text-white"
                 size={20}
               />
             </Button>
