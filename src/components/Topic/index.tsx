@@ -72,13 +72,12 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
         >
           <Heart size={20} /> {data.likes} curtidas
         </button>
-        <Link href={`/topicos/${data.slug}`}>
-          <button
-            aria-label="Botao de comentar"
-            className="flex items-center gap-2"
-          >
-            <ChatCircle size={20} /> {data.comments} comentarios
-          </button>
+        <Link
+          href={`/topicos/${data.slug}`}
+          aria-label="Botao de comentar"
+          className="flex items-center gap-2"
+        >
+          <ChatCircle size={20} /> {data.comments} comentarios
         </Link>
       </div>
     </div>

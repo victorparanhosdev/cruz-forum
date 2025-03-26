@@ -66,13 +66,11 @@ async function CardFeed({ searchTitle }: { searchTitle?: string }) {
 async function CardRelevant() {
   const url = 'http://localhost:3000/api/topics/relevant'
 
-  const res = await fetch(url, {
-    next: {
-      tags: ['feed'],
-    },
+  const data: CardRelevantProps[] = await fetch(url, {
+    next: { tags: ['feed'] },
   })
-
-  const data: CardRelevantProps[] = await res.json()
+    .then((res) => res.json())
+    .catch(console.error)
 
   return (
     <div className="flex flex-col gap-4">

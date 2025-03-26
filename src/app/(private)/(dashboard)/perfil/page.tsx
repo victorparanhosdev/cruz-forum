@@ -8,7 +8,6 @@ import {
 } from '@phosphor-icons/react/dist/ssr'
 import { Metadata } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Perfil',
@@ -101,11 +100,10 @@ export default function Perfil() {
           </form>
 
           <div className="grid grid-flow-col gap-2">
-            <Link href={'/'}>
-              <Button type="button" className="w-full" state="outline-negative">
-                Cancelar
-              </Button>
-            </Link>
+            <Button type="button" className="w-full" state="outline-negative">
+              Cancelar
+            </Button>
+
             <Button type="button" className="w-full">
               Salvar Alterações
             </Button>

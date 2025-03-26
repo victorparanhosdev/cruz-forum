@@ -16,20 +16,13 @@ import { toaster } from '@/components/ui/toaster'
 import { CircleNotch } from '@phosphor-icons/react'
 import { useRouter } from 'next/navigation'
 
-interface DeleteTopicResponse {
-  message?: string
-  error?: string
-}
-
 interface AlertDialogProps extends ComponentProps<typeof DialogTrigger> {
   children: ReactNode
   commentId: string
-  onDeleteComment: (commentId: string) => Promise<DeleteTopicResponse>
 }
 
 export const AlertDialogDeleteComment = ({
   commentId,
-  onDeleteComment,
   children,
   ...props
 }: AlertDialogProps) => {
@@ -39,32 +32,47 @@ export const AlertDialogDeleteComment = ({
 
   async function handleDeleteComment() {
     setIsLoading(true)
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/comments/${commentId}/delete`,
+        { method: 'DELETE' },
+      )
 
-    await onDeleteComment(commentId)
-      .then(async (res) => {
-        if (res.error) {
+      if (!response.ok) {
+        const errorData = await response.json()
+
+        if (errorData.error) {
           setIsLoading(false)
           setIsOpen(false)
 
           return toaster.error({
             title: 'Error',
-            description: res.error,
+            description: errorData.error,
             duration: 2000,
             type: 'error',
           })
         }
 
-        router.refresh()
-        setIsLoading(false)
-        setIsOpen(false)
+        return errorData
+      }
 
-        toaster.success({
-          title: 'Deletado com sucesso!',
-          description: res?.message || 'O comentario foi removido com sucesso.',
-          duration: 1500,
-        })
+      const data = await response.json()
+
+      router.refresh()
+      setIsLoading(false)
+      setIsOpen(false)
+
+      toaster.success({
+        title: 'Deletado com sucesso!',
+        description: data?.message || 'O comentario foi removido com sucesso.',
+        duration: 1500,
       })
-      .catch(console.error)
+
+      return data
+    } catch (error) {
+      console.log('Deu errado:', error)
+      return { error: 'Erro desconhecido ao excluir o comentario.' }
+    }
   }
 
   const handleDialogClose = ({ open }: { open: boolean }) => {

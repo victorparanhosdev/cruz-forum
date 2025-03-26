@@ -11,7 +11,7 @@ export const Menu = () => {
   const params = usePathname()
   const router = useRouter()
   function handleRouter(params: string) {
-    router.replace(params)
+    router.push(params)
   }
 
   return (

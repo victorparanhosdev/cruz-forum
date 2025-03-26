@@ -41,7 +41,7 @@ export const AlertDialog = ({
     setIsLoading(true)
 
     await onDeleteTopic(topicSlug)
-      .then(async (res) => {
+      .then((res) => {
         if (res.error) {
           setIsLoading(false)
           setIsOpen(false)

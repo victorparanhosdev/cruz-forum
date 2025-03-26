@@ -6,4 +6,6 @@ export default withAuth({
   },
 })
 
-export const config = { matcher: ['/perfil', '/salvos', '/topicos/:slug', '/'] }
+export const config = {
+  matcher: ['/perfil', '/salvos', '/topicos/:slug', '/', '/topicos'],
+}

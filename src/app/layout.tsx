@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { SessionProviderNextAuth } from '@/providers/sessionProvider'
+import { ClientProviders } from '@/providers/clientRender'
+
+import { Toaster } from '@/components/ui/toaster'
 
 const interFont = Inter({
   subsets: ['latin'],
@@ -27,8 +29,6 @@ export const metadata: Metadata = {
   creator: 'Victor Paranhos',
   publisher: 'Cruz Forum',
 }
-import { Toaster } from '@/components/ui/toaster'
-import { ChakraUIProvider } from '@/providers/chakra-ui'
 
 export default function RootLayout({
   children,
@@ -36,16 +36,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html className={interFont.className} lang="pt-BR" suppressHydrationWarning>
-      <body
-        className={`flex min-h-screen items-center justify-center bg-black text-white antialiased`}
-      >
-        <SessionProviderNextAuth>
-          <ChakraUIProvider>
-            {children}
-            <Toaster />
-          </ChakraUIProvider>
-        </SessionProviderNextAuth>
+    <html lang="pt-BR" className={interFont.className} suppressHydrationWarning>
+      <body className="flex min-h-screen items-center justify-center bg-black text-white antialiased">
+        <ClientProviders>
+          {children}
+          <Toaster />
+        </ClientProviders>
       </body>
     </html>
   )
