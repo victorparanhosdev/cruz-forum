@@ -184,7 +184,10 @@ export async function POST(
       await req.json()
 
     if (!title || !descricao) {
-     return NextResponse.json({error: 'É obrigatório o Título e a Descrição'}, {status: 400})
+      return NextResponse.json(
+        { error: 'É obrigatório o Título e a Descrição' },
+        { status: 400 },
+      )
     }
 
     const newTopic = await prisma.topic.create({
@@ -195,9 +198,11 @@ export async function POST(
       },
     })
 
-    return NextResponse.json(newTopic, { status: 201})
+    return NextResponse.json(newTopic, { status: 201 })
   } catch (error) {
-
-    return NextResponse.json({ error: 'Erro desconhecido' + error }, { status: 500 })
+    return NextResponse.json(
+      { error: 'Erro desconhecido' + error },
+      { status: 500 },
+    )
   }
 }

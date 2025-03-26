@@ -15,13 +15,19 @@ const compat = new FlatCompat({
 
 export default defineConfig([
   {
-    extends: compat.extends('next/core-web-vitals', 'next/typescript'),
+    extends: compat.extends(
+      'next/core-web-vitals',
+      'next/typescript',
+      'plugin:@typescript-eslint/recommended',
+    ),
     plugins: {
       tailwindcss: tailwindPlugin,
     },
     ignores: ['.next/**/*'],
     rules: {
       'tailwindcss/classnames-order': 'warn',
+      '@typescript-eslint/no-empty-interface': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
     },
   },
   {

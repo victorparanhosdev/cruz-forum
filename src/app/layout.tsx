@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { ChakraUIProvider } from '@/providers/chakra-ui'
 import { SessionProviderNextAuth } from '@/providers/sessionProvider'
 
 const interFont = Inter({
@@ -29,6 +28,8 @@ export const metadata: Metadata = {
   publisher: 'Cruz Forum',
 }
 import { Toaster } from '@/components/ui/toaster'
+import { ChakraUIProvider } from '@/providers/chakra-ui'
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -41,7 +42,8 @@ export default function RootLayout({
       >
         <SessionProviderNextAuth>
           <ChakraUIProvider>
-            {children} <Toaster />
+            {children}
+            <Toaster />
           </ChakraUIProvider>
         </SessionProviderNextAuth>
       </body>

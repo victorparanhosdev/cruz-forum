@@ -19,7 +19,6 @@ const nextConfig: NextConfig = {
     ],
     dangerouslyAllowSVG: true,
   },
-  reactStrictMode: true,
 }
 
 export default nextConfig

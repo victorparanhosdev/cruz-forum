@@ -32,8 +32,8 @@ export async function GET(req: NextRequest, { params }) {
       },
     })
 
-    if(!topic){
-      return NextResponse.json({error: 'Topico não existe'}, {status: 404})
+    if (!topic) {
+      return NextResponse.json({ error: 'Topico não existe' }, { status: 404 })
     }
 
     const topicWithComments = {
@@ -44,7 +44,7 @@ export async function GET(req: NextRequest, { params }) {
       isAuthorTopic: topic.userId === session.user.id,
     }
 
-    return NextResponse.json(topicWithComments, {status: 200})
+    return NextResponse.json(topicWithComments, { status: 200 })
   } catch (error) {
     return NextResponse.json(
       { error: 'Erro Internal' + error },

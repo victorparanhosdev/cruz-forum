@@ -23,13 +23,13 @@ interface DeleteTopicResponse {
 
 interface AlertDialogProps extends ComponentProps<typeof DialogTrigger> {
   children: ReactNode
-  topicSlug: number
-  onDeleteTopic: (topicSlug: number) => Promise<DeleteTopicResponse>
+  commentId: string
+  onDeleteComment: (commentId: string) => Promise<DeleteTopicResponse>
 }
 
-export const AlertDialog = ({
-  topicSlug,
-  onDeleteTopic,
+export const AlertDialogDeleteComment = ({
+  commentId,
+  onDeleteComment,
   children,
   ...props
 }: AlertDialogProps) => {
@@ -37,10 +37,10 @@ export const AlertDialog = ({
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
-  async function handleDeleteTopic() {
+  async function handleDeleteComment() {
     setIsLoading(true)
 
-    await onDeleteTopic(topicSlug)
+    await onDeleteComment(commentId)
       .then(async (res) => {
         if (res.error) {
           setIsLoading(false)
@@ -49,19 +49,19 @@ export const AlertDialog = ({
           return toaster.error({
             title: 'Error',
             description: res.error,
-            duration: 3000,
+            duration: 2000,
             type: 'error',
           })
         }
 
-        router.replace('/')
+        router.refresh()
         setIsLoading(false)
         setIsOpen(false)
 
         toaster.success({
           title: 'Deletado com sucesso!',
-          description: res?.message || 'O tópico foi removido com sucesso.',
-          duration: 3000,
+          description: res?.message || 'O comentario foi removido com sucesso.',
+          duration: 1500,
         })
       })
       .catch(console.error)
@@ -90,8 +90,7 @@ export const AlertDialog = ({
 
         <DialogBody padding={0}>
           <h1 className="text-base text-zinc-300">
-            Tem certeza de que deseja excluir o tópico nome do tópico? Essa ação
-            é irreversível e não poderá ser desfeita.
+            Tem certeza de que deseja excluir o comentario?
           </h1>
         </DialogBody>
 
@@ -108,7 +107,7 @@ export const AlertDialog = ({
               />
             </Button>
           ) : (
-            <Button type="button" onClick={handleDeleteTopic}>
+            <Button type="button" onClick={handleDeleteComment}>
               Continue
             </Button>
           )}

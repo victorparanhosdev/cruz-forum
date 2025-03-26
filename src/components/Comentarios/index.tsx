@@ -1,8 +1,11 @@
+'use client'
 import { TopicCommentsProps } from '@/app/api/topics/[slug]/comments/route'
 import { ArrowBendDownLeft, Heart, Trash } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import { HTMLAttributes } from 'react'
 import { twMerge } from 'tailwind-merge'
+
+import { AlertDialogDeleteComment } from '../AlertDialogDeleteComment'
 
 interface ComentariosProps extends HTMLAttributes<HTMLDivElement> {
   dataComment: TopicCommentsProps
@@ -13,6 +16,27 @@ export const Comentarios = ({
   className,
   ...props
 }: ComentariosProps) => {
+  async function handleDeleteComment(commentId: string) {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/comments/${commentId}/delete`,
+        { method: 'DELETE' },
+      )
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        console.log('Erro:', errorData)
+        return errorData
+      }
+
+      const data = await response.json()
+      return data
+    } catch (error) {
+      console.log('Deu errado:', error)
+      return { error: 'Erro desconhecido ao excluir o comentario.' }
+    }
+  }
+
   return (
     <div
       {...props}
@@ -44,9 +68,15 @@ export const Comentarios = ({
         </div>
 
         {dataComment.isAuthorComment && (
-          <button aria-label="Excluir o comentario">
-            <Trash className="text-red-500" size={28} />
-          </button>
+          <AlertDialogDeleteComment
+            asChild
+            commentId={dataComment.id}
+            onDeleteComment={handleDeleteComment}
+          >
+            <button aria-label="Excluir o comentario">
+              <Trash className="text-red-500" size={28} />
+            </button>
+          </AlertDialogDeleteComment>
         )}
       </div>
 

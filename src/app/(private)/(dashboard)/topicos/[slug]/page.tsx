@@ -14,6 +14,7 @@ import { fetchAPI } from '@/lib/fetchAPI'
 import { revalidateTag } from 'next/cache'
 import { Suspense } from 'react'
 import { TopicCommentsProps } from '@/app/api/topics/[slug]/comments/route'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Topico',
@@ -106,6 +107,10 @@ export default async function TopicId({ params }) {
   })
     .then((res) => res.json())
     .catch(console.error)
+
+  if ('error' in response && response.error) {
+    redirect('/')
+  }
 
   return (
     <main className="rounded-xl bg-stone-950 px-4 py-12 ">
