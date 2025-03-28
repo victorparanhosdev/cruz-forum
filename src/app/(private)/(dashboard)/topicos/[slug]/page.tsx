@@ -120,6 +120,7 @@ export default async function TopicId({ params }) {
             height={128}
             className="size-32 rounded-full object-cover"
             priority
+            quality={70}
           />
           <div className="grid w-full gap-2.5">
             <div className="flex justify-between">

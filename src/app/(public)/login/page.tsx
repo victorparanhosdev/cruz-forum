@@ -18,6 +18,8 @@ export default function Login() {
           alt="logo da aplicacao"
           src="/logo-login.png"
           className="mb-12 max-w-64"
+          priority
+          quality={60}
         />
 
         <AuthButtons />

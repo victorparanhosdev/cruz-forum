@@ -32,6 +32,7 @@ export const Comentarios = ({
             src={dataComment.image ?? '/placeholderperfil.png'}
             alt="Foto do perfil"
             className="size-12 rounded-full object-cover"
+            quality={50}
           />
 
           <div>
