@@ -7,7 +7,7 @@ Este é um projeto pessoal que desenvolvi com a ideia de criar um fórum interat
 <table>
   <tr align="left" valign="top">
     <td width="50%">
-      <p><strong>Versão Web</strong></p>
+      <p><strong>Tela de Login</strong></p>
       <img alt="Tela de Login" src="/public/login.jpg" width="100%">
     </td>
     <td width="50%">
@@ -89,7 +89,6 @@ AUTH_GITHUB_SECRET=""
 
 ```
 npx prisma migrate dev
-
 ```
 
 - Inicie o servidor de desenvolvimento:
@@ -98,7 +97,6 @@ npx prisma migrate dev
 npm run dev
 ou
 yarn dev
-
 ```
 
 - A aplicação estará disponível em: http://localhost:3000
