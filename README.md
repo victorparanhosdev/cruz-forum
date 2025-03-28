@@ -8,7 +8,7 @@ Este é um projeto pessoal que desenvolvi com a ideia de criar um fórum interat
   <tr align="left" valign="top">
     <td width="50%">
       <p><strong>Versão Web</strong></p>
-      <img alt="Tela de Login" src="/public/login.png" width="100%">
+      <img alt="Tela de Login" src="/public/login.jpg" width="100%">
     </td>
     <td width="50%">
       <p><strong>Tela Principal</strong></p>
@@ -22,6 +22,8 @@ Este é um projeto pessoal que desenvolvi com a ideia de criar um fórum interat
 - Criação de novos tópicos
 
 - Salvamento de tópicos favoritos
+
+- Exclusão de topicos e comentarios 
 
 - Curtidas em tópicos e comentários
 
@@ -58,8 +60,8 @@ Pré-requisitos
 Clone o repositório:
 
 ```
-git clone https://github.com/seu-usuario/forum-app.git
-cd forum-app
+git clone https://github.com/victorparanhosdev/cruz-forum.git
+cd cruz-forum
 ```
 
 Instale as dependências:
@@ -103,8 +105,8 @@ yarn dev
 
 ## 🏗️ Estrutura do Projeto
 
-forum-app/
-
+```
+cruz-forum/
 ├── prisma/             # Configurações do banco de dados
 ├── public/             # Arquivos públicos estáticos
 └── src/
@@ -138,6 +140,7 @@ forum-app/
 ├── README.md           # Documentação do projeto
 ├── tailwind.config.js  # Configurações do Tailwind CSS
 └── tsconfig.json       # Configurações do TypeScript
+```
 
 👨‍💻 Autor
 Desenvolvido por Victor Paranhos.
