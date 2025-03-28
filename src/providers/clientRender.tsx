@@ -8,7 +8,7 @@ const RenderMounted = ({ children }: { children: ReactNode }) => {
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
   if (!mounted) return <Loading />
-  return <>{children}</>
+  return children
 }
 
 export const ClientProviders = ({
@@ -17,10 +17,12 @@ export const ClientProviders = ({
   children: React.ReactNode
 }) => {
   return (
+    <RenderMounted>
     <SessionProviderNextAuth>
       <ChakraUIProvider>
-        <RenderMounted>{children}</RenderMounted>
+        {children}
       </ChakraUIProvider>
     </SessionProviderNextAuth>
+    </RenderMounted>
   )
 }
