@@ -1,36 +1,143 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 📝 Descrição do Projeto
 
-## Getting Started
+Este é um projeto pessoal que desenvolvi com a ideia de criar um fórum interativo. Nele, os usuários podem criar novos tópicos, salvar aqueles que acharem interessantes, curtir e participar das discussões com comentários.
 
-First, run the development server:
+## 📱 Layout da Aplicação
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+<table>
+  <tr align="left" valign="top">
+    <td width="50%">
+      <p><strong>Versão Web</strong></p>
+      <img alt="Tela de Login" src="/public/login.png" width="100%">
+    </td>
+    <td width="50%">
+      <p><strong>Tela Principal</strong></p>
+      <img alt="Tela Principal" src="/public/telaprincipal.png" width="100%">
+    </td>
+  </tr>
+</table>
+
+## 🚀 Funcionalidades
+
+- Criação de novos tópicos
+
+- Salvamento de tópicos favoritos
+
+- Curtidas em tópicos e comentários
+
+- Comentários em discussões
+
+- Interface responsiva e dinâmica
+
+## 🛠️ Tecnologias Utilizadas
+
+- Next.js 15: Framework para construção do front-end
+
+- TypeScript: Tipagem estática para maior segurança
+
+- TailwindCSS: Estilização ágil e responsiva
+
+- Prisma ORM: Gerenciamento de banco de dados
+
+- PostgreSQL: Banco de dados relacional
+
+- API do Next.js: Backend integrado à aplicação
+
+## 🔧 Instalação e Configuração
+
+Pré-requisitos
+
+- Node.js (versão LTS recomendada)
+
+- npm ou yarn
+
+- Banco de dados PostgreSQL configurado
+
+#### Passos para instalação
+
+Clone o repositório:
+
+```
+git clone https://github.com/seu-usuario/forum-app.git
+cd forum-app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Instale as dependências:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+npm install
+ou
+yarn
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Configure as variáveis de ambiente no arquivo .env:
 
-## Learn More
+```
+DATABASE_URL="postgresql://myuser:mypassword@localhost:5431/mydatabase"
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+AUTH_SECRET=""
+AUTH_GITHUB_ID=""
+AUTH_GITHUB_SECRET=""
+```
 
-To learn more about Next.js, take a look at the following resources:
+- Rode as migrações do banco de dados:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+npx prisma migrate dev
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
 
-## Deploy on Vercel
+- Inicie o servidor de desenvolvimento:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+npm run dev
+ou
+yarn dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+
+- A aplicação estará disponível em: http://localhost:3000
+
+## 🏗️ Estrutura do Projeto
+
+forum-app/
+
+├── prisma/             # Configurações do banco de dados
+├── public/             # Arquivos públicos estáticos
+└── src/
+└── app/
+├── (private)/  # Rotas privadas (requer autenticação)
+│   ├── dashboard/      # Página do painel do usuário
+│   ├── (inicio)/       # Página inicial após login
+│   └── login/          # Página de login
+│       ├── AuthButtons.tsx    # Componente de botões de autenticação
+│       └── page.tsx           # Página de login
+├── api/                # Rotas de API
+│   ├── auth/           # Endpoints de autenticação
+│   ├── comments/       # Endpoints de comentários
+│   └── topics/         # Endpoints de tópicos
+├── lib/                # Bibliotecas e utilitários
+├── providers/          # Componentes de provedor de contexto
+├── types/              # Definições de tipos TypeScript
+├── middleware.ts       # Middleware da aplicação
+└── arquivos de configuração/
+├── .gitignore          # Configurações de arquivos ignorados pelo Git
+├── prettier.json       # Configurações do Prettier
+├── docker-compose.yml  # Configuração do Docker
+├── eslint.config.mjs   # Configurações do ESLint
+├── jest.config.ts      # Configurações do Jest
+├── jest.setup.ts       # Setup de testes
+├── next-env.d.ts       # Tipos de ambiente do Next.js
+├── next.config.mjs     # Configurações do Next.js
+├── package-lock.json   # Lock de dependências
+├── package.json        # Dependências e scripts
+├── postcss.config.mjs  # Configurações do PostCSS
+├── README.md           # Documentação do projeto
+├── tailwind.config.js  # Configurações do Tailwind CSS
+└── tsconfig.json       # Configurações do TypeScript
+
+👨‍💻 Autor
+Desenvolvido por Victor Paranhos.
