@@ -1,4 +1,4 @@
-import { Button, Comentarios } from '@/components'
+import { Button } from '@/components'
 import { AlertDialog } from '@/components/AlertDialog'
 import {
   ArrowBendDownLeft,
@@ -13,8 +13,11 @@ import { Metadata } from 'next'
 import { fetchAPI } from '@/lib/fetchAPI'
 import { revalidateTag } from 'next/cache'
 import { Suspense } from 'react'
-import { TopicCommentsProps } from '@/app/api/topics/[slug]/comments/route'
+
 import { redirect } from 'next/navigation'
+import { TopicCommentsProps } from '@/app/api/topics/[slug]/comments/route'
+import { CommentSection } from './CommentSection'
+import { formatDistanceDate } from '@/lib/formatDistanceDate'
 
 export const metadata: Metadata = {
   title: 'Topico',
@@ -60,19 +63,7 @@ async function ComentariosCard({ topicSlug }: { topicSlug: number }) {
     .then((res) => res.json())
     .catch(console.error)
 
-  return (
-    <div className="grid max-h-[474px] gap-4 overflow-auto">
-      {Array.isArray(responseComents) && responseComents.length > 0 ? (
-        responseComents.map((comment) => {
-          return <Comentarios key={comment.id} dataComment={comment} />
-        })
-      ) : (
-        <div className="grid min-h-[162px] place-items-center rounded-lg border border-stone-900 p-4">
-          <h1>Nenhuma comentario por enquanto</h1>
-        </div>
-      )}
-    </div>
-  )
+  return <CommentSection comments={responseComents} />
 }
 
 async function handleDeleteTopic(topicSlug: number) {
@@ -137,8 +128,11 @@ export default async function TopicId({ params }) {
                 <div className="flex items-center gap-2">
                   <ArrowBendDownLeft size={16} />
                   <span className="text-sm text-zinc-500">
-                    topico publicado há{' '}
-                    <span className="font-semibold">5 dias</span> por{' '}
+                    topico publicado{' '}
+                    <span className="font-semibold">
+                      {formatDistanceDate(response.createdAt)}
+                    </span>{' '}
+                    por{' '}
                     <strong className="text-zinc-400">{response.name}</strong>
                   </span>
                 </div>

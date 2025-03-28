@@ -1,12 +1,13 @@
 import { TopicCommentsProps } from '@/app/api/topics/[slug]/comments/route'
 import { ArrowBendDownLeft, Heart, Trash } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
-import { HTMLAttributes } from 'react'
+import { ComponentProps } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import { AlertDialogDeleteComment } from '../AlertDialogDeleteComment'
+import { formatDistanceDate } from '@/lib/formatDistanceDate'
 
-interface ComentariosProps extends HTMLAttributes<HTMLDivElement> {
+interface ComentariosProps extends ComponentProps<'div'> {
   dataComment: TopicCommentsProps
 }
 
@@ -29,7 +30,7 @@ export const Comentarios = ({
             width={48}
             height={48}
             src={dataComment.image ?? '/placeholderperfil.png'}
-            alt=""
+            alt="Foto do perfil"
             className="size-12 rounded-full object-cover"
           />
 
@@ -38,8 +39,10 @@ export const Comentarios = ({
             <div className="flex items-center gap-1">
               <ArrowBendDownLeft size={16} />
               <span className="text-xs text-zinc-500">
-                topico publicado
-                <strong className="font-semibold">há 5 dias</strong>
+                comentário publicado{' '}
+                <strong className="font-semibold">
+                  {formatDistanceDate(dataComment.createdAt)}
+                </strong>
               </span>
             </div>
           </div>

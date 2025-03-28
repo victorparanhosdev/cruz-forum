@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { HTMLAttributes } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Skeleton } from '@chakra-ui/react'
+import { formatDistanceDate } from '@/lib/formatDistanceDate'
 
 interface TopicProps extends HTMLAttributes<HTMLDivElement> {
   data: TopicFeed
@@ -50,7 +51,8 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
           <div className="h-[72px] w-full">
             <h2 className="text-lg font-bold ">{data.title}</h2>
             <span className="flex gap-2 text-xs text-gray-400">
-              <ArrowBendDownLeft size={14} /> publicado há 5 minutos atras
+              <ArrowBendDownLeft size={14} /> publicado{' '}
+              {formatDistanceDate(data.createdAt)}
             </span>
           </div>
         </div>

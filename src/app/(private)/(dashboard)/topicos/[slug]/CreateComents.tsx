@@ -31,7 +31,12 @@ export const CommentForm = ({ onAddComments, topicSlug }: CommentFormProps) => {
 
   const { data } = useSession()
 
-  const { handleSubmit, register } = useForm<SchemaFormCommentsProps>({
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { isDirty },
+  } = useForm<SchemaFormCommentsProps>({
     resolver: zodResolver(SchemaFormComments),
     defaultValues: {
       comments: '',
@@ -43,12 +48,23 @@ export const CommentForm = ({ onAddComments, topicSlug }: CommentFormProps) => {
   }
 
   const handleCancel = () => {
+    if (isDirty) {
+      reset({
+        comments: '',
+      })
+    }
+
     setCommentActive(false)
   }
 
   async function handleFormSubmit({ comments }: SchemaFormCommentsProps) {
-    await onAddComments({ comments, topicSlug })
-    handleCancel()
+    try {
+      await onAddComments({ comments, topicSlug })
+
+      handleCancel()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -72,9 +88,19 @@ export const CommentForm = ({ onAddComments, topicSlug }: CommentFormProps) => {
             placeholder="Escreva aqui o comentário..."
             className="min-h-full w-full resize-y overflow-auto bg-black"
             {...register('comments')}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault()
+                handleSubmit(handleFormSubmit)()
+              }
+            }}
           />
           <div className="flex items-center gap-3">
-            <button aria-label="Cancelar comentário" onClick={handleCancel}>
+            <button
+              aria-label="Cancelar comentário"
+              onClick={handleCancel}
+              type="button"
+            >
               <X
                 size={28}
                 className="text-red-600 transition hover:scale-105 hover:text-red-500"

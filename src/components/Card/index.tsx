@@ -1,4 +1,5 @@
 import { CardRelevantProps } from '@/app/(private)/(inicio)/page'
+import { formatDistanceDate } from '@/lib/formatDistanceDate'
 import { ArrowBendDownLeft } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -29,7 +30,8 @@ export const Card = ({ dataCard, className, ...props }: CardProps) => {
         <div>
           <p className="text-sm font-medium">{dataCard.title}</p>
           <span className="flex items-center gap-1 text-[10px] text-gray-400">
-            <ArrowBendDownLeft size={16} /> comentado há 6 minutos
+            <ArrowBendDownLeft size={16} /> comentado{' '}
+            {formatDistanceDate(dataCard.createdAt)}
           </span>
         </div>
       </div>

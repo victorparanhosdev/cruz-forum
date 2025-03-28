@@ -133,7 +133,7 @@ export async function POST(req: NextRequest, { params }) {
       },
     })
 
-    return NextResponse.json(createComment)
+    return NextResponse.json(createComment, { status: 201 })
   } catch (error) {
     return NextResponse.json(
       { error: 'Erro Interno: ' + error.message },
