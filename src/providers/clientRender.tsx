@@ -18,11 +18,9 @@ export const ClientProviders = ({
 }) => {
   return (
     <RenderMounted>
-    <SessionProviderNextAuth>
-      <ChakraUIProvider>
-        {children}
-      </ChakraUIProvider>
-    </SessionProviderNextAuth>
+      <SessionProviderNextAuth>
+        <ChakraUIProvider>{children}</ChakraUIProvider>
+      </SessionProviderNextAuth>
     </RenderMounted>
   )
 }

@@ -1,7 +1,6 @@
 import { TopicFeed } from '@/app/api/topics/route'
 import {
   ArrowBendDownLeft,
-  BookmarkSimple,
   ChatCircle,
   Heart,
 } from '@phosphor-icons/react/dist/ssr'
@@ -11,6 +10,7 @@ import { HTMLAttributes } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Skeleton } from '@chakra-ui/react'
 import { formatDistanceDate } from '@/lib/formatDistanceDate'
+import { ButtonSavedTopic } from '../ButtonSavedTopic'
 
 interface TopicProps extends HTMLAttributes<HTMLDivElement> {
   data: TopicFeed
@@ -58,9 +58,11 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
           </div>
         </div>
         {!data.isAuthorTopic && (
-          <button aria-label="Botao para salvar o topico">
-            <BookmarkSimple size={28} />
-          </button>
+          <ButtonSavedTopic
+            aria-label={`Botão para salvar o topico ${data.title}`}
+            topicSlug={data.slug}
+            isSavedTopic={data.isAuthorSavedTopic}
+          />
         )}
       </div>
 

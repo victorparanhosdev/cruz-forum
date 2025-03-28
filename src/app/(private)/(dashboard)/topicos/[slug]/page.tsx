@@ -1,14 +1,13 @@
-import { Button } from '@/components'
+import { Button, ButtonSavedTopic } from '@/components'
 import { AlertDialog } from '@/components/AlertDialog'
 import {
   ArrowBendDownLeft,
   ArrowLeft,
-  BookmarkSimple,
   Trash,
 } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import Link from 'next/link'
-import { CommentForm } from './CreateComents'
+import { CreateComents } from './_components/CreateComents'
 import { Metadata } from 'next'
 import { fetchAPI } from '@/lib/fetchAPI'
 import { revalidateTag } from 'next/cache'
@@ -16,7 +15,7 @@ import { Suspense } from 'react'
 
 import { redirect } from 'next/navigation'
 import { TopicCommentsProps } from '@/app/api/topics/[slug]/comments/route'
-import { CommentSection } from './CommentSection'
+import { CommentSection } from './_components/CommentSection'
 import { formatDistanceDate } from '@/lib/formatDistanceDate'
 
 export const metadata: Metadata = {
@@ -34,6 +33,7 @@ interface TopicIdProps {
   image: string
   name: string
   isAuthorTopic: boolean
+  isAuthorSavedTopic: boolean
 }
 
 async function handleAddComments({
@@ -46,7 +46,7 @@ async function handleAddComments({
   'use server'
 
   await fetchAPI({
-    url: `http://localhost:3000/api/topics/${topicSlug}/comments`,
+    url: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics/${topicSlug}/comments`,
     method: 'POST',
     data: { descricao: comments },
   })
@@ -56,7 +56,7 @@ async function handleAddComments({
 
 async function ComentariosCard({ topicSlug }: { topicSlug: number }) {
   const responseComents: TopicCommentsProps[] = await fetchAPI({
-    url: `http://localhost:3000/api/topics/${topicSlug}/comments`,
+    url: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics/${topicSlug}/comments`,
     method: 'GET',
     next: { tags: ['comments'] },
   })
@@ -71,7 +71,7 @@ async function handleDeleteTopic(topicSlug: number) {
 
   try {
     const response = await fetchAPI({
-      url: `http://localhost:3000/api/topics/${topicSlug}/delete`,
+      url: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics/${topicSlug}/delete`,
       method: 'DELETE',
     })
 
@@ -93,7 +93,7 @@ export default async function TopicId({ params }) {
   const getParams = await params
 
   const response: TopicIdProps = await fetchAPI({
-    url: `http://localhost:3000/api/topics/${getParams.slug}`,
+    url: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics/${getParams.slug}`,
     method: 'GET',
   })
     .then((res) => res.json())
@@ -104,9 +104,20 @@ export default async function TopicId({ params }) {
   }
 
   return (
-    <main className="rounded-xl bg-stone-950 px-4 py-12 ">
-      <section className="mx-auto max-w-[950px] ">
-        <Link href={'/'} className="mb-4 inline-flex">
+    <main
+      className="rounded-xl bg-stone-950 px-4 py-12 "
+      role="main"
+      aria-labelledby="topic-title"
+    >
+      <section
+        className="mx-auto max-w-[950px] "
+        aria-label="Detalhes do Tópico"
+      >
+        <Link
+          href={'/'}
+          className="mb-4 inline-flex"
+          aria-label="Voltar para página inicial"
+        >
           <Button state="transparent" className=" pl-0" iconLeft={ArrowLeft}>
             Voltar
           </Button>
@@ -115,7 +126,7 @@ export default async function TopicId({ params }) {
         <div className="mb-4 flex items-center gap-6">
           <Image
             src={response.image ?? '/placeholderperfil.png'}
-            alt="Foto de perfil"
+            alt={`Foto de perfil de ${response.name}`}
             width={128}
             height={128}
             className="size-32 rounded-full object-cover"
@@ -125,10 +136,15 @@ export default async function TopicId({ params }) {
           <div className="grid w-full gap-2.5">
             <div className="flex justify-between">
               <div>
-                <h1 className="text-4xl font-bold">{response.title}</h1>
+                <h1 className="text-4xl font-bold" id="topic-title">
+                  {response.title}
+                </h1>
                 <div className="flex items-center gap-2">
-                  <ArrowBendDownLeft size={16} />
-                  <span className="text-sm text-zinc-500">
+                  <ArrowBendDownLeft size={16} aria-hidden="true" />
+                  <span
+                    aria-label={`Tópico publicado ${formatDistanceDate(response.createdAt)} por ${response.name}`}
+                    className="text-sm text-zinc-500"
+                  >
                     topico publicado{' '}
                     <span className="font-semibold">
                       {formatDistanceDate(response.createdAt)}
@@ -145,12 +161,18 @@ export default async function TopicId({ params }) {
                     topicSlug={response.slug}
                     aria-label="Excluir o topico"
                   >
-                    <Trash className="text-red-500" size={36} />
+                    <Trash
+                      className="text-red-500"
+                      size={36}
+                      aria-hidden="true"
+                    />
                   </AlertDialog>
                 ) : (
-                  <button aria-label="Botao de Salvar">
-                    <BookmarkSimple className="text-white" size={36} />
-                  </button>
+                  <ButtonSavedTopic
+                    isSavedTopic={response.isAuthorSavedTopic}
+                    aria-label={`Salvar tópico de ${response.name}`}
+                    topicSlug={response.slug}
+                  />
                 )}
               </div>
             </div>
@@ -160,13 +182,15 @@ export default async function TopicId({ params }) {
         </div>
 
         <div className="mb-4">
-          <p className="mb-4 text-sm">Comentarios: </p>
+          <p className="mb-4 text-sm" aria-live="polite">
+            Comentarios:{' '}
+          </p>
           <Suspense fallback={<h1>Carregando....</h1>}>
             <ComentariosCard topicSlug={response.slug} />
           </Suspense>
         </div>
 
-        <CommentForm
+        <CreateComents
           onAddComments={handleAddComments}
           topicSlug={response.slug}
         />

@@ -18,6 +18,19 @@ export async function GET(req: NextRequest, { params }) {
   }
 
   try {
+    const verifySaved = await prisma.savedTopic
+      .findMany({
+        where: {
+          userId: session.user.id,
+        },
+        select: {
+          slug: true,
+        },
+      })
+      .then((res) => {
+        return res.map((item) => item.slug)
+      })
+
     const topic = await prisma.topic.findUnique({
       where: {
         slug: Number(getParams.slug),
@@ -42,6 +55,7 @@ export async function GET(req: NextRequest, { params }) {
       image: topic.user.image,
       name: topic.user.name,
       isAuthorTopic: topic.userId === session.user.id,
+      isAuthorSavedTopic: verifySaved.includes(topic.slug),
     }
 
     return NextResponse.json(topicWithComments, { status: 200 })

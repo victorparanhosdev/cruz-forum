@@ -34,7 +34,7 @@ export const AlertDialogDeleteComment = ({
     setIsLoading(true)
     try {
       const response = await fetch(
-        `http://localhost:3000/api/comments/${commentId}/delete`,
+        `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/comments/${commentId}/delete`,
         { method: 'DELETE' },
       )
 

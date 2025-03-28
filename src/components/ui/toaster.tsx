@@ -20,7 +20,7 @@ const toastColors: Record<ColorsProps, string> = {
   success: '#002A25',
   error: '#7F1D1D',
   loading: '#1D282A',
-  info: '#000',
+  info: '#E7E7E7',
 }
 
 export const Toaster = () => {

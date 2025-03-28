@@ -9,6 +9,7 @@ export type TopicFeed = Topic & {
   comments: number
   image: string | null
   isAuthorTopic: boolean
+  isAuthorSavedTopic: boolean
 }
 
 export type TopicWithPaginationProps = {
@@ -61,6 +62,19 @@ export async function GET(
     const skip = (page - 1) * perPage
     const orderBy = getOrderBy(_sort)
 
+    const verifySaved = await prisma.savedTopic
+      .findMany({
+        where: {
+          userId: session.user.id,
+        },
+        select: {
+          slug: true,
+        },
+      })
+      .then((res) => {
+        return res.map((item) => item.slug)
+      })
+
     const where: Prisma.TopicWhereInput = titleSearch
       ? {
           title: {
@@ -109,6 +123,7 @@ export async function GET(
           image: item.user.image,
           user: undefined,
           isAuthorTopic: Boolean(item.userId === session.user.id),
+          isAuthorSavedTopic: verifySaved.includes(item.slug),
         }))
     } else {
       topics = await prisma.topic
@@ -141,6 +156,7 @@ export async function GET(
             image: item.user.image,
             user: undefined,
             isAuthorTopic: Boolean(item.userId === session.user.id),
+            isAuthorSavedTopic: verifySaved.includes(item.slug),
           })),
         )
     }

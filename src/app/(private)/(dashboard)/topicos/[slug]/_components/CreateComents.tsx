@@ -26,7 +26,10 @@ type CommentFormProps = {
 
 type SchemaFormCommentsProps = z.infer<typeof SchemaFormComments>
 
-export const CommentForm = ({ onAddComments, topicSlug }: CommentFormProps) => {
+export const CreateComents = ({
+  onAddComments,
+  topicSlug,
+}: CommentFormProps) => {
   const [isCommentActive, setCommentActive] = useState(false)
 
   const { data } = useSession()
@@ -76,7 +79,7 @@ export const CommentForm = ({ onAddComments, topicSlug }: CommentFormProps) => {
         >
           <figure>
             <Image
-              src={data?.user.image ?? '/placeholderperfil.png'}
+              src={data?.user?.image ?? '/placeholderperfil.png'}
               alt="Foto do Perfil"
               width={48}
               height={48}
@@ -88,12 +91,6 @@ export const CommentForm = ({ onAddComments, topicSlug }: CommentFormProps) => {
             placeholder="Escreva aqui o comentário..."
             className="min-h-full w-full resize-y overflow-auto bg-black"
             {...register('comments')}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault()
-                handleSubmit(handleFormSubmit)()
-              }
-            }}
           />
           <div className="flex items-center gap-3">
             <button

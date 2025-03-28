@@ -23,7 +23,7 @@ Este é um projeto pessoal que desenvolvi com a ideia de criar um fórum interat
 
 - Salvamento de tópicos favoritos
 
-- Exclusão de topicos e comentarios 
+- Exclusão de topicos e comentarios
 
 - Curtidas em tópicos e comentários
 

@@ -41,8 +41,8 @@ export type CardRelevantProps = {
 
 async function CardFeed({ searchTitle }: { searchTitle?: string }) {
   const url = searchTitle
-    ? `http://localhost:3000/api/topics?q=${encodeURIComponent(searchTitle)}`
-    : 'http://localhost:3000/api/topics'
+    ? `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics?q=${encodeURIComponent(searchTitle)}`
+    : `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics`
 
   const { data }: TopicWithPaginationProps = await fetchAPI({
     url,
@@ -64,7 +64,7 @@ async function CardFeed({ searchTitle }: { searchTitle?: string }) {
 }
 
 async function CardRelevant() {
-  const url = 'http://localhost:3000/api/topics/relevant'
+  const url = `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics/relevant`
 
   const data: CardRelevantProps[] = await fetch(url, {
     next: { tags: ['feed'] },
@@ -87,7 +87,7 @@ async function handleCreateTopicsFeed({
 }: CreateTopicFormData) {
   'use server'
   await fetchAPI({
-    url: 'http://localhost:3000/api/topics',
+    url: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics`,
     method: 'POST',
     data: { descricao, title },
   })

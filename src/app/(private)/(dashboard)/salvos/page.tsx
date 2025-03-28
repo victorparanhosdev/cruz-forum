@@ -1,4 +1,7 @@
+import { SavedTopicFeed } from '@/app/api/salvos/route'
 import { Button, Input, FilterPopover } from '@/components'
+import { SkeletonTopic, Topic } from '@/components/Topic'
+import { fetchAPI } from '@/lib/fetchAPI'
 import {
   ArrowLeft,
   BookmarkSimple,
@@ -11,9 +14,31 @@ import {
 } from '@phosphor-icons/react/dist/ssr'
 import { Metadata } from 'next'
 import Link from 'next/link'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'Salvos',
+}
+export const dynamic = 'force-dynamic';
+
+async function ComponentSavedTopicFeed() {
+  const { data: postsData }: { data: SavedTopicFeed[] } = await fetchAPI({
+    url: `${process.env.NEXTAUTH_URL}/api/salvos`,
+    method: 'GET',
+    next: { tags: ['saved-topic'] },
+  })
+    .then((res) => res.json())
+    .catch(console.error)
+
+  return (
+    <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+      {Array.isArray(postsData) && postsData.length > 0 ? (
+        postsData.map((topic) => <Topic key={topic.id} data={topic} />)
+      ) : (
+        <p className=" col-span-2 py-4 text-center">Nenhum tópico encontrado</p>
+      )}
+    </div>
+  )
 }
 
 export default function Salvos() {
@@ -52,11 +77,9 @@ export default function Salvos() {
         </div>
 
         <div className="grid gap-4">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-            {/* {postsData.map((topic, index) => {
-              return <Topic key={index} data={topic} />
-            })} */}
-          </div>
+          <Suspense fallback={<SkeletonTopic />}>
+            <ComponentSavedTopicFeed />
+          </Suspense>
 
           <div className="flex place-content-end items-center gap-2">
             <CaretDoubleLeft size={24} />
