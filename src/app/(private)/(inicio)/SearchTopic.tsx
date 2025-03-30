@@ -69,18 +69,21 @@ export function SearchTopic() {
               weight="bold"
               onClick={clearSearch}
               role="button"
+              aria-label='Botão para limpar buscas'
             />
           ) : (
             <MagnifyingGlass
               size={20}
               onClick={applyFilter}
               className="cursor-pointer"
+              role='button'
+              aria-label='Botao para pesquisa'
             />
           )
         }
         {...register('title')}
       />
-      <Button type="submit">Buscar</Button>
+      <Button aria-label='Botão Buscar' type="submit">Buscar</Button>
     </form>
   )
 }

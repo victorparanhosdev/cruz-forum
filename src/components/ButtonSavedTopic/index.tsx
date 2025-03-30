@@ -60,6 +60,16 @@ export const ButtonSavedTopic = ({
       router.refresh()
     }
 
+    if(response.error){
+
+      return toaster.create({
+        description: response.error,
+        type: 'error',
+        duration: 1500,
+      })
+
+    }
+
     toaster.create({
       description: "Tópico removido de 'Salvos'",
       type: 'error',

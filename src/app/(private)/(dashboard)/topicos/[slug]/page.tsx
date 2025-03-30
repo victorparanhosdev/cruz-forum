@@ -125,7 +125,7 @@ export default async function TopicId({ params }) {
 
         <div className="mb-4 flex items-center gap-6">
           <Image
-            src={response.image ?? '/placeholderperfil.png'}
+            src={response.image || '/placeholderperfil.png'}
             alt={`Foto de perfil de ${response.name}`}
             width={128}
             height={128}

@@ -79,7 +79,7 @@ export const CreateComents = ({
         >
           <figure>
             <Image
-              src={data?.user?.image ?? '/placeholderperfil.png'}
+              src={data?.user?.image || '/placeholderperfil.png'}
               alt="Foto do Perfil"
               width={48}
               height={48}

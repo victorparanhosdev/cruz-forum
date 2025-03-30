@@ -13,7 +13,7 @@
     "test:watch": "jest --watch"
   },
   "prisma": {
-    "seed": "tsx prisma/likes.ts"
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.8.0",

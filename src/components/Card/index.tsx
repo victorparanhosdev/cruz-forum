@@ -23,7 +23,7 @@ export const Card = ({ dataCard, className, ...props }: CardProps) => {
         <Image
           width={32}
           height={32}
-          src={dataCard.image ?? '/placeholderperfil.png'}
+          src={dataCard.image || '/placeholderperfil.png'}
           alt="Imagem do perfil"
           className="size-8 rounded-full object-cover"
           quality={40}
@@ -31,8 +31,8 @@ export const Card = ({ dataCard, className, ...props }: CardProps) => {
         <div>
           <p className="text-sm font-medium">{dataCard.title}</p>
           <span className="flex items-center gap-1 text-[10px] text-gray-400">
-            <ArrowBendDownLeft size={16} /> comentado{' '}
-            {formatDistanceDate(dataCard.createdAt)}
+            <ArrowBendDownLeft size={16} /> ultimo comentario{' '}
+            {formatDistanceDate(dataCard.lastCommentAt)}
           </span>
         </div>
       </div>

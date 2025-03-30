@@ -215,9 +215,9 @@ export async function POST(
     })
 
     return NextResponse.json(newTopic, { status: 201 })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
-      { error: 'Erro desconhecido' + error },
+      { error: 'Erro Internal Server Error 500'},
       { status: 500 },
     )
   }

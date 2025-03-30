@@ -26,6 +26,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { toaster } from '../ui/toaster'
 import { CircleNotch } from '@phosphor-icons/react'
 
+
 const createTopicSchema = zod.object({
   title: zod
     .string()
@@ -50,7 +51,7 @@ const DEFAULT_FORM_VALUES: CreateTopicFormData = {
 
 interface TopicDialogProps {
   children: ReactNode
-  onCreateTopic: ({ descricao, title }: CreateTopicFormData) => Promise<void>
+  onCreateTopic: ({ descricao, title }: CreateTopicFormData) => Promise<{error?: string}>
 }
 
 export const TopicDialog = ({ onCreateTopic, children }: TopicDialogProps) => {
@@ -70,13 +71,22 @@ export const TopicDialog = ({ onCreateTopic, children }: TopicDialogProps) => {
     descricao,
   }: CreateTopicFormData) => {
     try {
-      await onCreateTopic({ title, descricao })
+      const response = await onCreateTopic({ title, descricao })
+
+      if(response?.error){
+        return toaster.error({
+          description: response.error,
+          duration: 3000,
+        })
+      }
 
       toaster.success({
         title: 'Topico criado com sucesso!',
         description: 'O tópico foi criado com sucesso.',
         duration: 3000,
       })
+
+
     } catch (error) {
       console.error(error)
     }

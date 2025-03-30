@@ -34,9 +34,9 @@ export const metadata: Metadata = {
 export type CardRelevantProps = {
   id: string
   title: string
-  createdAt: string
   image: string
   slug: number
+  lastCommentAt: string
 }
 
 async function CardFeed({
@@ -114,11 +114,15 @@ async function handleCreateTopicsFeed({
   title,
 }: CreateTopicFormData) {
   'use server'
-  await fetchAPI({
+  const res = await fetchAPI({
     url: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics`,
     method: 'POST',
     data: { descricao, title },
-  })
+  }).then(data => data.json()).catch(console.error)
+
+  if(res.error){
+    return res
+  }
 
   revalidateTag('feed')
 }

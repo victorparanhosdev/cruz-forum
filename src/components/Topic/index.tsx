@@ -44,7 +44,7 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
           <Image
             height={64}
             width={64}
-            src={data.image ?? '/placeholderperfil.png'}
+            src={data.image || '/placeholderperfil.png'}
             alt=""
             className="size-16 rounded-full object-cover"
             quality={50}

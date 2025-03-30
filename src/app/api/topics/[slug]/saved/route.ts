@@ -59,9 +59,9 @@ export async function PUT(req: NextRequest, { params }) {
       message: 'Topico salvo com sucesso',
       isSaved: !isTopicSaved,
     })
-  } catch {
+  } catch(error) {
     return NextResponse.json(
-      { error: 'Erro internal 500: Erro ao excluir o tópico' },
+      { error: 'Erro internal server 500' },
       { status: 500 },
     )
   }

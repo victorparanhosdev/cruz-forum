@@ -54,7 +54,7 @@ export const AlertDialog = ({
           })
         }
 
-        router.replace('/')
+        router.refresh()
         setIsLoading(false)
         setIsOpen(false)
 

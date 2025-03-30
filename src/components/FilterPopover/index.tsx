@@ -21,38 +21,37 @@ const SchemaFilterFormValues = z.object({
 type SchemaFilterFormValuesProps = z.infer<typeof SchemaFilterFormValues>
 
 export const FilterPopover = ({ children }: { children: ReactNode }) => {
-  const paramsURL = useSearchParams()
-  const params = useMemo(() => new URLSearchParams(paramsURL), [paramsURL])
+  const searchParams = useSearchParams()
+  const params = useMemo(() => new URLSearchParams(searchParams), [searchParams])
   const pathname = usePathname()
   const router = useRouter()
-  const getParams = params.get('_sort')
-  const AZTopic = getParams === 'topic'
+  const currentSort = params.get('_sort')
 
   const { control, reset, setValue } = useForm<SchemaFilterFormValuesProps>({
     resolver: zodResolver(SchemaFilterFormValues),
     defaultValues: {
-      _sort: getParams || null,
+      _sort: currentSort || null,
     },
   })
 
   const setFilter = (filter: string | null) => {
+
     if (filter === 'topic') {
-      if (getParams === '-topic') {
-        params.set('_sort', 'topic')
-        router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-      } else {
-        params.set('_sort', '-topic')
-        router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-      }
 
-      setValue('_sort', filter)
-
+      const newTopicSort = currentSort === 'topic' ? '-topic' : 'topic'
+      params.set('_sort', newTopicSort)
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+      setValue('_sort', newTopicSort)
       return
     }
 
+
     if (filter === null) {
-      return clearFilter()
+      clearFilter()
+      return
     }
+
+
     params.set('_sort', filter)
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
     setValue('_sort', filter)
@@ -60,8 +59,22 @@ export const FilterPopover = ({ children }: { children: ReactNode }) => {
 
   const clearFilter = () => {
     params.delete('_sort')
-    reset({ _sort: null })
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+    reset({ _sort: null })
+  }
+
+ 
+  const getTopicIcon = () => {
+    if (currentSort === 'topic') return CaretUp
+    if (currentSort === '-topic') return CaretDown
+    return CaretUpDown
+  }
+
+
+  const isFilterActive = (filterKey: string | null) => {
+    if (filterKey === null) return !currentSort
+    if (filterKey === 'topic') return currentSort === 'topic' || currentSort === '-topic'
+    return currentSort === filterKey
   }
 
   return (
@@ -76,7 +89,7 @@ export const FilterPopover = ({ children }: { children: ReactNode }) => {
           <Controller
             name="_sort"
             control={control}
-            render={({ field }) => (
+            render={() => (
               <ul className="min-w-48 bg-zinc-950 text-sm">
                 {[
                   { key: null, label: 'Recentes', icon: StarFour },
@@ -90,27 +103,25 @@ export const FilterPopover = ({ children }: { children: ReactNode }) => {
                   {
                     key: 'topic',
                     label: 'Ordenar A-Z',
-                    icon:
-                      getParams === 'topic'
-                        ? CaretUp
-                        : getParams === '-topic'
-                          ? CaretDown
-                          : CaretUpDown,
+                    icon: getTopicIcon(),
                   },
-                ].map(({ key, label, icon: Icon }) => (
-                  <li
-                    key={key ?? 'recentes'}
-                    data-active={field.value === key}
-                    onClick={() => setFilter(key)}
-                    className="flex w-full cursor-pointer items-center gap-2.5 whitespace-nowrap px-4 py-2.5 transition hover:bg-hover-btn-menu_card active:text-green-700 data-[active=true]:font-semibold data-[active=true]:text-green-700"
-                  >
-                    <Icon
-                      size={20}
-                      weight={field.value === key ? 'bold' : 'regular'}
-                    />
-                    {label}
-                  </li>
-                ))}
+                ].map(({ key, label, icon: Icon }) => {
+                  const active = isFilterActive(key);
+                  return (
+                    <li
+                      key={key ?? 'recentes'}
+                      data-active={active}
+                      onClick={() => setFilter(key)}
+                      className="flex w-full cursor-pointer items-center gap-2.5 whitespace-nowrap px-4 py-2.5 transition hover:bg-hover-btn-menu_card active:text-green-700 data-[active=true]:font-semibold data-[active=true]:text-green-700"
+                    >
+                      <Icon
+                        size={20}
+                        weight={active ? 'bold' : 'regular'}
+                      />
+                      {label}
+                    </li>
+                  );
+                })}
                 <li
                   onClick={clearFilter}
                   className="flex w-full cursor-pointer items-center gap-2.5 whitespace-nowrap px-4 py-2.5 font-semibold text-red-700 transition hover:bg-red-950 hover:text-red-300"
