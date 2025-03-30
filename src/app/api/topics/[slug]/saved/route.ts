@@ -59,7 +59,7 @@ export async function PUT(req: NextRequest, { params }) {
       message: 'Topico salvo com sucesso',
       isSaved: !isTopicSaved,
     })
-  } catch(error) {
+  } catch (error) {
     return NextResponse.json(
       { error: 'Erro internal server 500' },
       { status: 500 },

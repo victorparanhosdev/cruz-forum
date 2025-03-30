@@ -1,34 +1,30 @@
-import { SavedTopicFeed } from '@/app/api/salvos/route'
-import { Button, Input, FilterPopover } from '@/components'
+import { Button, FilterPopover } from '@/components'
 import { SkeletonTopic, Topic } from '@/components/Topic'
-import { fetchAPI } from '@/lib/fetchAPI'
 import {
   ArrowLeft,
   BookmarkSimple,
-  CaretDoubleLeft,
-  CaretDoubleRight,
-  CaretLineLeft,
-  CaretLineRight,
   FadersHorizontal,
-  MagnifyingGlass,
 } from '@phosphor-icons/react/dist/ssr'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { Suspense } from 'react'
+import { PaginationControl } from './PaginationControl'
+import { SearchTitleProps } from '../../(inicio)/page'
+import { fetchCardSalvos } from './fetchCardSalvos'
+import { redirect } from 'next/navigation'
+import { SearchSalvos } from './SearchSalvos'
 
 export const metadata: Metadata = {
   title: 'Salvos',
 }
 export const dynamic = 'force-dynamic'
 
-async function ComponentSavedTopicFeed() {
-  const { data: postsData }: { data: SavedTopicFeed[] } = await fetchAPI({
-    url: `${process.env.NEXTAUTH_URL}/api/salvos`,
-    method: 'GET',
-    next: { tags: ['saved-topic'] },
-  })
-    .then((res) => res.json())
-    .catch(console.error)
+async function ComponentSavedTopicFeed({ searchTitle }: SearchTitleProps) {
+  const { data: postsData, meta } = await fetchCardSalvos({ searchTitle })
+
+  if (Number(searchTitle?.page) > meta.totalPages) {
+    redirect('/salvos')
+  }
 
   return (
     <div className="grid grid-cols-2 gap-x-6 gap-y-4">
@@ -41,7 +37,19 @@ async function ComponentSavedTopicFeed() {
   )
 }
 
-export default function Salvos() {
+const CounterPagination = async ({ searchTitle }: SearchTitleProps) => {
+  const { meta } = await fetchCardSalvos({ searchTitle })
+
+  return (
+    <p className="text-sm font-medium">{`Pagina de ${meta.totalPages === 0 ? 0 : meta.currentPage} a ${meta.totalPages}`}</p>
+  )
+}
+
+export default async function Salvos(params: {
+  searchParams: Promise<{ q?: string; _sort?: string; page?: string }>
+}) {
+  const searchParams = await params.searchParams
+
   return (
     <main className="rounded-xl bg-stone-950 px-4 py-12">
       <h1 className="flex gap-2 text-3xl font-bold">
@@ -56,15 +64,7 @@ export default function Salvos() {
               Voltar
             </Button>
           </Link>
-          <div className="flex w-full  gap-3">
-            <Input
-              state="default"
-              placeholder="Buscar um topico"
-              withIcon={<MagnifyingGlass size={20} />}
-              className="max-w-[418px]"
-            />
-            <Button>Buscar</Button>
-          </div>
+          <SearchSalvos />
         </div>
 
         <div className="flex items-center justify-between">
@@ -73,20 +73,15 @@ export default function Salvos() {
               Ordernar
             </Button>
           </FilterPopover>
-          <p className="text-sm font-medium">Pagina de 1 a 6</p>
+          <CounterPagination searchTitle={searchParams} />
         </div>
 
         <div className="grid gap-4">
           <Suspense fallback={<SkeletonTopic />}>
-            <ComponentSavedTopicFeed />
+            <ComponentSavedTopicFeed searchTitle={searchParams} />
           </Suspense>
 
-          <div className="flex place-content-end items-center gap-2">
-            <CaretDoubleLeft size={24} />
-            <CaretLineLeft size={24} />
-            <CaretLineRight size={24} />
-            <CaretDoubleRight size={24} />
-          </div>
+          <PaginationControl searchTitle={searchParams} />
         </div>
       </section>
     </main>

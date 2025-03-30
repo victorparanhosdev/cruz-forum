@@ -1,4 +1,3 @@
-import { TopicWithPaginationProps } from '@/app/api/topics/route'
 import {
   Button,
   Card,
@@ -11,10 +10,6 @@ import { CreateTopicFormData } from '@/components/TopicDialog'
 import { fetchAPI } from '@/lib/fetchAPI'
 
 import {
-  CaretDoubleLeft,
-  CaretDoubleRight,
-  CaretLineLeft,
-  CaretLineRight,
   Chats,
   FadersHorizontal,
   ListPlus,
@@ -26,6 +21,10 @@ import { Suspense } from 'react'
 
 import { SearchTopic } from './SearchTopic'
 import { SkeletonTopic } from '@/components/Topic'
+import { fetchCardFeed } from './fetchCardFeed'
+import { Skeleton } from '@chakra-ui/react'
+import { PaginationControl } from './PaginationControl'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Feed',
@@ -39,59 +38,47 @@ export type CardRelevantProps = {
   lastCommentAt: string
 }
 
-async function CardFeed({
-  searchTitle,
-}: {
-  searchTitle?: { q?: string; _sort?: string }
-}) {
-  const hasFilters = searchTitle && Object.keys(searchTitle).length > 0
+const CardFeedContent = async ({ searchTitle }: SearchTitleProps) => {
+  const { data, meta } = await fetchCardFeed({ searchTitle })
 
-  let url = `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics`
-
-  if (hasFilters) {
-    const queryParams = new URLSearchParams()
-    if (searchTitle?.q) queryParams.set('q', searchTitle.q)
-    if (searchTitle?._sort) queryParams.set('_sort', searchTitle._sort)
-    url += `?${queryParams.toString()}`
+  if (Number(searchTitle?.page) > meta.totalPages) {
+    redirect('/')
   }
 
-  try {
-    const response = await fetchAPI({
-      url,
-      method: 'GET',
-      next: { tags: ['feed'] }, // Cacheamento adequado para Server Components
-    })
-
-    if (!response.ok) {
-      throw new Error(
-        `Erro ao buscar tópicos: ${response.status} - ${response.statusText}`,
-      )
-    }
-
-    const { data }: TopicWithPaginationProps = await response.json()
-
-    return (
-      <div className="grid min-h-[650px] grid-cols-2 gap-x-6 gap-y-4">
-        {Array.isArray(data) && data.length > 0 ? (
-          data.map((topic) => <Topic key={topic.id} data={topic} />)
-        ) : (
-          <p className="col-span-2 py-4 text-center">
-            Nenhum tópico encontrado
-          </p>
-        )}
-      </div>
-    )
-  } catch (error) {
-    console.error('Erro ao buscar tópicos:', error)
-    return (
-      <p className="col-span-2 py-4 text-center text-red-500">
-        Erro ao carregar tópicos.
-      </p>
-    )
-  }
+  return (
+    <div className="grid min-h-[650px] grid-cols-2 gap-x-6 gap-y-4">
+      {Array.isArray(data) && data.length > 0 ? (
+        data.map((topic) => <Topic key={topic.id} data={topic} />)
+      ) : (
+        <p className="col-span-2 py-4 text-center">Nenhum tópico encontrado</p>
+      )}
+    </div>
+  )
 }
 
-async function CardRelevant() {
+const CardFeed = ({ searchTitle }: SearchTitleProps) => {
+  return (
+    <Suspense fallback={<SkeletonTopic />}>
+      <CardFeedContent searchTitle={searchTitle} />
+    </Suspense>
+  )
+}
+
+const SkeletonCardRelevantContent = () => {
+  return (
+    <div className="flex flex-col gap-4">
+      {Array.from({ length: 5 }).map((_, index) => {
+        return (
+          <Skeleton asChild key={index}>
+            <div className="flex min-h-24 cursor-pointer gap-2.5 rounded-lg border border-white bg-topico-200 px-3 py-2 hover:border-green-200 hover:bg-hover-btn-gray" />
+          </Skeleton>
+        )
+      })}
+    </div>
+  )
+}
+
+const CardRelevantContent = async () => {
   const url = `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics/relevant`
 
   const data: CardRelevantProps[] = await fetch(url, {
@@ -109,6 +96,26 @@ async function CardRelevant() {
   )
 }
 
+const CardRelevantWrapper = () => {
+  return (
+    <Suspense fallback={<SkeletonCardRelevantContent />}>
+      <CardRelevantContent />
+    </Suspense>
+  )
+}
+
+export type SearchTitleProps = {
+  searchTitle?: { q?: string; _sort?: string; page?: string }
+}
+
+const CounterPagination = async ({ searchTitle }: SearchTitleProps) => {
+  const { meta } = await fetchCardFeed({ searchTitle })
+
+  return (
+    <p className="text-sm font-medium">{`Pagina de ${meta.totalPages === 0 ? 0 : meta.currentPage} a ${meta.totalPages}`}</p>
+  )
+}
+
 async function handleCreateTopicsFeed({
   descricao,
   title,
@@ -118,9 +125,11 @@ async function handleCreateTopicsFeed({
     url: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics`,
     method: 'POST',
     data: { descricao, title },
-  }).then(data => data.json()).catch(console.error)
+  })
+    .then((data) => data.json())
+    .catch(console.error)
 
-  if(res.error){
+  if (res.error) {
     return res
   }
 
@@ -128,7 +137,7 @@ async function handleCreateTopicsFeed({
 }
 
 export default async function Inicio(params: {
-  searchParams: Promise<{ q?: string; _sort?: string }>
+  searchParams: Promise<{ q?: string; _sort?: string; page?: string }>
 }) {
   const searchParams = await params.searchParams
 
@@ -154,20 +163,12 @@ export default async function Inicio(params: {
                 Ordernar
               </Button>
             </FilterPopover>
-            <p className="text-sm font-medium">Pagina de 1 a 6</p>
+            <CounterPagination searchTitle={searchParams} />
           </div>
 
           <div className="grid gap-4">
-            <Suspense fallback={<SkeletonTopic />}>
-              <CardFeed searchTitle={searchParams} />
-            </Suspense>
-
-            <div className="flex place-content-end items-center gap-2">
-              <CaretDoubleLeft size={24} />
-              <CaretLineLeft size={24} />
-              <CaretLineRight size={24} />
-              <CaretDoubleRight size={24} />
-            </div>
+            <CardFeed searchTitle={searchParams} />
+            <PaginationControl searchTitle={searchParams} />
           </div>
         </section>
       </main>
@@ -176,9 +177,7 @@ export default async function Inicio(params: {
           <StarFour size={16} /> Mais Relevantes
         </h2>
 
-        <Suspense fallback={<h1>Carregando....</h1>}>
-          <CardRelevant />
-        </Suspense>
+        <CardRelevantWrapper />
       </aside>
     </div>
   )

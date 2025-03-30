@@ -7,16 +7,16 @@ import { z } from 'zod'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { useMemo } from 'react'
 
-const SchemaFormSearchTopic = z.object({
+const SchemaFormSearchSalvos = z.object({
   title: z.string(),
 })
 
-type SchemaFormSearchTopicProps = z.infer<typeof SchemaFormSearchTopic>
+type SchemaFormSearchSalvosProps = z.infer<typeof SchemaFormSearchSalvos>
 
-export function SearchTopic() {
+export function SearchSalvos() {
   const { handleSubmit, register, reset, getValues } =
-    useForm<SchemaFormSearchTopicProps>({
-      resolver: zodResolver(SchemaFormSearchTopic),
+    useForm<SchemaFormSearchSalvosProps>({
+      resolver: zodResolver(SchemaFormSearchSalvos),
       defaultValues: {
         title: '',
       },
@@ -42,7 +42,7 @@ export function SearchTopic() {
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
   }
 
-  async function handleSearchTopic({ title }: SchemaFormSearchTopicProps) {
+  async function handleSearchSalvos({ title }: SchemaFormSearchSalvosProps) {
     if (!title.trim()) {
       params.delete('q')
       reset()
@@ -57,7 +57,7 @@ export function SearchTopic() {
 
   return (
     <form
-      onSubmit={handleSubmit(handleSearchTopic)}
+      onSubmit={handleSubmit(handleSearchSalvos)}
       className="flex w-full gap-3"
     >
       <Input

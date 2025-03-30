@@ -19,8 +19,8 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'fastly.picsum.photos',
-        port: ''
-      }
+        port: '',
+      },
     ],
     dangerouslyAllowSVG: true,
   },

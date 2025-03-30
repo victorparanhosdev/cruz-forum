@@ -217,7 +217,7 @@ export async function POST(
     return NextResponse.json(newTopic, { status: 201 })
   } catch {
     return NextResponse.json(
-      { error: 'Erro Internal Server Error 500'},
+      { error: 'Erro Internal Server Error 500' },
       { status: 500 },
     )
   }

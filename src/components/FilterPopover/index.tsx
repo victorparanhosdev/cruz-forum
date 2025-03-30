@@ -22,7 +22,10 @@ type SchemaFilterFormValuesProps = z.infer<typeof SchemaFilterFormValues>
 
 export const FilterPopover = ({ children }: { children: ReactNode }) => {
   const searchParams = useSearchParams()
-  const params = useMemo(() => new URLSearchParams(searchParams), [searchParams])
+  const params = useMemo(
+    () => new URLSearchParams(searchParams),
+    [searchParams],
+  )
   const pathname = usePathname()
   const router = useRouter()
   const currentSort = params.get('_sort')
@@ -35,9 +38,7 @@ export const FilterPopover = ({ children }: { children: ReactNode }) => {
   })
 
   const setFilter = (filter: string | null) => {
-
     if (filter === 'topic') {
-
       const newTopicSort = currentSort === 'topic' ? '-topic' : 'topic'
       params.set('_sort', newTopicSort)
       router.replace(`${pathname}?${params.toString()}`, { scroll: false })
@@ -45,12 +46,10 @@ export const FilterPopover = ({ children }: { children: ReactNode }) => {
       return
     }
 
-
     if (filter === null) {
       clearFilter()
       return
     }
-
 
     params.set('_sort', filter)
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
@@ -63,17 +62,16 @@ export const FilterPopover = ({ children }: { children: ReactNode }) => {
     reset({ _sort: null })
   }
 
- 
   const getTopicIcon = () => {
     if (currentSort === 'topic') return CaretUp
     if (currentSort === '-topic') return CaretDown
     return CaretUpDown
   }
 
-
   const isFilterActive = (filterKey: string | null) => {
     if (filterKey === null) return !currentSort
-    if (filterKey === 'topic') return currentSort === 'topic' || currentSort === '-topic'
+    if (filterKey === 'topic')
+      return currentSort === 'topic' || currentSort === '-topic'
     return currentSort === filterKey
   }
 
@@ -106,7 +104,7 @@ export const FilterPopover = ({ children }: { children: ReactNode }) => {
                     icon: getTopicIcon(),
                   },
                 ].map(({ key, label, icon: Icon }) => {
-                  const active = isFilterActive(key);
+                  const active = isFilterActive(key)
                   return (
                     <li
                       key={key ?? 'recentes'}
@@ -114,13 +112,10 @@ export const FilterPopover = ({ children }: { children: ReactNode }) => {
                       onClick={() => setFilter(key)}
                       className="flex w-full cursor-pointer items-center gap-2.5 whitespace-nowrap px-4 py-2.5 transition hover:bg-hover-btn-menu_card active:text-green-700 data-[active=true]:font-semibold data-[active=true]:text-green-700"
                     >
-                      <Icon
-                        size={20}
-                        weight={active ? 'bold' : 'regular'}
-                      />
+                      <Icon size={20} weight={active ? 'bold' : 'regular'} />
                       {label}
                     </li>
-                  );
+                  )
                 })}
                 <li
                   onClick={clearFilter}
