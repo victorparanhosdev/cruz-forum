@@ -39,28 +39,56 @@ export type CardRelevantProps = {
   slug: number
 }
 
-async function CardFeed({ searchTitle }: { searchTitle?: string }) {
-  const url = searchTitle
-    ? `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics?q=${encodeURIComponent(searchTitle)}`
-    : `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics`
+async function CardFeed({
+  searchTitle,
+}: {
+  searchTitle?: { q?: string; _sort?: string }
+}) {
+  const hasFilters = searchTitle && Object.keys(searchTitle).length > 0
 
-  const { data }: TopicWithPaginationProps = await fetchAPI({
-    url,
-    method: 'GET',
-    next: { tags: ['feed'] },
-  })
-    .then((res) => res.json())
-    .catch(console.error)
+  let url = `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics`
 
-  return (
-    <div className="grid min-h-[650px] grid-cols-2 gap-x-6 gap-y-4">
-      {Array.isArray(data) && data.length > 0 ? (
-        data.map((topic) => <Topic key={topic.id} data={topic} />)
-      ) : (
-        <p className=" col-span-2 py-4 text-center">Nenhum tópico encontrado</p>
-      )}
-    </div>
-  )
+  if (hasFilters) {
+    const queryParams = new URLSearchParams()
+    if (searchTitle?.q) queryParams.set('q', searchTitle.q)
+    if (searchTitle?._sort) queryParams.set('_sort', searchTitle._sort)
+    url += `?${queryParams.toString()}`
+  }
+
+  try {
+    const response = await fetchAPI({
+      url,
+      method: 'GET',
+      next: { tags: ['feed'] }, // Cacheamento adequado para Server Components
+    })
+
+    if (!response.ok) {
+      throw new Error(
+        `Erro ao buscar tópicos: ${response.status} - ${response.statusText}`,
+      )
+    }
+
+    const { data }: TopicWithPaginationProps = await response.json()
+
+    return (
+      <div className="grid min-h-[650px] grid-cols-2 gap-x-6 gap-y-4">
+        {Array.isArray(data) && data.length > 0 ? (
+          data.map((topic) => <Topic key={topic.id} data={topic} />)
+        ) : (
+          <p className="col-span-2 py-4 text-center">
+            Nenhum tópico encontrado
+          </p>
+        )}
+      </div>
+    )
+  } catch (error) {
+    console.error('Erro ao buscar tópicos:', error)
+    return (
+      <p className="col-span-2 py-4 text-center text-red-500">
+        Erro ao carregar tópicos.
+      </p>
+    )
+  }
 }
 
 async function CardRelevant() {
@@ -96,7 +124,7 @@ async function handleCreateTopicsFeed({
 }
 
 export default async function Inicio(params: {
-  searchParams: Promise<{ q?: string }>
+  searchParams: Promise<{ q?: string; _sort?: string }>
 }) {
   const searchParams = await params.searchParams
 
@@ -127,7 +155,7 @@ export default async function Inicio(params: {
 
           <div className="grid gap-4">
             <Suspense fallback={<SkeletonTopic />}>
-              <CardFeed searchTitle={searchParams?.q} />
+              <CardFeed searchTitle={searchParams} />
             </Suspense>
 
             <div className="flex place-content-end items-center gap-2">

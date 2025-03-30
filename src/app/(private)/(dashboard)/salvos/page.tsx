@@ -19,7 +19,7 @@ import { Suspense } from 'react'
 export const metadata: Metadata = {
   title: 'Salvos',
 }
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic'
 
 async function ComponentSavedTopicFeed() {
   const { data: postsData }: { data: SavedTopicFeed[] } = await fetchAPI({
