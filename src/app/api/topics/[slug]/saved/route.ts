@@ -36,11 +36,16 @@ export async function PUT(req: NextRequest, { params }) {
   )
 
   if (isTopicSaved) {
+
     await prisma.savedTopic.delete({
       where: {
-        slug: Number(getParams.slug),
+        userId_topicId: {
+          userId: session.user.id,
+          topicId: topic.id,
+        },
       },
     })
+    
     return NextResponse.json({
       message: 'Topico Removido',
       isSaved: !isTopicSaved,
@@ -48,11 +53,11 @@ export async function PUT(req: NextRequest, { params }) {
   }
 
   try {
+
     await prisma.savedTopic.create({
       data: {
         userId: session.user.id,
-        topicId: topic.id,
-        slug: Number(getParams.slug),
+        topicId: topic.id
       },
     })
     return NextResponse.json({

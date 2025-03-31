@@ -63,8 +63,7 @@ model SavedTopic {
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   topicId   String
-  topic     Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
-  slug      Int      @unique
+  topic     Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)  
   
   @@unique([userId, topicId])
 }

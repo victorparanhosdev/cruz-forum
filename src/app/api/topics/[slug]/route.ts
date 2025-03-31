@@ -22,13 +22,11 @@ export async function GET(req: NextRequest, { params }) {
       .findMany({
         where: {
           userId: session.user.id,
-        },
-        select: {
-          slug: true,
-        },
+        }
+     
       })
       .then((res) => {
-        return res.map((item) => item.slug)
+        return res.map((item) => item.topicId)
       })
 
     const topic = await prisma.topic.findUnique({
@@ -55,7 +53,7 @@ export async function GET(req: NextRequest, { params }) {
       image: topic.user.image,
       name: topic.user.name,
       isAuthorTopic: topic.userId === session.user.id,
-      isAuthorSavedTopic: verifySaved.includes(topic.slug),
+      isAuthorSavedTopic: verifySaved.includes(topic.id),
     }
 
     return NextResponse.json(topicWithComments, { status: 200 })

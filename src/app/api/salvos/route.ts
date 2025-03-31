@@ -61,13 +61,10 @@ export async function GET(req: NextRequest) {
     .findMany({
       where: {
         userId: session.user.id,
-      },
-      select: {
-        slug: true,
-      },
+      }
     })
     .then((res) => {
-      return res.map((item) => item.slug)
+      return res.map((item) => item.topicId)
     })
 
   const where = {
@@ -122,7 +119,7 @@ export async function GET(req: NextRequest) {
             image: item.user.image,
             user: undefined,
             isAuthorTopic: Boolean(item.userId === session.user.id),
-            isAuthorSavedTopic: verifySaved.includes(item.slug),
+            isAuthorSavedTopic: verifySaved.includes(item.id),
           }))
       })
   } else {
@@ -156,7 +153,7 @@ export async function GET(req: NextRequest) {
           image: item.user.image,
           user: undefined,
           isAuthorTopic: Boolean(item.userId === session.user.id),
-          isAuthorSavedTopic: verifySaved.includes(item.slug),
+          isAuthorSavedTopic: verifySaved.includes(item.id),
         })),
       )
   }

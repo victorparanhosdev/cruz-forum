@@ -42,7 +42,6 @@ CREATE TABLE "SavedTopic" (
     "savedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "userId" TEXT NOT NULL,
     "topicId" TEXT NOT NULL,
-    "slug" INTEGER NOT NULL,
 
     CONSTRAINT "SavedTopic_pkey" PRIMARY KEY ("id")
 );
@@ -105,10 +104,7 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "Topic_slug_key" ON "Topic"("slug");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "SavedTopic_slug_key" ON "SavedTopic"("slug");
-
--- CreateIndex
-CREATE UNIQUE INDEX "SavedTopic_userId_topicId_slug_key" ON "SavedTopic"("userId", "topicId", "slug");
+CREATE UNIQUE INDEX "SavedTopic_userId_topicId_key" ON "SavedTopic"("userId", "topicId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "TopicLike_userId_topicId_key" ON "TopicLike"("userId", "topicId");
