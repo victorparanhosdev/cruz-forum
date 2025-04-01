@@ -61,7 +61,7 @@ export async function GET(req: NextRequest) {
     .findMany({
       where: {
         userId: session.user.id,
-      }
+      },
     })
     .then((res) => {
       return res.map((item) => item.topicId)

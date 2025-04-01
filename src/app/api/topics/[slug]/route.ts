@@ -22,8 +22,7 @@ export async function GET(req: NextRequest, { params }) {
       .findMany({
         where: {
           userId: session.user.id,
-        }
-     
+        },
       })
       .then((res) => {
         return res.map((item) => item.topicId)

@@ -1,22 +1,56 @@
-import { Button, FilterPopover, Input } from '@/components'
+import { Button, FilterPopover } from '@/components'
 import {
   ArrowLeft,
-  CaretDoubleLeft,
-  CaretDoubleRight,
-  CaretLineLeft,
-  CaretLineRight,
   FadersHorizontal,
   ListDashes,
-  MagnifyingGlass,
 } from '@phosphor-icons/react/dist/ssr'
 import { Metadata } from 'next'
 import Link from 'next/link'
+import { fetchCardMyTopics } from './fetchCardMyTopics'
+import { SearchTitleProps } from '../../(inicio)/page'
+import { redirect } from 'next/navigation'
+import { Suspense } from 'react'
+import { SkeletonTopic } from '@/components/Topic'
+import { PaginationControl } from './PaginationControl'
+import { SearchMyTopics } from './SearchMyTopics'
+import { TopicMyTopic } from './TopicMyTopics'
 
 export const metadata: Metadata = {
   title: 'Meus Topicos',
 }
 
-export default function Topicos() {
+
+async function ComponentMyTopicsTopicFeed({ searchTitle }: SearchTitleProps) {
+  const { data: postsData, meta } = await fetchCardMyTopics({ searchTitle })
+
+  if (Number(searchTitle?.page) > meta.totalPages) {
+    redirect('/topicos')
+  }
+
+  return (
+    <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+      {Array.isArray(postsData) && postsData.length > 0 ? (
+        postsData.map((topic) => <TopicMyTopic key={topic.id} data={topic} />)
+      ) : (
+        <p className=" col-span-2 py-4 text-center">Nenhum tópico encontrado</p>
+      )}
+    </div>
+  )
+}
+
+const CounterPagination = async ({ searchTitle }: SearchTitleProps) => {
+  const { meta } = await fetchCardMyTopics({ searchTitle })
+
+  return (
+    <p className="text-sm font-medium">{`Pagina de ${meta.totalPages === 0 ? 0 : meta.currentPage} a ${meta.totalPages}`}</p>
+  )
+}
+
+export default async function Topicos(params: {
+  searchParams: Promise<{ q?: string; _sort?: string; page?: string }>
+}) {
+  const searchParams = await params.searchParams
+
   return (
     <main className="rounded-xl bg-stone-950 px-4 py-12">
       <h1 className="flex gap-2 text-3xl font-bold">
@@ -30,15 +64,8 @@ export default function Topicos() {
               Voltar
             </Button>
           </Link>
-          <div className="flex w-full  gap-3">
-            <Input
-              state="default"
-              placeholder="Buscar um topico"
-              withIcon={<MagnifyingGlass size={20} />}
-              className="max-w-[418px]"
-            />
-            <Button>Buscar</Button>
-          </div>
+
+          <SearchMyTopics />
         </div>
 
         <div className="flex items-center justify-between">
@@ -47,22 +74,17 @@ export default function Topicos() {
               Ordernar
             </Button>
           </FilterPopover>
-          <p className="text-sm font-medium">Pagina de 1 a 6</p>
+          <Suspense>
+            <CounterPagination searchTitle={searchParams} />
+          </Suspense>
         </div>
 
         <div className="grid gap-4">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-            {/* {postsData.map((topic, index) => {
-              return <Topic key={index} data={topic} />
-            })} */}
-          </div>
+          <Suspense fallback={<SkeletonTopic />}>
+            <ComponentMyTopicsTopicFeed searchTitle={searchParams} />
+          </Suspense>
 
-          <div className="flex place-content-end items-center gap-2">
-            <CaretDoubleLeft size={24} />
-            <CaretLineLeft size={24} />
-            <CaretLineRight size={24} />
-            <CaretDoubleRight size={24} />
-          </div>
+          <PaginationControl searchTitle={searchParams} />
         </div>
       </section>
     </main>

@@ -1,10 +1,25 @@
-import { NextRequest, NextResponse } from "next/server"
-import { TopicFeed, TopicWithPaginationProps } from "../route"
-import prisma from "@/lib/prisma"
-import { Prisma } from "@prisma/client"
-import { getServerSession } from "next-auth"
-import { authOptions } from "../../auth/[...nextauth]/auth-options"
+import { NextRequest, NextResponse } from 'next/server'
+import prisma from '@/lib/prisma'
+import { Prisma, Topic } from '@prisma/client'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../../auth/[...nextauth]/auth-options'
 
+export type MyTopics = Topic & {
+  likes: number
+  comments: number
+  image: string | null
+  isAuthorTopic: boolean
+}
+
+export type MyTopicWithPaginationProps = {
+  data: MyTopics[]
+  meta: {
+    currentPage: number
+    perPage: number
+    totalItems: number
+    totalPages: number
+  }
+}
 
 const getOrderBy = (
   _sort: string | null,
@@ -25,7 +40,7 @@ const getOrderBy = (
 
 export async function GET(
   req: NextRequest,
-): Promise<NextResponse<TopicWithPaginationProps | { error: string }>> {
+): Promise<NextResponse<MyTopicWithPaginationProps | { error: string }>> {
   try {
     const session = await getServerSession(authOptions)
 
@@ -46,16 +61,6 @@ export async function GET(
     const skip = (page - 1) * perPage
     const orderBy = getOrderBy(_sort)
 
-    const verifySaved = await prisma.savedTopic
-      .findMany({
-        where: {
-          userId: session.user.id,
-        }
-      })
-      .then((res) => {
-        return res.map((item) => item.topicId)
-      })
-
     const where: Prisma.TopicWhereInput = titleSearch
       ? {
           userId: session.user.id,
@@ -65,10 +70,10 @@ export async function GET(
           },
         }
       : {
-        userId: session.user.id
-      }
+          userId: session.user.id,
+        }
 
-    let topics: TopicFeed[]
+    let topics: MyTopics[]
 
     if (_sort === 'relevant') {
       const getTopics = await prisma.topic.findMany({
@@ -107,7 +112,6 @@ export async function GET(
           image: item.user.image,
           user: undefined,
           isAuthorTopic: Boolean(item.userId === session.user.id),
-          isAuthorSavedTopic: verifySaved.includes(item.id),
         }))
     } else {
       topics = await prisma.topic
@@ -140,7 +144,6 @@ export async function GET(
             image: item.user.image,
             user: undefined,
             isAuthorTopic: Boolean(item.userId === session.user.id),
-            isAuthorSavedTopic: verifySaved.includes(item.id),
           })),
         )
     }

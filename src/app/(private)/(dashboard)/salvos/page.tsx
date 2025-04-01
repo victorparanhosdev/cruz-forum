@@ -73,7 +73,9 @@ export default async function Salvos(params: {
               Ordernar
             </Button>
           </FilterPopover>
-          <CounterPagination searchTitle={searchParams} />
+          <Suspense>
+            <CounterPagination searchTitle={searchParams} />
+          </Suspense>
         </div>
 
         <div className="grid gap-4">
