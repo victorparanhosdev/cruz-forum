@@ -4,28 +4,29 @@ import { ButtonHTMLAttributes, useState } from 'react'
 import { toaster } from '../ui/toaster'
 import { motion } from 'framer-motion'
 
-interface ButtonLikeTopicProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface LikeButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   likes: number
   topicSlug: number
   isLike: boolean
 }
 
-function IconHeartComponent({ isLike }: { isLike: boolean }) {
-  const [isHovered, setIsHovered] = useState(false)
+interface HeartIconProps {
+  isActive: boolean
+  isHovered: boolean
+}
 
+const HeartIcon = ({ isActive, isHovered }: HeartIconProps) => {
   return (
     <motion.div
       initial={false}
-      animate={{ scale: isLike || isHovered ? 1.1 : 1 }}
+      animate={{ scale: isActive || isHovered ? 1.17 : 1 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      onMouseEnter={() => !isLike && setIsHovered(true)}
-      onMouseLeave={() => !isLike && setIsHovered(false)}
     >
       <Heart
-        className="text-white"
+        className={`${isActive ? 'text-green-600' : isHovered ? 'text-green-600' : 'text-white'}`}
         size={20}
         aria-hidden="true"
-        weight={isLike ? 'fill' : isHovered ? 'fill' : 'regular'}
+        weight={isActive || isHovered ? 'fill' : 'regular'}
       />
     </motion.div>
   )
@@ -36,53 +37,96 @@ export const ButtonLikeTopic = ({
   isLike,
   topicSlug,
   ...props
-}: ButtonLikeTopicProps) => {
-  const [isLikeTopic, setIsLikeTopic] = useState(isLike)
-  const [counterLikes, setCounterLikes] = useState<number>(likes)
+}: LikeButtonProps) => {
+  const [isLiked, setIsLiked] = useState(isLike)
+  const [likeCount, setLikeCount] = useState<number>(likes)
+  const [isHovered, setIsHovered] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  async function handleLikeTopic() {
+
+  function formatLikeText(count: number): string {
+    if (count === 0) return "Curtir"
+    return count === 1 ? "1 curtida" : `${count} curtidas`
+  }
+
+  async function toggleLike() {
+    if (isSubmitting) return
+    
+    setIsSubmitting(true)
+    
+    const newLikeState = !isLiked
+    
+    setIsLiked(newLikeState)
+    setLikeCount(prevCount => newLikeState ? prevCount + 1 : Math.max(0, prevCount - 1))
+    
+
+    if (!newLikeState) {
+      setIsHovered(false)
+    }
+    
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics/${topicSlug}/likes`,
         {
           method: 'PUT',
-        },
+        }
       ).then((res) => res.json())
 
-      if (response.isLike) {
-        setCounterLikes((prev) => prev + 1)
-        setIsLikeTopic(true)
-        return
+
+      if (response.isLike !== newLikeState) {
+        setIsLiked(response.isLike)
+        setLikeCount(prevCount => 
+          response.isLike ? prevCount + 1 : Math.max(0, prevCount - 1)
+        )
       }
 
       if (response.error) {
+
+        setIsLiked(!newLikeState)
+        setLikeCount(prevCount => 
+          !newLikeState ? prevCount + 1 : Math.max(0, prevCount - 1)
+        )
+        
         toaster.create({
           description: response.error,
           type: 'error',
           duration: 1500,
         })
-        return
       }
-
-      setCounterLikes((prev) => prev - 1)
-      setIsLikeTopic(false)
     } catch (error) {
+ 
+      setIsLiked(!newLikeState)
+      setLikeCount(prevCount => 
+        !newLikeState ? prevCount + 1 : Math.max(0, prevCount - 1)
+      )
+      
       toaster.create({
-        description: 'Error ao curtir topico',
+        description: 'Erro ao processar sua curtida',
         type: 'error',
         duration: 1500,
       })
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
   return (
     <button
       {...props}
-      onClick={handleLikeTopic}
-      aria-label="Botão de curtir"
-      className="flex items-center gap-2"
+      onClick={toggleLike}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        if (!isLiked) {
+          setIsHovered(false)
+        }
+      }}
+      disabled={isSubmitting}
+      aria-label={isLiked ? "Remover curtida" : "Curtir tópico"}
+      aria-pressed={isLiked}
+      className="flex items-center gap-2 transition-colors focus:outline-none"
     >
-      <IconHeartComponent isLike={isLikeTopic} /> {counterLikes} curtidas
+      <HeartIcon isActive={isLiked} isHovered={isHovered} /> 
+      {formatLikeText(likeCount)}
     </button>
   )
 }
