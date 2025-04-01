@@ -1,11 +1,13 @@
 import { TopicCommentsProps } from '@/app/api/topics/[slug]/comments/route'
-import { ArrowBendDownLeft, Heart, Trash } from '@phosphor-icons/react/dist/ssr'
+import { ArrowBendDownLeft, Trash } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import { ComponentProps } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import { AlertDialogDeleteComment } from '../AlertDialogDeleteComment'
 import { formatDistanceDate } from '@/lib/formatDistanceDate'
+
+import { ButtonLikeComment } from '../ButtonLikeComment'
 
 interface ComentariosProps extends ComponentProps<'div'> {
   dataComment: TopicCommentsProps
@@ -62,13 +64,11 @@ export const Comentarios = ({
         {dataComment.descricao}
       </p>
 
-      <button
-        aria-label="Curtir Comentario"
-        className="flex items-center gap-2 text-sm"
-      >
-        <Heart size={24} />
-        {dataComment.likes} curtidas
-      </button>
+      <ButtonLikeComment
+        commentId={dataComment.id}
+        isLike={dataComment.isAuthorLikeComment}
+        likes={dataComment.likes}
+      />
     </div>
   )
 }

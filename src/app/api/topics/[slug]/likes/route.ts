@@ -1,12 +1,7 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options'
 import prisma from '@/lib/prisma'
-import { Topic, TopicLike } from '@prisma/client'
 import { getServerSession } from 'next-auth'
 import { NextRequest, NextResponse } from 'next/server'
-
-interface TopicWithSaved extends Topic {
-  likes: TopicLike[]
-}
 
 export async function PUT(req: NextRequest, { params }) {
   const getParams = await params
@@ -20,7 +15,7 @@ export async function PUT(req: NextRequest, { params }) {
     )
   }
 
-  const topic: TopicWithSaved = await prisma.topic.findUnique({
+  const topic = await prisma.topic.findUnique({
     where: { slug: Number(getParams.slug) },
     include: {
       likes: true,

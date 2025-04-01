@@ -1,12 +1,7 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options'
 import prisma from '@/lib/prisma'
-import { Topic, TopicLike } from '@prisma/client'
 import { getServerSession } from 'next-auth'
 import { NextRequest, NextResponse } from 'next/server'
-
-interface CommentWithLikes extends Topic {
-  likes: TopicLike[]
-}
 
 export async function PUT(req: NextRequest, { params }) {
   const getParams = await params
@@ -20,42 +15,45 @@ export async function PUT(req: NextRequest, { params }) {
     )
   }
 
-  const topic: CommentWithLikes = await prisma.topic.findUnique({
-    where: { slug: Number(getParams.slug) },
+  const comment = await prisma.comment.findUnique({
+    where: { id: getParams.id },
     include: {
       likes: true,
     },
   })
 
-  if (!topic) {
-    return NextResponse.json({ error: 'Tópico não existe' }, { status: 404 })
+  if (!comment) {
+    return NextResponse.json(
+      { error: 'Comentario não existe' },
+      { status: 404 },
+    )
   }
 
-  const isTopicLikes = topic.likes.some(
+  const isCommentLike = comment.likes.some(
     (item) => item.userId === session.user.id,
   )
 
-  if (isTopicLikes) {
-    await prisma.topicLike.delete({
+  if (isCommentLike) {
+    await prisma.commentLike.delete({
       where: {
-        userId_topicId: {
+        userId_commentId: {
           userId: session.user.id,
-          topicId: topic.id,
+          commentId: comment.id,
         },
       },
     })
 
-    return NextResponse.json({ isLike: !isTopicLikes })
+    return NextResponse.json({ isLike: !isCommentLike })
   }
 
   try {
-    await prisma.topicLike.create({
+    await prisma.commentLike.create({
       data: {
         userId: session.user.id,
-        topicId: topic.id,
+        commentId: comment.id,
       },
     })
-    return NextResponse.json({ isLike: !isTopicLikes })
+    return NextResponse.json({ isLike: !isCommentLike })
   } catch (error) {
     return NextResponse.json(
       { error: 'Erro internal server 500' },

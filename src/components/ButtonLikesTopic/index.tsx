@@ -43,50 +43,48 @@ export const ButtonLikeTopic = ({
   const [isHovered, setIsHovered] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-
   function formatLikeText(count: number): string {
-    if (count === 0) return "Curtir"
-    return count === 1 ? "1 curtida" : `${count} curtidas`
+    if (count === 0) return 'Curtir'
+    return count === 1 ? '1 curtida' : `${count} curtidas`
   }
 
   async function toggleLike() {
     if (isSubmitting) return
-    
+
     setIsSubmitting(true)
-    
+
     const newLikeState = !isLiked
-    
+
     setIsLiked(newLikeState)
-    setLikeCount(prevCount => newLikeState ? prevCount + 1 : Math.max(0, prevCount - 1))
-    
+    setLikeCount((prevCount) =>
+      newLikeState ? prevCount + 1 : Math.max(0, prevCount - 1),
+    )
 
     if (!newLikeState) {
       setIsHovered(false)
     }
-    
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics/${topicSlug}/likes`,
         {
           method: 'PUT',
-        }
+        },
       ).then((res) => res.json())
-
 
       if (response.isLike !== newLikeState) {
         setIsLiked(response.isLike)
-        setLikeCount(prevCount => 
-          response.isLike ? prevCount + 1 : Math.max(0, prevCount - 1)
+        setLikeCount((prevCount) =>
+          response.isLike ? prevCount + 1 : Math.max(0, prevCount - 1),
         )
       }
 
       if (response.error) {
-
         setIsLiked(!newLikeState)
-        setLikeCount(prevCount => 
-          !newLikeState ? prevCount + 1 : Math.max(0, prevCount - 1)
+        setLikeCount((prevCount) =>
+          !newLikeState ? prevCount + 1 : Math.max(0, prevCount - 1),
         )
-        
+
         toaster.create({
           description: response.error,
           type: 'error',
@@ -94,12 +92,11 @@ export const ButtonLikeTopic = ({
         })
       }
     } catch (error) {
- 
       setIsLiked(!newLikeState)
-      setLikeCount(prevCount => 
-        !newLikeState ? prevCount + 1 : Math.max(0, prevCount - 1)
+      setLikeCount((prevCount) =>
+        !newLikeState ? prevCount + 1 : Math.max(0, prevCount - 1),
       )
-      
+
       toaster.create({
         description: 'Erro ao processar sua curtida',
         type: 'error',
@@ -121,11 +118,11 @@ export const ButtonLikeTopic = ({
         }
       }}
       disabled={isSubmitting}
-      aria-label={isLiked ? "Remover curtida" : "Curtir tópico"}
+      aria-label={isLiked ? 'Remover curtida' : 'Curtir tópico'}
       aria-pressed={isLiked}
       className="flex items-center gap-2 transition-colors focus:outline-none"
     >
-      <HeartIcon isActive={isLiked} isHovered={isHovered} /> 
+      <HeartIcon isActive={isLiked} isHovered={isHovered} />
       {formatLikeText(likeCount)}
     </button>
   )

@@ -11,6 +11,7 @@ export interface TopicCommentsProps {
   image: string
   name: string
   isAuthorComment: boolean
+  isAuthorLikeComment: boolean
   likes: number
 }
 
@@ -26,6 +27,16 @@ export async function GET(req: NextRequest, { params }) {
       },
     )
   }
+
+  const verifyCommentLikes = await prisma.commentLike
+    .findMany({
+      where: {
+        userId: session.user.id,
+      },
+    })
+    .then((res) => {
+      return res.map((item) => item.commentId)
+    })
 
   try {
     const topic = await prisma.topic.findUnique({
@@ -75,6 +86,7 @@ export async function GET(req: NextRequest, { params }) {
         name: item.user.name,
         isAuthorComment: item.userId === session.user.id,
         likes: item._count.likes,
+        isAuthorLikeComment: verifyCommentLikes.includes(item.id),
       }
     })
 
