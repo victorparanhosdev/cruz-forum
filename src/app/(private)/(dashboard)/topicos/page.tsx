@@ -19,7 +19,6 @@ export const metadata: Metadata = {
   title: 'Meus Topicos',
 }
 
-
 async function ComponentMyTopicsTopicFeed({ searchTitle }: SearchTitleProps) {
   const { data: postsData, meta } = await fetchCardMyTopics({ searchTitle })
 

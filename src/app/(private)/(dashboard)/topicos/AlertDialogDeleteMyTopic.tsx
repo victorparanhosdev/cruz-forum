@@ -54,7 +54,6 @@ export const AlertDialogDeleteMyTopic = ({
           })
         }
 
-     
         setIsLoading(false)
         setIsOpen(false)
 

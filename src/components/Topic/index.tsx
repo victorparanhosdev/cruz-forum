@@ -1,16 +1,12 @@
 import { TopicFeed } from '@/app/api/topics/route'
-import {
-  ArrowBendDownLeft,
-  ChatCircle,
-  Heart,
-} from '@phosphor-icons/react/dist/ssr'
+import { ArrowBendDownLeft, ChatCircle } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import Link from 'next/link'
 import { HTMLAttributes } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Skeleton } from '@chakra-ui/react'
 import { formatDistanceDate } from '@/lib/formatDistanceDate'
-import { ButtonSavedTopic } from '../ButtonSavedTopic'
+import { ButtonSavedTopic, ButtonLikeTopic } from '@/components'
 
 interface TopicProps extends HTMLAttributes<HTMLDivElement> {
   data: TopicFeed
@@ -71,12 +67,11 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
       </p>
 
       <div className="flex items-center gap-6 text-sm">
-        <button
-          aria-label="Botao de curtir"
-          className="flex items-center gap-2"
-        >
-          <Heart size={20} /> {data.likes} curtidas
-        </button>
+        <ButtonLikeTopic
+          topicSlug={data.slug}
+          likes={data.likes}
+          isLike={data.isAuthorLikeTopic}
+        />
         <Link
           href={`/topicos/${data.slug}`}
           aria-label="Botao de comentar"

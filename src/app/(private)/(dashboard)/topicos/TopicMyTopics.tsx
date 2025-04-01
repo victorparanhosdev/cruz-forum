@@ -1,7 +1,6 @@
 import {
   ArrowBendDownLeft,
   ChatCircle,
-  Heart,
   Trash,
 } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
@@ -14,6 +13,7 @@ import { AlertDialogDeleteMyTopic } from './AlertDialogDeleteMyTopic'
 import { fetchAPI } from '@/lib/fetchAPI'
 import { MyTopics } from '@/app/api/topics/mytopics/route'
 import { revalidateTag } from 'next/cache'
+import { ButtonLikeTopic } from '@/components'
 
 interface TopicProps extends HTMLAttributes<HTMLDivElement> {
   data: MyTopics
@@ -25,7 +25,7 @@ async function handleDeleteTopic(topicSlug: number) {
   try {
     const response = await fetchAPI({
       url: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics/${topicSlug}/delete`,
-      method: 'DELETE'
+      method: 'DELETE',
     })
 
     if (!response.ok) {
@@ -40,11 +40,9 @@ async function handleDeleteTopic(topicSlug: number) {
   } catch (error) {
     console.log('Deu errado:', error)
     return { error: 'Erro desconhecido ao excluir o tópico.' }
-  }finally {
+  } finally {
     revalidateTag('mytopics')
   }
-
-
 }
 
 export const SkeletonTopic = () => {
@@ -108,12 +106,11 @@ export const TopicMyTopic = ({ data, className, ...props }: TopicProps) => {
       </p>
 
       <div className="flex items-center gap-6 text-sm">
-        <button
-          aria-label="Botao de curtir"
-          className="flex items-center gap-2"
-        >
-          <Heart size={20} /> {data.likes} curtidas
-        </button>
+        <ButtonLikeTopic
+          isLike={data.isAuthorLikeTopic}
+          likes={data.likes}
+          topicSlug={data.slug}
+        />
         <Link
           href={`/topicos/${data.slug}`}
           aria-label="Botao de comentar"

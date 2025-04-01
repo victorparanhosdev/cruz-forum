@@ -10,6 +10,7 @@ export type SavedTopicFeed = Topic & {
   image: string | null
   isAuthorTopic: boolean
   isAuthorSavedTopic: boolean
+  isAuthorLikeTopic: boolean
 }
 
 export type TopicSavedFeedWithPaginationProps = {
@@ -58,6 +59,16 @@ export async function GET(req: NextRequest) {
   const orderBy = getOrderBy(_sort)
 
   const verifySaved = await prisma.savedTopic
+    .findMany({
+      where: {
+        userId: session.user.id,
+      },
+    })
+    .then((res) => {
+      return res.map((item) => item.topicId)
+    })
+
+  const verifyTopicLikes = await prisma.topicLike
     .findMany({
       where: {
         userId: session.user.id,
@@ -120,6 +131,7 @@ export async function GET(req: NextRequest) {
             user: undefined,
             isAuthorTopic: Boolean(item.userId === session.user.id),
             isAuthorSavedTopic: verifySaved.includes(item.id),
+            isAuthorLikeTopic: verifyTopicLikes.includes(item.id),
           }))
       })
   } else {
@@ -154,6 +166,7 @@ export async function GET(req: NextRequest) {
           user: undefined,
           isAuthorTopic: Boolean(item.userId === session.user.id),
           isAuthorSavedTopic: verifySaved.includes(item.id),
+          isAuthorLikeTopic: verifyTopicLikes.includes(item.id),
         })),
       )
   }
