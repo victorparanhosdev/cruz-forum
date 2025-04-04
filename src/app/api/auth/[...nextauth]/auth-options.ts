@@ -27,7 +27,17 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       if (token.sub) {
         session.user.id = token.sub
+
+        const userData = await prisma.user.findUnique({
+          where: { id: token.sub },
+          select: { name: true, image: true },
+        })
+        if (userData) {
+          session.user.name = userData.name
+          session.user.image = userData.image
+        }
       }
+
       return session
     },
     async jwt({ token, account, profile }) {
@@ -39,6 +49,7 @@ export const authOptions: NextAuthOptions = {
       return token
     },
   },
+
   // events: {
   //   async signOut({ token }) {
 

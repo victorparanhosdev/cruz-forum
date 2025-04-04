@@ -83,7 +83,7 @@ export const CreateComents = ({
               alt="Foto do Perfil"
               width={48}
               height={48}
-              className="w-12 rounded-full object-cover"
+              className="h-12 min-w-12 rounded-full object-cover"
             />
           </figure>
           <TextArea

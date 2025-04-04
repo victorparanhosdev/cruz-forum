@@ -75,7 +75,7 @@ export const TopicMyTopic = ({ data, className, ...props }: TopicProps) => {
             width={64}
             src={data.image || '/placeholderperfil.png'}
             alt=""
-            className="size-16 rounded-full object-cover"
+            className="size-16 min-w-16 rounded-full object-cover"
             quality={50}
           />
           <div className="h-[72px] w-full">
@@ -94,7 +94,7 @@ export const TopicMyTopic = ({ data, className, ...props }: TopicProps) => {
             <Trash
               aria-label={`Botão para excluir o topico ${data.title}`}
               className="cursor-pointer text-red-500"
-              size={36}
+              size={28}
               aria-hidden="true"
             />
           </AlertDialogDeleteMyTopic>

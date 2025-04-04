@@ -27,6 +27,11 @@ export const SkeletonTopic = () => {
 }
 
 export const Topic = ({ data, className, ...props }: TopicProps) => {
+  function formatCommentText(count: number): string {
+    if (count === 0) return 'Comentar'
+    return count === 1 ? '1 comentário' : `${count} comentário`
+  }
+
   return (
     <div
       {...props}
@@ -42,7 +47,7 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
             width={64}
             src={data.image || '/placeholderperfil.png'}
             alt=""
-            className="size-16 rounded-full object-cover"
+            className="size-16 min-w-16 rounded-full object-cover"
             quality={50}
           />
           <div className="h-[72px] w-full">
@@ -77,7 +82,8 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
           aria-label="Botao de comentar"
           className="flex items-center gap-2"
         >
-          <ChatCircle size={20} /> {data.comments} comentarios
+          <ChatCircle size={20} />
+          {formatCommentText(data.comments)}
         </Link>
       </div>
     </div>

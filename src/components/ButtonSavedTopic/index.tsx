@@ -22,7 +22,7 @@ function IconBookMarkSimple({ isSaved }: { isSaved: boolean }) {
     >
       <BookmarkSimple
         className="text-white"
-        size={36}
+        size={28}
         aria-hidden="true"
         weight={isSaved ? 'fill' : isHovered ? 'fill' : 'regular'}
       />

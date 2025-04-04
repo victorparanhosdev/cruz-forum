@@ -24,7 +24,7 @@ const HeartIcon = ({ isActive, isHovered }: HeartIconProps) => {
     >
       <Heart
         className={`${isActive ? 'text-green-600' : isHovered ? 'text-green-600' : 'text-white'}`}
-        size={24}
+        size={20}
         aria-hidden="true"
         weight={isActive || isHovered ? 'fill' : 'regular'}
       />

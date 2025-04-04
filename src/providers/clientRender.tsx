@@ -17,10 +17,10 @@ export const ClientProviders = ({
   children: React.ReactNode
 }) => {
   return (
-    <RenderMounted>
-      <SessionProviderNextAuth>
+    <SessionProviderNextAuth>
+      <RenderMounted>
         <ChakraUIProvider>{children}</ChakraUIProvider>
-      </SessionProviderNextAuth>
-    </RenderMounted>
+      </RenderMounted>
+    </SessionProviderNextAuth>
   )
 }

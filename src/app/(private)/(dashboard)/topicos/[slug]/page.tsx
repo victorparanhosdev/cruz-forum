@@ -129,7 +129,7 @@ export default async function TopicId({ params }) {
             alt={`Foto de perfil de ${response.name}`}
             width={128}
             height={128}
-            className="size-32 rounded-full object-cover"
+            className="size-32 min-w-32 rounded-full object-cover"
             priority
             quality={70}
           />

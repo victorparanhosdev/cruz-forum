@@ -1,14 +1,14 @@
+'use client'
 import { CaretDown } from '@phosphor-icons/react/dist/ssr'
 import { PopoverPerfil, Menu } from '@/components'
 import Image from 'next/image'
-import { getServerSession } from 'next-auth'
+
 import { Skeleton } from '@chakra-ui/react'
 
-export const Navigation = async () => {
-  const { user } = await getServerSession()
+import { useSession } from 'next-auth/react'
 
-  const isUserActive = !!user
-
+export const Navigation = () => {
+  const session = useSession()
   return (
     <nav className="flex flex-col gap-6 rounded-xl bg-stone-950 px-4 pt-12">
       <Image
@@ -24,20 +24,26 @@ export const Navigation = async () => {
           <Image
             height={36}
             width={36}
-            src={isUserActive ? user.image : '/placeholderperfil.png'}
+            src={
+              session.status !== 'loading'
+                ? session.data?.user.image
+                : '/placeholderperfil.png'
+            }
             alt=""
             className="size-9 rounded-full object-cover"
           />
           <div className="flex w-full max-w-[110px] flex-col">
-            {isUserActive ? (
+            {session.status !== 'loading' ? (
               <p className="truncate text-start text-sm font-bold">
-                {user.name}
+                {session.data?.user.name}
               </p>
             ) : (
               <Skeleton className="h-4 w-full min-w-24 bg-zinc-700" />
             )}
-            {isUserActive ? (
-              <span className="truncate  text-xs">{user.email}</span>
+            {session.status !== 'loading' ? (
+              <span className="truncate  text-xs">
+                {session.data?.user.email}
+              </span>
             ) : (
               <Skeleton className="mt-1 h-3 w-full min-w-24 bg-zinc-700" />
             )}
