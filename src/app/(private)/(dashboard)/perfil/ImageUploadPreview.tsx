@@ -36,7 +36,7 @@ export function ImageUploadPreview({
   }
 
   return (
-    <div className="relative w-fit">
+    <div className="relative h-fit w-fit">
       <input
         type="file"
         name="upload-photo"
@@ -50,15 +50,18 @@ export function ImageUploadPreview({
         alt={`Foto do perfil de ${userName}`}
         width={208}
         height={208}
-        className="size-52 rounded-full object-cover"
+        className="sm:min-w-size-32 size-24 min-w-24 rounded-full object-cover sm:size-32 md:size-52 md:min-w-52"
         priority
         quality={80}
       />
       <Label
         htmlFor="upload-photo"
-        className="absolute bottom-0 right-8 mb-0 flex cursor-pointer items-center rounded-full bg-green-950 p-1.5"
+        className="absolute bottom-0 right-0 mb-0 flex cursor-pointer items-center rounded-full bg-green-950 p-1.5 md:right-8"
       >
-        <PencilSimpleLine size={24} className="text-green-200" weight="fill" />
+        <PencilSimpleLine
+          className="size-4 text-green-200 md:size-6"
+          weight="fill"
+        />
       </Label>
     </div>
   )

@@ -4,9 +4,11 @@ import { ReactNode } from 'react'
 import { SignOut, User } from '@phosphor-icons/react/dist/ssr'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { useSidebar } from '../ui/sidebar'
 
 export const PopoverPerfil = ({ children }: { children: ReactNode }) => {
   const router = useRouter()
+  const { open, isMobile } = useSidebar()
   function handleSignOut() {
     signOut()
   }
@@ -15,7 +17,7 @@ export const PopoverPerfil = ({ children }: { children: ReactNode }) => {
     router.push('/perfil')
   }
   return (
-    <Popover.PopoverRoot positioning={{ sameWidth: true }}>
+    <Popover.PopoverRoot positioning={{ sameWidth: open || isMobile }}>
       <Popover.PopoverTrigger asChild>{children}</Popover.PopoverTrigger>
       <Popover.PopoverContent
         className="rounded-lg border border-gray-900 bg-zinc-950"

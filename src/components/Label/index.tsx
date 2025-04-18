@@ -7,7 +7,7 @@ interface InputLabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
 
 export const Label = ({ className, children, ...rest }: InputLabelProps) => {
   return (
-    <label {...rest} className={twMerge('mb-2 text-xs block', className)}>
+    <label {...rest} className={twMerge('mb-2 block text-xs', className)}>
       {children}
     </label>
   )

@@ -35,7 +35,7 @@ export const TextAreaMsgErro = ({ text, ...rest }: TextAreaMsgErroProps) => {
     <p
       {...rest}
       className={twMerge(
-        'text-red-500 text-xs font-normal mt-1',
+        'mt-1 text-xs font-normal text-red-500',
         rest.className,
       )}
     >

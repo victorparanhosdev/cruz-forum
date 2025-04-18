@@ -85,7 +85,11 @@ export function SearchSalvos() {
         }
         {...register('title')}
       />
-      <Button aria-label="Botão Buscar" type="submit">
+      <Button
+        aria-label="Botão Buscar"
+        type="submit"
+        className="hidden md:block"
+      >
         Buscar
       </Button>
     </form>

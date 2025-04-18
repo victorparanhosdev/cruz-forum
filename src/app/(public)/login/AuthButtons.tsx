@@ -33,7 +33,7 @@ export const AuthButtons = () => {
   }
 
   return (
-    <div className="grid w-full gap-4">
+    <div className="flex w-full flex-col gap-4 md:grid">
       <form
         onSubmit={handleSubmit(handleFormEmailSubmit)}
         className="grid w-full gap-4"
@@ -80,7 +80,7 @@ export const AuthButtons = () => {
             src="/google.svg"
             className="object-cover"
           />
-          Fazer login com o Google
+          Fazer login com Google
         </button>
         <button
           type="button"
@@ -94,7 +94,7 @@ export const AuthButtons = () => {
             src="/facebook.svg"
             className="object-cover"
           />
-          Fazer login com o Facebook
+          Fazer login com Facebook
         </button>
       </div>
     </div>

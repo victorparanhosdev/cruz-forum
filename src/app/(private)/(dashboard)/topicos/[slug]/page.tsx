@@ -105,12 +105,12 @@ export default async function TopicId({ params }) {
 
   return (
     <main
-      className="rounded-xl bg-stone-950 px-4 py-12 "
+      className="h-full rounded-none bg-stone-950 px-1.5 pb-12 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pb-10 md:pt-12"
       role="main"
       aria-labelledby="topic-title"
     >
       <section
-        className="mx-auto max-w-[950px] "
+        className="mx-auto max-w-[950px]"
         aria-label="Detalhes do Tópico"
       >
         <Link
@@ -118,71 +118,73 @@ export default async function TopicId({ params }) {
           className="mb-4 inline-flex"
           aria-label="Voltar para página inicial"
         >
-          <Button state="transparent" className=" pl-0" iconLeft={ArrowLeft}>
+          <Button state="transparent" className="pl-0" iconLeft={ArrowLeft}>
             Voltar
           </Button>
         </Link>
 
-        <div className="mb-4 flex items-center gap-6">
+        <div className="mb-4 flex gap-4 md:gap-6">
           <Image
             src={response.image || '/placeholderperfil.png'}
             alt={`Foto de perfil de ${response.name}`}
             width={128}
             height={128}
-            className="size-32 min-w-32 rounded-full object-cover"
+            className="size-16 min-w-16 rounded-full object-cover md:size-32 md:min-w-32"
             priority
             quality={70}
           />
-          <div className="grid w-full gap-2.5">
-            <div className="flex justify-between">
-              <div>
-                <h1 className="text-4xl font-bold" id="topic-title">
-                  {response.title}
-                </h1>
-                <div className="flex items-center gap-2">
-                  <ArrowBendDownLeft size={16} aria-hidden="true" />
-                  <span
-                    aria-label={`Tópico publicado ${formatDistanceDate(response.createdAt)} por ${response.name}`}
-                    className="text-sm text-zinc-500"
-                  >
-                    topico publicado{' '}
-                    <span className="font-semibold">
-                      {formatDistanceDate(response.createdAt)}
-                    </span>{' '}
-                    por{' '}
-                    <strong className="text-zinc-400">{response.name}</strong>
-                  </span>
-                </div>
-              </div>
-              <div className="flex gap-2">
-                {response.isAuthorTopic ? (
-                  <AlertDialog
-                    onDeleteTopic={handleDeleteTopic}
-                    topicSlug={response.slug}
-                    aria-label="Excluir o topico"
-                  >
-                    <Trash
-                      className="text-red-500"
-                      size={36}
-                      aria-hidden="true"
-                    />
-                  </AlertDialog>
-                ) : (
-                  <ButtonSavedTopic
-                    isSavedTopic={response.isAuthorSavedTopic}
-                    aria-label={`Salvar tópico de ${response.name}`}
-                    topicSlug={response.slug}
-                  />
-                )}
-              </div>
-            </div>
 
-            <p className="text-base text-zinc-300">{response.descricao}</p>
+          <div className="w-full">
+            <h1
+              className="mb-1.5 font-bold sm:text-xl md:text-2xl lg:text-4xl"
+              id="topic-title"
+            >
+              {response.title}
+            </h1>
+            <div className="flex items-center gap-2">
+              <ArrowBendDownLeft size={16} aria-hidden="true" />
+              <span
+                aria-label={`Tópico publicado ${formatDistanceDate(response.createdAt)} por ${response.name}`}
+                className="text-xs text-zinc-500 md:text-sm"
+              >
+                topico publicado{' '}
+                <span className="font-semibold">
+                  {formatDistanceDate(response.createdAt)}
+                </span>{' '}
+                por <strong className="text-zinc-400">{response.name}</strong>
+              </span>
+            </div>
+          </div>
+
+          <div className="flex gap-2">
+            {response.isAuthorTopic ? (
+              <AlertDialog
+                onDeleteTopic={handleDeleteTopic}
+                topicSlug={response.slug}
+                aria-label="Excluir o topico"
+              >
+                <Trash
+                  className="size-6 text-red-500 md:size-9"
+                  aria-hidden="true"
+                />
+              </AlertDialog>
+            ) : (
+              <ButtonSavedTopic
+                isSavedTopic={response.isAuthorSavedTopic}
+                aria-label={`Salvar tópico de ${response.name}`}
+                topicSlug={response.slug}
+                className="h-fit"
+              />
+            )}
           </div>
         </div>
 
+        <p className="mb-4 text-justify text-xs text-zinc-300 sm:text-sm md:text-start md:text-base">
+          {response.descricao}
+        </p>
+
         <div className="mb-4">
-          <p className="mb-4 text-sm" aria-live="polite">
+          <p className="mb-4 text-sm underline" aria-live="polite">
             Comentarios:{' '}
           </p>
           <Suspense fallback={<h1>Carregando....</h1>}>

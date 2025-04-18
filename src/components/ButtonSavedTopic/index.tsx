@@ -22,8 +22,8 @@ function IconBookMarkSimple({ isSaved }: { isSaved: boolean }) {
     >
       <BookmarkSimple
         className="text-white"
-        size={28}
         aria-hidden="true"
+        size={28}
         weight={isSaved ? 'fill' : isHovered ? 'fill' : 'regular'}
       />
     </motion.div>

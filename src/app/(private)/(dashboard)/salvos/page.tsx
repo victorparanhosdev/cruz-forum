@@ -27,11 +27,11 @@ async function ComponentSavedTopicFeed({ searchTitle }: SearchTitleProps) {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+    <div className="grid min-h-[calc(100vh-366px)] grid-cols-1 gap-x-6 gap-y-4 min-[980px]:grid-cols-2">
       {Array.isArray(postsData) && postsData.length > 0 ? (
         postsData.map((topic) => <Topic key={topic.id} data={topic} />)
       ) : (
-        <p className=" col-span-2 py-4 text-center">Nenhum tópico encontrado</p>
+        <p className="col-span-2 py-4 text-center">Nenhum tópico encontrado</p>
       )}
     </div>
   )
@@ -51,13 +51,13 @@ export default async function Salvos(params: {
   const searchParams = await params.searchParams
 
   return (
-    <main className="rounded-xl bg-stone-950 px-4 py-12">
-      <h1 className="flex gap-2 text-3xl font-bold">
+    <main className="h-full rounded-none bg-stone-950 px-1.5 pb-12 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pb-10 md:pt-12">
+      <h1 className="flex items-center gap-2 text-2xl font-bold md:text-3xl">
         Salvos
-        <BookmarkSimple weight="bold" size={36} />
+        <BookmarkSimple weight="bold" className="size-6 md:size-9" />
       </h1>
 
-      <section className="grid gap-4 pt-9">
+      <section className="grid gap-4 pt-6 md:pt-9">
         <div className="flex gap-3">
           <Link href={'/'} className="flex">
             <Button iconLeft={ArrowLeft} state="transparent">

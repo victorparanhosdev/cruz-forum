@@ -1,13 +1,10 @@
-import { Navigation } from '@/components/Navigation'
-
 export default function DashBoardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <div className="grid min-h-view-without-fill w-full grid-cols-view-all gap-6 p-6">
-      <Navigation />
+    <div className="flex min-h-view-without-fill w-full flex-col md:py-6 md:pr-6">
       {children}
     </div>
   )

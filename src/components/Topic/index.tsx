@@ -14,7 +14,7 @@ interface TopicProps extends HTMLAttributes<HTMLDivElement> {
 
 export const SkeletonTopic = () => {
   return (
-    <div className="grid min-h-[650px] grid-cols-2 gap-x-6 gap-y-4">
+    <div className="grid min-h-[650px] grid-cols-1 gap-x-6 gap-y-4 min-[980px]:grid-cols-2">
       {Array.from({ length: 6 }).map((_, index) => {
         return (
           <Skeleton asChild key={index}>
@@ -36,7 +36,7 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
     <div
       {...props}
       className={twMerge(
-        'grid gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100 min-h-[206px] h-max',
+        'grid h-max min-h-[206px] gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100',
         className,
       )}
     >
@@ -51,7 +51,7 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
             quality={50}
           />
           <div className="h-[72px] w-full">
-            <h2 className="text-lg font-bold ">{data.title}</h2>
+            <h2 className="line-clamp-2 text-lg font-bold">{data.title}</h2>
             <span className="flex gap-2 text-xs text-gray-400">
               <ArrowBendDownLeft size={14} /> publicado{' '}
               {formatDistanceDate(data.createdAt)}
@@ -80,7 +80,7 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
         <Link
           href={`/topicos/${data.slug}`}
           aria-label="Botao de comentar"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 text-sm"
         >
           <ChatCircle size={20} />
           {formatCommentText(data.comments)}

@@ -1,11 +1,4 @@
-import {
-  Button,
-  Card,
-  Navigation,
-  Topic,
-  FilterPopover,
-  TopicDialog,
-} from '@/components'
+import { Button, Topic, FilterPopover, TopicDialog } from '@/components'
 import { CreateTopicFormData } from '@/components/TopicDialog'
 import { fetchAPI } from '@/lib/fetchAPI'
 
@@ -13,7 +6,6 @@ import {
   Chats,
   FadersHorizontal,
   ListPlus,
-  StarFour,
 } from '@phosphor-icons/react/dist/ssr'
 import { Metadata } from 'next'
 import { revalidateTag } from 'next/cache'
@@ -22,20 +14,13 @@ import { Suspense } from 'react'
 import { SearchTopic } from './SearchTopic'
 import { SkeletonTopic } from '@/components/Topic'
 import { fetchCardFeed } from './fetchCardFeed'
-import { Skeleton } from '@chakra-ui/react'
 import { PaginationControl } from './PaginationControl'
 import { redirect } from 'next/navigation'
+import { Aside } from './Aside'
+import { TriggerButtonRelevant } from './_components/trigger-button-relevant'
 
 export const metadata: Metadata = {
   title: 'Feed',
-}
-
-export type CardRelevantProps = {
-  id: string
-  title: string
-  image: string
-  slug: number
-  lastCommentAt: string
 }
 
 const CardFeedContent = async ({ searchTitle }: SearchTitleProps) => {
@@ -46,7 +31,7 @@ const CardFeedContent = async ({ searchTitle }: SearchTitleProps) => {
   }
 
   return (
-    <div className="grid min-h-[650px] grid-cols-2 gap-x-6 gap-y-4">
+    <div className="grid min-h-[calc(100vh-366px)] grid-cols-1 gap-x-6 gap-y-4 min-[980px]:grid-cols-2">
       {Array.isArray(data) && data.length > 0 ? (
         data.map((topic) => <Topic key={topic.id} data={topic} />)
       ) : (
@@ -60,46 +45,6 @@ const CardFeed = ({ searchTitle }: SearchTitleProps) => {
   return (
     <Suspense fallback={<SkeletonTopic />}>
       <CardFeedContent searchTitle={searchTitle} />
-    </Suspense>
-  )
-}
-
-const SkeletonCardRelevantContent = () => {
-  return (
-    <div className="flex flex-col gap-4">
-      {Array.from({ length: 5 }).map((_, index) => {
-        return (
-          <Skeleton asChild key={index}>
-            <div className="flex min-h-24 cursor-pointer gap-2.5 rounded-lg border border-white bg-topico-200 px-3 py-2 hover:border-green-200 hover:bg-hover-btn-gray" />
-          </Skeleton>
-        )
-      })}
-    </div>
-  )
-}
-
-const CardRelevantContent = async () => {
-  const url = `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics/relevant`
-
-  const data: CardRelevantProps[] = await fetch(url, {
-    next: { tags: ['feed'] },
-  })
-    .then((res) => res.json())
-    .catch(console.error)
-
-  return (
-    <div className="flex flex-col gap-4">
-      {data.map((dataCard: CardRelevantProps) => {
-        return <Card key={dataCard.id} dataCard={dataCard} />
-      })}
-    </div>
-  )
-}
-
-const CardRelevantWrapper = () => {
-  return (
-    <Suspense fallback={<SkeletonCardRelevantContent />}>
-      <CardRelevantContent />
     </Suspense>
   )
 }
@@ -142,43 +87,44 @@ export default async function Inicio(params: {
   const searchParams = await params.searchParams
 
   return (
-    <div className="grid min-h-view-without-fill w-full grid-cols-view-home gap-6 p-6">
-      <Navigation />
-      <main className="rounded-xl bg-stone-950 px-4 py-12">
-        <h1 className="flex gap-2 text-3xl font-bold">
-          Feed <Chats weight="bold" size={36} />
-        </h1>
+    <>
+      <div className="relative w-full gap-6 md:grid md:py-6 md:pr-6 min-[1280px]:grid-cols-view-home">
+        <main className="flex h-full flex-col bg-stone-950 px-1.5 pb-12 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pb-10 md:pt-12">
+          <h1 className="flex items-center gap-2 text-2xl font-bold md:text-3xl">
+            Feed <Chats weight="bold" className="size-6 md:size-9" />
+          </h1>
 
-        <section className="grid gap-4 pt-9">
-          <div className="flex gap-4">
-            <SearchTopic />
-            <TopicDialog onCreateTopic={handleCreateTopicsFeed}>
-              <Button iconLeft={ListPlus}>Criar tópico</Button>
-            </TopicDialog>
-          </div>
+          <section className="grid gap-4 pt-6 md:pt-9">
+            <div className="flex gap-4">
+              <SearchTopic />
+              <TopicDialog onCreateTopic={handleCreateTopicsFeed}>
+                <Button
+                  iconLeft={ListPlus}
+                  className="[&>span]:hidden [&>span]:md:inline"
+                >
+                  Criar tópico
+                </Button>
+              </TopicDialog>
+            </div>
 
-          <div className="flex items-center justify-between">
-            <FilterPopover>
-              <Button state="transparent" iconRight={FadersHorizontal}>
-                Ordernar
-              </Button>
-            </FilterPopover>
-            <CounterPagination searchTitle={searchParams} />
-          </div>
+            <div className="flex items-center justify-between">
+              <FilterPopover>
+                <Button state="transparent" iconRight={FadersHorizontal}>
+                  Ordernar
+                </Button>
+              </FilterPopover>
+              <CounterPagination searchTitle={searchParams} />
+            </div>
 
-          <div className="grid gap-4">
-            <CardFeed searchTitle={searchParams} />
-            <PaginationControl searchTitle={searchParams} />
-          </div>
-        </section>
-      </main>
-      <aside className="rounded-xl bg-stone-950 px-4 pt-12">
-        <h2 className="mb-8 flex items-center gap-1 text-sm">
-          <StarFour size={16} /> Mais Relevantes
-        </h2>
-
-        <CardRelevantWrapper />
-      </aside>
-    </div>
+            <div className="grid gap-4">
+              <CardFeed searchTitle={searchParams} />
+              <PaginationControl searchTitle={searchParams} />
+            </div>
+          </section>
+        </main>
+        <Aside />
+      </div>
+      <TriggerButtonRelevant />
+    </>
   )
 }

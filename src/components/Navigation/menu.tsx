@@ -6,6 +6,7 @@ import {
 } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '@/components'
 import { usePathname, useRouter } from 'next/navigation'
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar'
 
 export const Menu = () => {
   const params = usePathname()
@@ -15,9 +16,9 @@ export const Menu = () => {
   }
 
   return (
-    <menu>
-      <ul className="grid gap-3">
-        <li>
+    <SidebarMenu className="grid gap-3">
+      <SidebarMenuItem>
+        <SidebarMenuButton asChild>
           <Button
             onClick={() => handleRouter('/')}
             isActive={params === '/'}
@@ -26,8 +27,10 @@ export const Menu = () => {
           >
             Feed
           </Button>
-        </li>
-        <li>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+      <SidebarMenuItem>
+        <SidebarMenuButton asChild>
           <Button
             onClick={() => handleRouter('/topicos')}
             isActive={params === '/topicos'}
@@ -36,8 +39,10 @@ export const Menu = () => {
           >
             Meus Topicos
           </Button>
-        </li>
-        <li>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+      <SidebarMenuItem>
+        <SidebarMenuButton asChild>
           <Button
             onClick={() => handleRouter('/salvos')}
             isActive={params === '/salvos'}
@@ -46,8 +51,8 @@ export const Menu = () => {
           >
             Salvos
           </Button>
-        </li>
-      </ul>
-    </menu>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    </SidebarMenu>
   )
 }

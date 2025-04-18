@@ -22,7 +22,7 @@ export const Comentarios = ({
     <div
       {...props}
       className={twMerge(
-        'grid gap-4 rounded-lg border border-stone-900 bg-topico-200 p-4 h-max',
+        'grid h-max gap-4 rounded-lg border border-stone-900 bg-topico-200 p-4',
         className,
       )}
     >
@@ -33,12 +33,12 @@ export const Comentarios = ({
             height={48}
             src={dataComment.image || '/placeholderperfil.png'}
             alt="Foto do perfil"
-            className="size-12 rounded-full object-cover"
+            className="size-12 min-w-12 rounded-full object-cover"
             quality={50}
           />
 
           <div>
-            <h2>{dataComment.name}</h2>
+            <h2 className="text-sm">{dataComment.name}</h2>
             <div className="flex items-center gap-1">
               <ArrowBendDownLeft size={16} />
               <span className="text-xs text-zinc-500">
@@ -54,13 +54,13 @@ export const Comentarios = ({
         {dataComment.isAuthorComment && (
           <AlertDialogDeleteComment asChild commentId={dataComment.id}>
             <button aria-label="Excluir o comentario">
-              <Trash className="text-red-500" size={28} />
+              <Trash className="text-red-500" size={24} />
             </button>
           </AlertDialogDeleteComment>
         )}
       </div>
 
-      <p className="break-words break-all text-base text-zinc-300">
+      <p className="break-words break-all text-xs text-zinc-300 sm:text-sm md:text-base">
         {dataComment.descricao}
       </p>
 
