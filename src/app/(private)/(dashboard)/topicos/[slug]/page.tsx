@@ -1,12 +1,7 @@
-import { Button, ButtonSavedTopic } from '@/components'
+import { ButtonSavedTopic } from '@/components'
 import { AlertDialog } from '@/components/AlertDialog'
-import {
-  ArrowBendDownLeft,
-  ArrowLeft,
-  Trash,
-} from '@phosphor-icons/react/dist/ssr'
+import { ArrowBendDownLeft, Trash } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
-import Link from 'next/link'
 import { CreateComents } from './_components/CreateComents'
 import { Metadata } from 'next'
 import { fetchAPI } from '@/lib/fetchAPI'
@@ -17,6 +12,7 @@ import { redirect } from 'next/navigation'
 import { TopicCommentsProps } from '@/app/api/topics/[slug]/comments/route'
 import { CommentSection } from './_components/CommentSection'
 import { formatDistanceDate } from '@/lib/formatDistanceDate'
+import { BackButton } from '../../_components/BackButton'
 
 export const metadata: Metadata = {
   title: 'Topico',
@@ -105,7 +101,7 @@ export default async function TopicId({ params }) {
 
   return (
     <main
-      className="h-full rounded-none bg-stone-950 px-1.5 pb-12 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pb-10 md:pt-12"
+      className="h-full rounded-none bg-stone-950 px-1.5 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pb-10 md:pt-12"
       role="main"
       aria-labelledby="topic-title"
     >
@@ -113,17 +109,9 @@ export default async function TopicId({ params }) {
         className="mx-auto max-w-[950px]"
         aria-label="Detalhes do Tópico"
       >
-        <Link
-          href={'/'}
-          className="mb-4 inline-flex"
-          aria-label="Voltar para página inicial"
-        >
-          <Button state="transparent" className="pl-0" iconLeft={ArrowLeft}>
-            Voltar
-          </Button>
-        </Link>
+        <BackButton />
 
-        <div className="mb-4 flex gap-4 md:gap-6">
+        <div className="my-4 flex gap-4 md:gap-6">
           <Image
             src={response.image || '/placeholderperfil.png'}
             alt={`Foto de perfil de ${response.name}`}

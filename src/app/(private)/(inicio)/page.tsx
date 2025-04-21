@@ -31,7 +31,7 @@ const CardFeedContent = async ({ searchTitle }: SearchTitleProps) => {
   }
 
   return (
-    <div className="grid min-h-[calc(100vh-366px)] grid-cols-1 gap-x-6 gap-y-4 min-[980px]:grid-cols-2">
+    <div className="grid grid-cols-1 gap-x-6 gap-y-4 min-[980px]:grid-cols-2">
       {Array.isArray(data) && data.length > 0 ? (
         data.map((topic) => <Topic key={topic.id} data={topic} />)
       ) : (
@@ -88,8 +88,8 @@ export default async function Inicio(params: {
 
   return (
     <>
-      <div className="relative w-full gap-6 md:grid md:py-6 md:pr-6 min-[1280px]:grid-cols-view-home">
-        <main className="flex h-full flex-col bg-stone-950 px-1.5 pb-12 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pb-10 md:pt-12">
+      <div className="grid min-h-screen w-full gap-6 md:py-6 md:pr-6 min-[1280px]:grid-cols-view-home">
+        <main className="flex h-full flex-col bg-stone-950 px-1.5 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pt-12">
           <h1 className="flex items-center gap-2 text-2xl font-bold md:text-3xl">
             Feed <Chats weight="bold" className="size-6 md:size-9" />
           </h1>

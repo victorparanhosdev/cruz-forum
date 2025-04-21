@@ -89,10 +89,7 @@ export const AlertDialogDeleteComment = ({
       <DialogTrigger {...props} className="flex cursor-pointer items-center">
         {children}
       </DialogTrigger>
-      <DialogContent
-        className="mx-6 rounded-lg bg-gray-950 md:mx-auto"
-        padding={6}
-      >
+      <DialogContent className="rounded-lg bg-gray-950" padding={6}>
         <DialogHeader padding={0} marginBottom={4}>
           <DialogTitle className="text-lg font-medium sm:text-xl md:text-2xl">
             Excluir Comentário

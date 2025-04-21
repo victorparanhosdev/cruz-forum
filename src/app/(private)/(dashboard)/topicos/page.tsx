@@ -1,11 +1,6 @@
 import { Button, FilterPopover } from '@/components'
-import {
-  ArrowLeft,
-  FadersHorizontal,
-  ListDashes,
-} from '@phosphor-icons/react/dist/ssr'
+import { FadersHorizontal, ListDashes } from '@phosphor-icons/react/dist/ssr'
 import { Metadata } from 'next'
-import Link from 'next/link'
 import { fetchCardMyTopics } from './fetchCardMyTopics'
 import { SearchTitleProps } from '../../(inicio)/page'
 import { redirect } from 'next/navigation'
@@ -14,6 +9,7 @@ import { SkeletonTopic } from '@/components/Topic'
 import { PaginationControl } from './PaginationControl'
 import { SearchMyTopics } from './SearchMyTopics'
 import { TopicMyTopic } from './TopicMyTopics'
+import { BackButton } from '../_components/BackButton'
 
 export const metadata: Metadata = {
   title: 'Meus Topicos',
@@ -27,7 +23,7 @@ async function ComponentMyTopicsTopicFeed({ searchTitle }: SearchTitleProps) {
   }
 
   return (
-    <div className="grid min-h-[calc(100vh-366px)] grid-cols-1 gap-x-6 gap-y-4 min-[980px]:grid-cols-2">
+    <div className="grid grid-cols-1 gap-x-6 gap-y-4 min-[980px]:grid-cols-2">
       {Array.isArray(postsData) && postsData.length > 0 ? (
         postsData.map((topic) => <TopicMyTopic key={topic.id} data={topic} />)
       ) : (
@@ -51,18 +47,14 @@ export default async function Topicos(params: {
   const searchParams = await params.searchParams
 
   return (
-    <main className="h-full bg-stone-950 px-1.5 pb-12 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pb-10 md:pt-12">
+    <main className="h-full bg-stone-950 px-1.5 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pt-12">
       <h1 className="flex items-center gap-2 text-2xl font-bold md:text-3xl">
         Meus Topicos
         <ListDashes weight="bold" className="size-6 md:size-9" />
       </h1>
       <section className="grid gap-4 pt-6 md:pt-9">
         <div className="flex gap-3">
-          <Link href={'/'} className="flex">
-            <Button iconLeft={ArrowLeft} state="transparent">
-              Voltar
-            </Button>
-          </Link>
+          <BackButton />
 
           <SearchMyTopics />
         </div>

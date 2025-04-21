@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { ReactNode, useState } from 'react'
+import { ReactNode, useMemo, useState } from 'react'
 import {
   Button,
   Input,
@@ -25,6 +25,7 @@ import { z as zod } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toaster } from '../ui/toaster'
 import { CircleNotch } from '@phosphor-icons/react'
+import { useSearchParams, useRouter } from 'next/navigation'
 
 const createTopicSchema = zod.object({
   title: zod
@@ -58,6 +59,14 @@ interface TopicDialogProps {
 
 export const TopicDialog = ({ onCreateTopic, children }: TopicDialogProps) => {
   const [isClosedModal, setClosedModal] = useState(false)
+  const searchParams = useSearchParams()
+  const params = useMemo(
+    () => new URLSearchParams(searchParams),
+    [searchParams],
+  )
+  const router = useRouter()
+  const currentPage = params.get('page')
+
   const {
     handleSubmit,
     register,
@@ -87,6 +96,11 @@ export const TopicDialog = ({ onCreateTopic, children }: TopicDialogProps) => {
         description: 'O tópico foi criado com sucesso.',
         duration: 3000,
       })
+
+      if (Number(currentPage) >= 2) {
+        console.log('entrei')
+        router.replace('/')
+      }
     } catch (error) {
       console.error(error)
     }
@@ -108,10 +122,7 @@ export const TopicDialog = ({ onCreateTopic, children }: TopicDialogProps) => {
       onOpenChange={handleDialogClose}
     >
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent
-        className="mx-6 rounded-lg bg-gray-950 md:mx-auto"
-        padding={6}
-      >
+      <DialogContent className="rounded-lg bg-gray-950" padding={6}>
         <DialogHeader padding={0} marginBottom={4}>
           <DialogTitle className="text-2xl font-medium">
             Criar Tópico

@@ -12,11 +12,11 @@ import { SearchTitleProps } from './page'
 
 const PaginationSkeleton = () => {
   return (
-    <div className="flex place-content-end items-center gap-2">
-      <div className="h-6 w-6 animate-pulse rounded bg-stone-800" />
-      <div className="h-6 w-6 animate-pulse rounded bg-stone-800" />
-      <div className="h-6 w-6 animate-pulse rounded bg-stone-800" />
-      <div className="h-6 w-6 animate-pulse rounded bg-stone-800" />
+    <div className="flex place-content-end items-center gap-2 pb-12">
+      <div className="h-7 w-7 animate-pulse rounded bg-stone-800" />
+      <div className="h-7 w-7 animate-pulse rounded bg-stone-800" />
+      <div className="h-7 w-7 animate-pulse rounded bg-stone-800" />
+      <div className="h-7 w-7 animate-pulse rounded bg-stone-800" />
     </div>
   )
 }
@@ -58,6 +58,10 @@ export const PaginationControl = ({ searchTitle }: SearchTitleProps) => {
   const updatePage = (page: number) => {
     params.set('page', page.toString())
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
   }
 
   if (!data) return <PaginationSkeleton />
@@ -65,7 +69,7 @@ export const PaginationControl = ({ searchTitle }: SearchTitleProps) => {
   const { meta } = data
 
   return (
-    <div className="flex place-content-end items-center gap-2">
+    <div className="flex place-content-end items-center gap-2 pb-12">
       <button
         onClick={() => updatePage(1)}
         disabled={currentPage === 1 || meta.totalPages === 0}
@@ -73,7 +77,7 @@ export const PaginationControl = ({ searchTitle }: SearchTitleProps) => {
         aria-disabled={currentPage === 1 || meta.totalPages === 0}
         className="disabled:opacity-50"
       >
-        <CaretDoubleLeft size={24} />
+        <CaretDoubleLeft size={28} />
       </button>
       <button
         onClick={() => updatePage(Math.max(currentPage - 1, 1))}
@@ -82,7 +86,7 @@ export const PaginationControl = ({ searchTitle }: SearchTitleProps) => {
         aria-disabled={currentPage === 1 || meta.totalPages === 0}
         className="disabled:opacity-50"
       >
-        <CaretLeft size={24} />
+        <CaretLeft size={28} />
       </button>
       <button
         onClick={() => updatePage(Math.min(currentPage + 1, meta.totalPages))}
@@ -91,7 +95,7 @@ export const PaginationControl = ({ searchTitle }: SearchTitleProps) => {
         aria-disabled={currentPage === meta.totalPages || meta.totalPages === 0}
         className="disabled:opacity-50"
       >
-        <CaretRight size={24} />
+        <CaretRight size={28} />
       </button>
       <button
         onClick={() => updatePage(meta.totalPages)}
@@ -100,7 +104,7 @@ export const PaginationControl = ({ searchTitle }: SearchTitleProps) => {
         aria-disabled={currentPage === meta.totalPages || meta.totalPages === 0}
         className="disabled:opacity-50"
       >
-        <CaretDoubleRight size={24} />
+        <CaretDoubleRight size={28} />
       </button>
     </div>
   )

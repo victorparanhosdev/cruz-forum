@@ -1,6 +1,6 @@
 'use client'
 import { Popover } from '@/components'
-import { ReactNode, useMemo } from 'react'
+import { ReactNode, useMemo, useState } from 'react'
 import {
   CaretUpDown,
   ChatTeardropText,
@@ -21,6 +21,7 @@ const SchemaFilterFormValues = z.object({
 type SchemaFilterFormValuesProps = z.infer<typeof SchemaFilterFormValues>
 
 export const FilterPopover = ({ children }: { children: ReactNode }) => {
+  const [isOpenPopover, setIsOpenPopover] = useState(false)
   const searchParams = useSearchParams()
   const params = useMemo(
     () => new URLSearchParams(searchParams),
@@ -43,6 +44,7 @@ export const FilterPopover = ({ children }: { children: ReactNode }) => {
       params.set('_sort', newTopicSort)
       router.replace(`${pathname}?${params.toString()}`, { scroll: false })
       setValue('_sort', newTopicSort)
+      setIsOpenPopover(false)
       return
     }
 
@@ -54,12 +56,14 @@ export const FilterPopover = ({ children }: { children: ReactNode }) => {
     params.set('_sort', filter)
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
     setValue('_sort', filter)
+    setIsOpenPopover(false)
   }
 
   const clearFilter = () => {
     params.delete('_sort')
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
     reset({ _sort: null })
+    setIsOpenPopover(false)
   }
 
   const getTopicIcon = () => {
@@ -76,7 +80,11 @@ export const FilterPopover = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <Popover.PopoverRoot positioning={{ sameWidth: true }}>
+    <Popover.PopoverRoot
+      positioning={{ sameWidth: true }}
+      open={isOpenPopover}
+      onOpenChange={({ open }) => setIsOpenPopover(open)}
+    >
       <Popover.PopoverTrigger asChild>{children}</Popover.PopoverTrigger>
       <Popover.PopoverContent
         className="rounded-lg border border-stone-700 bg-zinc-950"

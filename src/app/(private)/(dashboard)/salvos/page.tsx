@@ -1,18 +1,17 @@
 import { Button, FilterPopover } from '@/components'
 import { SkeletonTopic, Topic } from '@/components/Topic'
 import {
-  ArrowLeft,
   BookmarkSimple,
   FadersHorizontal,
 } from '@phosphor-icons/react/dist/ssr'
 import { Metadata } from 'next'
-import Link from 'next/link'
 import { Suspense } from 'react'
 import { PaginationControl } from './PaginationControl'
 import { SearchTitleProps } from '../../(inicio)/page'
 import { fetchCardSalvos } from './fetchCardSalvos'
 import { redirect } from 'next/navigation'
 import { SearchSalvos } from './SearchSalvos'
+import { BackButton } from '../_components/BackButton'
 
 export const metadata: Metadata = {
   title: 'Salvos',
@@ -27,7 +26,7 @@ async function ComponentSavedTopicFeed({ searchTitle }: SearchTitleProps) {
   }
 
   return (
-    <div className="grid min-h-[calc(100vh-366px)] grid-cols-1 gap-x-6 gap-y-4 min-[980px]:grid-cols-2">
+    <div className="grid grid-cols-1 gap-x-6 gap-y-4 min-[980px]:grid-cols-2">
       {Array.isArray(postsData) && postsData.length > 0 ? (
         postsData.map((topic) => <Topic key={topic.id} data={topic} />)
       ) : (
@@ -51,7 +50,7 @@ export default async function Salvos(params: {
   const searchParams = await params.searchParams
 
   return (
-    <main className="h-full rounded-none bg-stone-950 px-1.5 pb-12 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pb-10 md:pt-12">
+    <main className="h-full rounded-none bg-stone-950 px-1.5 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pb-10 md:pt-12">
       <h1 className="flex items-center gap-2 text-2xl font-bold md:text-3xl">
         Salvos
         <BookmarkSimple weight="bold" className="size-6 md:size-9" />
@@ -59,11 +58,7 @@ export default async function Salvos(params: {
 
       <section className="grid gap-4 pt-6 md:pt-9">
         <div className="flex gap-3">
-          <Link href={'/'} className="flex">
-            <Button iconLeft={ArrowLeft} state="transparent">
-              Voltar
-            </Button>
-          </Link>
+          <BackButton />
           <SearchSalvos />
         </div>
 

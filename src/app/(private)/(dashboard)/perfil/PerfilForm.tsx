@@ -106,7 +106,7 @@ export const PerfilForm = ({
             </ul>
           </div>
         </div>
-        <div className="h-px w-full bg-gray-800 md:h-auto md:w-px" />
+        <div className="h-px w-full bg-gray-800 lg:h-auto lg:w-px" />
 
         <div className="flex flex-col gap-6 md:gap-9">
           <h2 className="text-base font-medium md:text-lg lg:text-2xl">

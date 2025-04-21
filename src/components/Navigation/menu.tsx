@@ -6,13 +6,22 @@ import {
 } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '@/components'
 import { usePathname, useRouter } from 'next/navigation'
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar'
+import {
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from '../ui/sidebar'
 
 export const Menu = () => {
   const params = usePathname()
   const router = useRouter()
+  const { setOpenMobile, isMobile } = useSidebar()
   function handleRouter(params: string) {
     router.push(params)
+    if (isMobile) {
+      setOpenMobile(false)
+    }
   }
 
   return (

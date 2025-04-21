@@ -37,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={interFont.className} suppressHydrationWarning>
-      <body className="flex min-h-screen items-center justify-center bg-black text-white antialiased">
+      <body className="flex min-h-screen items-center justify-center scroll-smooth bg-black text-white antialiased">
         <ClientProviders>
           {children}
           <Toaster />
