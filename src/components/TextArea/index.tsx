@@ -6,7 +6,7 @@ import { tv } from 'tailwind-variants'
 const TextAreaStyleVariants = tv({
   slots: {
     container:
-      'block min-h-28 w-full resize-none overflow-hidden rounded-lg border bg-stone-950 px-4 py-2.5 outline-none focus:ring-1',
+      'block min-h-28 w-full resize-none overflow-hidden rounded-lg border bg-stone-950 px-4 py-2.5 outline-none focus:ring-1 text-base',
   },
   variants: {
     state: {

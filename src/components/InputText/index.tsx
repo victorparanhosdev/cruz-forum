@@ -11,7 +11,7 @@ import { tv } from 'tailwind-variants'
 const InputStyleVariants = tv({
   slots: {
     container:
-      'relative w-full rounded-lg border bg-stone-950 transition focus-within:ring-1',
+      'relative w-full rounded-lg border bg-stone-950 transition focus-within:ring-1 text-base',
     icon: '',
   },
   variants: {
