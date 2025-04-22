@@ -71,7 +71,7 @@ export const CreateComents = ({
   }
 
   return (
-    <div className="flex min-h-20 w-full justify-end">
+    <div className="flex min-h-28 w-full justify-end p-4 pb-6">
       {isCommentActive ? (
         <form
           className="flex w-full items-center gap-3"
@@ -83,13 +83,13 @@ export const CreateComents = ({
               alt="Foto do Perfil"
               width={48}
               height={48}
-              className="h-12 min-w-12 rounded-full object-cover"
+              className="h-10 min-w-10 rounded-full object-cover md:size-12 md:min-w-12"
             />
           </figure>
           <TextArea
             state="default"
             placeholder="Escreva aqui o comentário..."
-            className="min-h-full w-full resize-y overflow-auto bg-black"
+            className="min-h-full w-full resize-y overflow-auto bg-black placeholder:text-sm"
             {...register('comments')}
           />
           <div className="flex items-center gap-3">
@@ -112,7 +112,10 @@ export const CreateComents = ({
           </div>
         </form>
       ) : (
-        <Button onClick={handleCommentToggle} className="h-fit px-6 py-4">
+        <Button
+          onClick={handleCommentToggle}
+          className="h-fit px-6 py-3"
+        >
           Comentar
         </Button>
       )}

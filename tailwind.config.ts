@@ -120,7 +120,7 @@ export default {
       },
       gridTemplateColumns: {
         'view-login': '2fr 3fr',
-        'view-home': '1fr 241px',
+        'view-home': '1fr 257px',
         'view-all': '241px 1fr',
         'view-perfil': '96px 1fr',
       },
@@ -128,6 +128,9 @@ export default {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      screens: {
+        apple: '440px',
       },
     },
   },

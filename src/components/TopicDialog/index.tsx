@@ -66,6 +66,7 @@ export const TopicDialog = ({ onCreateTopic, children }: TopicDialogProps) => {
   )
   const router = useRouter()
   const currentPage = params.get('page')
+  const sort = params.get('_sort')
 
   const {
     handleSubmit,
@@ -97,10 +98,13 @@ export const TopicDialog = ({ onCreateTopic, children }: TopicDialogProps) => {
         duration: 3000,
       })
 
-      if (Number(currentPage) >= 2) {
-        console.log('entrei')
+      if (sort || Number(currentPage) >= 2) {
+        if (sort) {
+          params.delete('_sort')
+        }
         router.replace('/')
       }
+
     } catch (error) {
       console.error(error)
     }

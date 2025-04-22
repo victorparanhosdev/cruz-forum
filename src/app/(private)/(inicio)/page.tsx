@@ -2,11 +2,7 @@ import { Button, Topic, FilterPopover, TopicDialog } from '@/components'
 import { CreateTopicFormData } from '@/components/TopicDialog'
 import { fetchAPI } from '@/lib/fetchAPI'
 
-import {
-  Chats,
-  FadersHorizontal,
-  ListPlus,
-} from '@phosphor-icons/react/dist/ssr'
+import { Chats, FadersHorizontal, Plus } from '@phosphor-icons/react/dist/ssr'
 import { Metadata } from 'next'
 import { revalidateTag } from 'next/cache'
 import { Suspense } from 'react'
@@ -88,7 +84,7 @@ export default async function Inicio(params: {
 
   return (
     <>
-      <div className="grid min-h-screen w-full gap-6 md:py-6 md:pr-6 min-[1280px]:grid-cols-view-home">
+      <div className="grid min-h-screen w-full gap-4 min-[1280px]:grid-cols-view-home">
         <main className="flex h-full flex-col bg-stone-950 px-1.5 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pt-12">
           <h1 className="flex items-center gap-2 text-2xl font-bold md:text-3xl">
             Feed <Chats weight="bold" className="size-6 md:size-9" />
@@ -99,7 +95,7 @@ export default async function Inicio(params: {
               <SearchTopic />
               <TopicDialog onCreateTopic={handleCreateTopicsFeed}>
                 <Button
-                  iconLeft={ListPlus}
+                  iconLeft={Plus}
                   className="[&>span]:hidden [&>span]:md:inline"
                 >
                   Criar tópico

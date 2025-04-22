@@ -56,7 +56,7 @@ export const Aside = ({ className, ...props }: ComponentProps<'aside'>) => {
     <aside
       {...props}
       className={cn(
-        'h-view-relevantes fixed bottom-6 right-6 top-6 hidden w-[241px] overflow-auto rounded-xl bg-stone-950 px-4 pt-12 ring-1 ring-stone-900 min-[1280px]:block',
+        'h-view-relevantes fixed bottom-4 right-4 top-4 hidden w-[257px] overflow-auto rounded-xl bg-stone-950 px-4 pt-12 ring-1 ring-stone-900 min-[1280px]:block',
         className,
       )}
     >

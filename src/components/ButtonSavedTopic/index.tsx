@@ -12,6 +12,15 @@ interface ButtonSavedTopic extends HtmlHTMLAttributes<HTMLButtonElement> {
 function IconBookMarkSimple({ isSaved }: { isSaved: boolean }) {
   const [isHovered, setIsHovered] = useState(false)
 
+  const handleTouch = () => {
+    if (isSaved) return
+    setIsHovered(true)
+
+    setTimeout(() => {
+      setIsHovered(false)
+    }, 400)
+  }
+
   return (
     <motion.div
       initial={false}
@@ -19,6 +28,7 @@ function IconBookMarkSimple({ isSaved }: { isSaved: boolean }) {
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       onMouseEnter={() => !isSaved && setIsHovered(true)}
       onMouseLeave={() => !isSaved && setIsHovered(false)}
+      onTouchStart={handleTouch}
     >
       <BookmarkSimple
         className="text-white"

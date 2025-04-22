@@ -69,7 +69,7 @@ export const PaginationControl = ({ searchTitle }: SearchTitleProps) => {
   const { meta } = data
 
   return (
-    <div className="flex place-content-end items-center gap-2 pb-12">
+    <div className="flex place-content-end items-center gap-2 pb-14">
       <button
         onClick={() => updatePage(1)}
         disabled={currentPage === 1 || meta.totalPages === 0}
@@ -77,7 +77,7 @@ export const PaginationControl = ({ searchTitle }: SearchTitleProps) => {
         aria-disabled={currentPage === 1 || meta.totalPages === 0}
         className="disabled:opacity-50"
       >
-        <CaretDoubleLeft size={28} />
+        <CaretDoubleLeft size={30} weight="bold" />
       </button>
       <button
         onClick={() => updatePage(Math.max(currentPage - 1, 1))}
@@ -86,7 +86,7 @@ export const PaginationControl = ({ searchTitle }: SearchTitleProps) => {
         aria-disabled={currentPage === 1 || meta.totalPages === 0}
         className="disabled:opacity-50"
       >
-        <CaretLeft size={28} />
+        <CaretLeft size={30} weight="bold" />
       </button>
       <button
         onClick={() => updatePage(Math.min(currentPage + 1, meta.totalPages))}
@@ -95,7 +95,7 @@ export const PaginationControl = ({ searchTitle }: SearchTitleProps) => {
         aria-disabled={currentPage === meta.totalPages || meta.totalPages === 0}
         className="disabled:opacity-50"
       >
-        <CaretRight size={28} />
+        <CaretRight size={30} weight="bold" />
       </button>
       <button
         onClick={() => updatePage(meta.totalPages)}
@@ -104,7 +104,7 @@ export const PaginationControl = ({ searchTitle }: SearchTitleProps) => {
         aria-disabled={currentPage === meta.totalPages || meta.totalPages === 0}
         className="disabled:opacity-50"
       >
-        <CaretDoubleRight size={28} />
+        <CaretDoubleRight size={30} weight="bold" />
       </button>
     </div>
   )

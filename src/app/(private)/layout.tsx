@@ -1,12 +1,16 @@
-import { SidebarProvider } from '@/components/ui/sidebar'
 import { Navigation } from '@/components'
 import { SidebarTriggerMobile } from '@/components/ui/SidebarTriggerMobile'
 import Image from 'next/image'
 import Link from 'next/link'
+import { ReactNode } from 'react'
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+interface LayoutProps {
+  children: ReactNode
+}
+
+export default function Layout({ children }: LayoutProps) {
   return (
-    <SidebarProvider>
+    <>
       <Navigation />
       <div
         role="navigation"
@@ -25,6 +29,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </Link>
       </div>
       {children}
-    </SidebarProvider>
+    </>
   )
 }

@@ -50,16 +50,16 @@ export function ImageUploadPreview({
         alt={`Foto do perfil de ${userName}`}
         width={208}
         height={208}
-        className="sm:min-w-size-32 size-24 min-w-24 rounded-full object-cover sm:size-32 md:size-52 md:min-w-52"
+        className="sm:min-w-size-32 size-24 min-w-24 rounded-full object-cover sm:size-32 md:size-44 md:min-w-44"
         priority
         quality={80}
       />
       <Label
         htmlFor="upload-photo"
-        className="absolute bottom-0 right-0 mb-0 flex cursor-pointer items-center rounded-full bg-green-950 p-1.5 md:right-8"
+        className="absolute bottom-0 right-1 mb-0 flex cursor-pointer items-center rounded-full bg-green-950 p-1.5 sm:right-3 md:right-5"
       >
         <PencilSimpleLine
-          className="size-4 text-green-200 md:size-6"
+          className="size-3 sm:size-4 text-green-200 md:size-5"
           weight="fill"
         />
       </Label>

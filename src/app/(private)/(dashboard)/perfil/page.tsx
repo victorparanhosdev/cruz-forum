@@ -47,7 +47,7 @@ export default async function Perfil() {
   )
 
   return (
-    <main className="h-full rounded-none bg-stone-950 px-1.5 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pb-10 md:pt-12">
+    <main className="h-auto w-full rounded-none bg-stone-950 px-1.5 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pt-12">
       <h1 className="flex items-center gap-2 text-2xl font-bold md:mb-9 md:text-3xl">
         Perfil <User weight="bold" className="size-6 md:size-9" />
       </h1>

@@ -71,20 +71,20 @@ export const AuthButtons = () => {
         <button
           onClick={() => handleSignIn('google')}
           type="button"
-          className="flex items-center gap-3 rounded-lg border border-stone-700 px-6 py-1 transition hover:enabled:bg-hover-btn-gray"
+          className="flex items-center justify-center gap-3 rounded-lg border border-stone-700 px-4 py-2 text-sm transition hover:enabled:bg-hover-btn-gray sm:justify-start sm:px-6"
         >
           <Image
             alt="google"
             height={49}
             width={48}
             src="/google.svg"
-            className="object-cover"
+            className="size-8 object-cover"
           />
-          Fazer login com Google
+          Fazer login com o Google
         </button>
         <button
           type="button"
-          className="flex items-center gap-3 rounded-lg border border-stone-700 px-6 py-1 transition hover:enabled:bg-hover-btn-gray"
+          className="flex items-center justify-center gap-3 rounded-lg border border-stone-700 px-4 py-2 text-sm transition hover:enabled:bg-hover-btn-gray sm:justify-start sm:px-6"
         >
           <Image
             onClick={() => handleSignIn('facebook')}
@@ -92,9 +92,9 @@ export const AuthButtons = () => {
             height={49}
             width={48}
             src="/facebook.svg"
-            className="object-cover"
+            className="size-8 object-cover"
           />
-          Fazer login com Facebook
+          Fazer login com o Facebook
         </button>
       </div>
     </div>

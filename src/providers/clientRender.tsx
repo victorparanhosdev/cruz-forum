@@ -3,6 +3,7 @@ import { SessionProviderNextAuth } from '@/providers/sessionProvider'
 import { ChakraUIProvider } from '@/providers/chakra-ui'
 import Loading from '@/app/loading'
 import React, { ReactNode, useEffect, useState } from 'react'
+import { SidebarProvider } from '@/components/ui/sidebar'
 
 const RenderMounted = ({ children }: { children: ReactNode }) => {
   const [mounted, setMounted] = useState(false)
@@ -19,7 +20,9 @@ export const ClientProviders = ({
   return (
     <SessionProviderNextAuth>
       <RenderMounted>
-        <ChakraUIProvider>{children}</ChakraUIProvider>
+        <SidebarProvider>
+          <ChakraUIProvider>{children}</ChakraUIProvider>
+        </SidebarProvider>
       </RenderMounted>
     </SessionProviderNextAuth>
   )

@@ -13,6 +13,7 @@ import { TopicCommentsProps } from '@/app/api/topics/[slug]/comments/route'
 import { CommentSection } from './_components/CommentSection'
 import { formatDistanceDate } from '@/lib/formatDistanceDate'
 import { BackButton } from '../../_components/BackButton'
+import { Skeleton } from '@chakra-ui/react'
 
 export const metadata: Metadata = {
   title: 'Topico',
@@ -51,6 +52,7 @@ async function handleAddComments({
 }
 
 async function ComentariosCard({ topicSlug }: { topicSlug: number }) {
+
   const responseComents: TopicCommentsProps[] = await fetchAPI({
     url: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics/${topicSlug}/comments`,
     method: 'GET',
@@ -60,6 +62,14 @@ async function ComentariosCard({ topicSlug }: { topicSlug: number }) {
     .catch(console.error)
 
   return <CommentSection comments={responseComents} />
+}
+
+const SkeletonComents = () => {
+  return (
+    <Skeleton asChild>
+      <div className="grid min-h-[172px] place-items-center rounded-lg border border-stone-900 bg-topico-200 p-4 mx-2" />
+    </Skeleton>
+  )
 }
 
 async function handleDeleteTopic(topicSlug: number) {
@@ -101,7 +111,7 @@ export default async function TopicId({ params }) {
 
   return (
     <main
-      className="h-full rounded-none bg-stone-950 px-1.5 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pb-10 md:pt-12"
+      className="h-auto w-full rounded-none bg-stone-950 px-1.5 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pt-12"
       role="main"
       aria-labelledby="topic-title"
     >
@@ -109,7 +119,7 @@ export default async function TopicId({ params }) {
         className="mx-auto max-w-[950px]"
         aria-label="Detalhes do Tópico"
       >
-        <BackButton />
+        <BackButton className="mb-6" />
 
         <div className="my-4 flex gap-4 md:gap-6">
           <Image
@@ -117,14 +127,14 @@ export default async function TopicId({ params }) {
             alt={`Foto de perfil de ${response.name}`}
             width={128}
             height={128}
-            className="size-16 min-w-16 rounded-full object-cover md:size-32 md:min-w-32"
+            className="size-16 min-w-16 rounded-full object-cover md:size-24 md:min-w-24"
             priority
             quality={70}
           />
 
           <div className="w-full">
             <h1
-              className="mb-1.5 font-bold sm:text-xl md:text-2xl lg:text-4xl"
+              className="mb-1.5 font-bold sm:text-xl md:text-2xl lg:text-3xl"
               id="topic-title"
             >
               {response.title}
@@ -152,7 +162,7 @@ export default async function TopicId({ params }) {
                 aria-label="Excluir o topico"
               >
                 <Trash
-                  className="size-6 text-red-500 md:size-9"
+                  className="size-7 text-red-500 md:size-8"
                   aria-hidden="true"
                 />
               </AlertDialog>
@@ -171,11 +181,11 @@ export default async function TopicId({ params }) {
           {response.descricao}
         </p>
 
-        <div className="mb-4">
+        <div>
           <p className="mb-4 text-sm underline" aria-live="polite">
             Comentarios:{' '}
           </p>
-          <Suspense fallback={<h1>Carregando....</h1>}>
+          <Suspense fallback={<SkeletonComents />}>
             <ComentariosCard topicSlug={response.slug} />
           </Suspense>
         </div>

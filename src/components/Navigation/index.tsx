@@ -18,11 +18,11 @@ export const Navigation = () => {
 
   return (
     <Sidebar collapsible="icon" variant="inset">
-      <SidebarContent className="flex h-full flex-col gap-6 rounded-xl bg-stone-950 px-4 pt-12 ring-1 ring-stone-900">
+      <SidebarContent className="flex h-full flex-col gap-6 rounded-xl bg-stone-950 px-4 pb-12 pt-4 ring-1 ring-stone-900 md:pt-10">
         <SidebarTrigger />
         <PopoverPerfil>
           <SidebarMenuButton asChild>
-            <button className="flex items-center gap-2 rounded-xl border border-green-200 px-3 py-1 group-data-[collapsible=icon]:px-2.5 group-data-[collapsible=icon]:[&>div]:hidden group-data-[collapsible=icon]:[&>svg]:hidden">
+            <button className="flex min-h-[46px] items-center gap-2 rounded-xl border border-green-200 px-3 py-1 group-data-[collapsible=icon]:px-2.5 group-data-[collapsible=icon]:[&>div]:hidden group-data-[collapsible=icon]:[&>svg]:hidden">
               <Image
                 height={36}
                 width={36}
@@ -50,7 +50,7 @@ export const Navigation = () => {
                   <Skeleton className="mt-1 h-3 w-full min-w-24 bg-zinc-700" />
                 )}
               </div>
-              <CaretDown size={16} />
+              <CaretDown size={16} className="ml-auto" />
             </button>
           </SidebarMenuButton>
         </PopoverPerfil>

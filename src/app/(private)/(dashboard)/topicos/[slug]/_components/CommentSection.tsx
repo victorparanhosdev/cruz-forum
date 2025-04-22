@@ -43,7 +43,7 @@ export function CommentSection({
 
   return (
     <div
-      className="grid max-h-[559px] gap-4 overflow-auto md:max-h-[474px]"
+      className="grid max-h-[calc(100vh-400px)] min-h-[192px] gap-4 overflow-auto px-2"
       ref={commentsContainerRef}
     >
       {Array.isArray(comments) && comments.length > 0 ? (
@@ -57,8 +57,8 @@ export function CommentSection({
           )
         })
       ) : (
-        <div className="grid min-h-[162px] place-items-center rounded-lg border border-stone-900 p-4">
-          <h1>Nenhuma comentario por enquanto</h1>
+        <div className="grid min-h-[142px] place-items-center rounded-lg border border-stone-900 p-4">
+          <h1 className='text-sm'>Nenhum comentario por enquanto</h1>
         </div>
       )}
     </div>

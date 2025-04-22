@@ -26,19 +26,19 @@ export const Comentarios = ({
         className,
       )}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-start justify-between">
         <div className="flex gap-4">
           <Image
             width={48}
             height={48}
             src={dataComment.image || '/placeholderperfil.png'}
             alt="Foto do perfil"
-            className="size-12 min-w-12 rounded-full object-cover"
+            className="size-10 min-w-10 rounded-full object-cover md:size-12 md:min-w-12"
             quality={50}
           />
 
           <div>
-            <h2 className="text-sm">{dataComment.name}</h2>
+            <h2 className="text-base">{dataComment.name}</h2>
             <div className="flex items-center gap-1">
               <ArrowBendDownLeft size={16} />
               <span className="text-xs text-zinc-500">

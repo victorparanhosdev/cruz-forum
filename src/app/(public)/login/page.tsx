@@ -8,16 +8,16 @@ export const metadata: Metadata = {
 
 export default function Login() {
   return (
-    <main className="flex min-h-view-without-fill w-full grid-cols-view-login overflow-hidden rounded-xl bg-stone-950 p-4 md:grid">
+    <main className="flex w-full grid-cols-view-login bg-stone-950 md:grid md:rounded-xl">
       <section className="hidden bg-[url(/bg.png)] bg-cover bg-bottom bg-no-repeat md:block" />
 
-      <section className="m-auto flex flex-col items-center p-3 max-[320px]:min-w-0 md:min-w-[331px] md:p-6">
+      <section className="flex w-full flex-col items-center justify-center p-4 md:py-12 apple:w-auto apple:m-auto md:p-6">
         <Image
           width={256}
           height={104}
           alt="logo da aplicacao"
           src="/logo-login.png"
-          className="mb-12 max-w-64"
+          className="mb-12 max-w-52"
           priority
           quality={60}
         />
