@@ -18,7 +18,7 @@ function IconBookMarkSimple({ isSaved }: { isSaved: boolean }) {
 
     setTimeout(() => {
       setIsHovered(false)
-    }, 400)
+    }, 500)
   }
 
   return (
@@ -48,7 +48,9 @@ export const ButtonSavedTopic = ({
   const pathname = usePathname()
   const router = useRouter()
 
-  async function handleSavedTopic() {
+  async function handleSavedTopic(e: React.MouseEvent) {
+    e.preventDefault()
+    e.stopPropagation()
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics/${topicSlug}/saved`,
       {

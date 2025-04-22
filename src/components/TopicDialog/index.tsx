@@ -104,7 +104,6 @@ export const TopicDialog = ({ onCreateTopic, children }: TopicDialogProps) => {
         }
         router.replace('/')
       }
-
     } catch (error) {
       console.error(error)
     }

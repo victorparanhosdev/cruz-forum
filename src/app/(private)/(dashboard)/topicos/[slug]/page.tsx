@@ -52,7 +52,6 @@ async function handleAddComments({
 }
 
 async function ComentariosCard({ topicSlug }: { topicSlug: number }) {
-
   const responseComents: TopicCommentsProps[] = await fetchAPI({
     url: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics/${topicSlug}/comments`,
     method: 'GET',
@@ -67,7 +66,7 @@ async function ComentariosCard({ topicSlug }: { topicSlug: number }) {
 const SkeletonComents = () => {
   return (
     <Skeleton asChild>
-      <div className="grid min-h-[172px] place-items-center rounded-lg border border-stone-900 bg-topico-200 p-4 mx-2" />
+      <div className="mx-2 grid min-h-[172px] place-items-center rounded-lg border border-stone-900 bg-topico-200 p-4" />
     </Skeleton>
   )
 }

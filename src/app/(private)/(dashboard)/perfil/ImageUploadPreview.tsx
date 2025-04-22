@@ -59,7 +59,7 @@ export function ImageUploadPreview({
         className="absolute bottom-0 right-1 mb-0 flex cursor-pointer items-center rounded-full bg-green-950 p-1.5 sm:right-3 md:right-5"
       >
         <PencilSimpleLine
-          className="size-3 sm:size-4 text-green-200 md:size-5"
+          className="size-3 text-green-200 sm:size-4 md:size-5"
           weight="fill"
         />
       </Label>

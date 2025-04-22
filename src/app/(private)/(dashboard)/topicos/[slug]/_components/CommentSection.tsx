@@ -21,7 +21,6 @@ export function CommentSection({
 
     if (container) {
       if (isFirstRender.current) {
-        container.scrollTop = container.scrollHeight
         isFirstRender.current = false
       } else if (
         lastComment &&
@@ -58,7 +57,7 @@ export function CommentSection({
         })
       ) : (
         <div className="grid min-h-[142px] place-items-center rounded-lg border border-stone-900 p-4">
-          <h1 className='text-sm'>Nenhum comentario por enquanto</h1>
+          <h1 className="text-sm">Nenhum comentario por enquanto</h1>
         </div>
       )}
     </div>

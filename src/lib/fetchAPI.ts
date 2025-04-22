@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 type RequestParams = {
   url: string
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
-  data?: Record<string, unknown>
+  data?: Record<string, unknown> | FormData
   next?: NextFetchRequestConfig
 }
 
@@ -19,13 +19,20 @@ export async function fetchAPI({
     .map((cookie) => `${cookie.name}=${cookie.value}`)
     .join('; ')
 
+  const isFormData = data instanceof FormData
+
+  const headers: HeadersInit = {
+    Cookie: cookieString,
+  }
+
+  if (!isFormData && data) {
+    headers['Content-Type'] = 'application/json'
+  }
+
   const options: RequestInit = {
     method,
-    headers: {
-      'Content-Type': 'application/json',
-      Cookie: cookieString,
-    },
-    body: data ? JSON.stringify(data) : undefined,
+    headers,
+    body: data ? (isFormData ? data : JSON.stringify(data)) : undefined,
     next,
   }
 

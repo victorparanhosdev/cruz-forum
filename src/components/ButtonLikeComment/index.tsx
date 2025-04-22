@@ -19,7 +19,7 @@ const HeartIcon = ({ isActive, isHovered }: HeartIconProps) => {
   return (
     <motion.div
       initial={false}
-      animate={{ scale: isActive || isHovered ? 1.10 : 1 }}
+      animate={{ scale: isActive || isHovered ? 1.1 : 1 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
       <Heart
@@ -123,7 +123,7 @@ export const ButtonLikeComment = ({
       className="flex items-center gap-2 transition-colors focus:outline-none"
     >
       <HeartIcon isActive={isLiked} isHovered={isHovered} />
-      <span className='text-xs'>{formatLikeText(likeCount)}</span>
+      <span className="text-xs">{formatLikeText(likeCount)}</span>
     </button>
   )
 }

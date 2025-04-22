@@ -59,66 +59,74 @@ export const SkeletonTopic = () => {
   )
 }
 
+function formatCommentText(count: number): string {
+  if (count === 0) return 'Comentar'
+  return count === 1 ? '1 comentário' : `${count} comentários`
+}
+
 export const TopicMyTopic = ({ data, className, ...props }: TopicProps) => {
   return (
-    <div
-      {...props}
-      className={twMerge(
-        'grid h-max min-h-[206px] gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100',
-        className,
-      )}
+    <Link
+      href={`/topicos/${data.slug}`}
+      aria-label="Abrir o topico com mais detalhes"
     >
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex gap-4">
-          <Image
-            height={64}
-            width={64}
-            src={data.image || '/placeholderperfil.png'}
-            alt=""
-            className="size-16 min-w-16 rounded-full object-cover"
-            quality={50}
+      <div
+        {...props}
+        className={twMerge(
+          'grid h-max min-h-[206px] gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100',
+          className,
+        )}
+      >
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex gap-4">
+            <Image
+              height={64}
+              width={64}
+              src={data.image || '/placeholderperfil.png'}
+              alt=""
+              className="size-16 min-w-16 rounded-full object-cover"
+              quality={50}
+            />
+            <div className="h-[72px] w-full">
+              <h2 className="line-clamp-2 text-lg font-bold">{data.title}</h2>
+              <span className="flex gap-2 text-xs text-gray-400">
+                <ArrowBendDownLeft size={14} /> publicado{' '}
+                {formatDistanceDate(data.createdAt)}
+              </span>
+            </div>
+          </div>
+          {data.isAuthorTopic && (
+            <AlertDialogDeleteMyTopic
+              onDeleteTopic={handleDeleteTopic}
+              topicSlug={data.slug}
+            >
+              <Trash
+                aria-label={`Botão para excluir o topico ${data.title}`}
+                className="cursor-pointer text-red-500"
+                size={28}
+                aria-hidden="true"
+              />
+            </AlertDialogDeleteMyTopic>
+          )}
+        </div>
+
+        <p className="line-clamp-3 h-12 w-full text-xs text-gray-100">
+          {data.descricao}
+        </p>
+
+        <div className="flex items-center gap-6 text-xs">
+          <ButtonLikeTopic
+            isLike={data.isAuthorLikeTopic}
+            likes={data.likes}
+            topicSlug={data.slug}
           />
-          <div className="h-[72px] w-full">
-            <h2 className="line-clamp-2 text-lg font-bold">{data.title}</h2>
-            <span className="flex gap-2 text-xs text-gray-400">
-              <ArrowBendDownLeft size={14} /> publicado{' '}
-              {formatDistanceDate(data.createdAt)}
-            </span>
+
+          <div className="flex items-center gap-2 text-xs">
+            <ChatCircle size={20} />
+            {formatCommentText(data.comments)}
           </div>
         </div>
-        {data.isAuthorTopic && (
-          <AlertDialogDeleteMyTopic
-            onDeleteTopic={handleDeleteTopic}
-            topicSlug={data.slug}
-          >
-            <Trash
-              aria-label={`Botão para excluir o topico ${data.title}`}
-              className="cursor-pointer text-red-500"
-              size={28}
-              aria-hidden="true"
-            />
-          </AlertDialogDeleteMyTopic>
-        )}
       </div>
-
-      <p className="line-clamp-3 h-12 w-full text-xs text-gray-100">
-        {data.descricao}
-      </p>
-
-      <div className="flex items-center gap-6 text-sm">
-        <ButtonLikeTopic
-          isLike={data.isAuthorLikeTopic}
-          likes={data.likes}
-          topicSlug={data.slug}
-        />
-        <Link
-          href={`/topicos/${data.slug}`}
-          aria-label="Botao de comentar"
-          className="flex items-center gap-2 text-sm"
-        >
-          <ChatCircle size={20} /> {data.comments} comentarios
-        </Link>
-      </div>
-    </div>
+    </Link>
   )
 }

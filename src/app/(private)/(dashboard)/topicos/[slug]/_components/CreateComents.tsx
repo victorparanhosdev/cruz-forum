@@ -112,10 +112,7 @@ export const CreateComents = ({
           </div>
         </form>
       ) : (
-        <Button
-          onClick={handleCommentToggle}
-          className="h-fit px-6 py-3"
-        >
+        <Button onClick={handleCommentToggle} className="h-fit px-6 py-3">
           Comentar
         </Button>
       )}
