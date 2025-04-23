@@ -23,7 +23,7 @@ async function ComponentMyTopicsTopicFeed({ searchTitle }: SearchTitleProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-x-6 gap-y-4 min-[980px]:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 min-[980px]:grid-cols-2">
       {Array.isArray(postsData) && postsData.length > 0 ? (
         postsData.map((topic) => <TopicMyTopic key={topic.id} data={topic} />)
       ) : (

@@ -13,7 +13,7 @@ export function BackButton({ className, ...props }: ComponentProps<'button'>) {
     <Button
       {...props}
       iconLeft={ArrowLeft}
-      onClick={() => router.back()}
+      onClick={() => router.push('/')}
       state="transparent"
       aria-label="Voltar para pagina anterior"
       className={cn(className)}

@@ -133,18 +133,22 @@ export default async function TopicId({ params }) {
 
           <div className="w-full">
             <h1
-              className="mb-1.5 font-bold sm:text-xl md:text-2xl lg:text-3xl"
+              className="text-lg font-bold sm:text-xl md:text-2xl lg:text-3xl"
               id="topic-title"
             >
               {response.title}
             </h1>
-            <div className="flex items-center gap-2">
-              <ArrowBendDownLeft size={16} aria-hidden="true" />
+            <div className="flex items-center gap-2 mt-1">
+              <ArrowBendDownLeft
+                size={16}
+                aria-hidden="true"
+                className="min-w-4"
+              />
               <span
                 aria-label={`Tópico publicado ${formatDistanceDate(response.createdAt)} por ${response.name}`}
-                className="text-xs text-zinc-500 md:text-sm"
+                className="text-xs text-zinc-500 lg:text-sm"
               >
-                topico publicado{' '}
+                Postado{' '}
                 <span className="font-semibold">
                   {formatDistanceDate(response.createdAt)}
                 </span>{' '}

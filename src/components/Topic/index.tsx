@@ -14,11 +14,11 @@ interface TopicProps extends HTMLAttributes<HTMLDivElement> {
 
 export const SkeletonTopic = () => {
   return (
-    <div className="grid min-h-[650px] grid-cols-1 gap-x-6 gap-y-4 min-[980px]:grid-cols-2">
+    <div className="grid min-h-[596px] grid-cols-1 gap-4 min-[980px]:grid-cols-2">
       {Array.from({ length: 6 }).map((_, index) => {
         return (
           <Skeleton asChild key={index}>
-            <div className="grid h-[206px] gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100" />
+            <div className="grid h-[188px] gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100" />
           </Skeleton>
         )
       })}
@@ -35,12 +35,12 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
   return (
     <Link
       href={`/topicos/${data.slug}`}
-      aria-label="Abrir o topico com mais detalhes"
+      aria-label={`Abrir o topico ${data.title} com mais detalhes`}
     >
       <div
         {...props}
         className={twMerge(
-          'grid h-max min-h-[206px] gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100',
+          'grid h-max min-h-[188px] gap-2 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100',
           className,
         )}
       >
@@ -55,7 +55,7 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
               quality={50}
             />
             <div className="h-[72px] w-full">
-              <h2 className="line-clamp-2 text-lg font-bold">{data.title}</h2>
+              <h2 className="line-clamp-2 text-base font-bold">{data.title}</h2>
               <span className="flex gap-2 text-xs text-gray-400">
                 <ArrowBendDownLeft size={14} /> publicado{' '}
                 {formatDistanceDate(data.createdAt)}
@@ -71,17 +71,17 @@ export const Topic = ({ data, className, ...props }: TopicProps) => {
           )}
         </div>
 
-        <p className="line-clamp-3 h-12 w-full text-xs text-gray-100">
+        <p className="line-clamp-2 h-8 w-full text-xs text-gray-100">
           {data.descricao}
         </p>
 
-        <div className="flex items-center gap-6 text-sm">
+        <div className="flex items-center gap-6 pt-1.5">
           <ButtonLikeTopic
             topicSlug={data.slug}
             likes={data.likes}
             isLike={data.isAuthorLikeTopic}
           />
-          <div className="flex items-center gap-2 text-xs">
+          <div className="flex items-center gap-2 py-1 text-xs">
             <ChatCircle size={20} />
             {formatCommentText(data.comments)}
           </div>

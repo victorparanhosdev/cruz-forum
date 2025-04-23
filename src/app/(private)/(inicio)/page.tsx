@@ -26,8 +26,9 @@ const CardFeedContent = async ({ searchTitle }: SearchTitleProps) => {
     redirect('/')
   }
 
+
   return (
-    <div className="grid grid-cols-1 gap-x-6 gap-y-4 min-[980px]:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 min-[980px]:grid-cols-2">
       {Array.isArray(data) && data.length > 0 ? (
         data.map((topic) => <Topic key={topic.id} data={topic} />)
       ) : (

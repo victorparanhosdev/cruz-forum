@@ -123,7 +123,7 @@ export const ButtonLikeTopic = ({
       disabled={isSubmitting}
       aria-label={isLiked ? 'Remover curtida' : 'Curtir tópico'}
       aria-pressed={isLiked}
-      className="flex items-center gap-2 text-xs transition-colors focus:outline-none"
+      className="flex items-center gap-2 py-1 text-xs transition-colors focus:outline-none"
     >
       <HeartIcon isActive={isLiked} isHovered={isHovered} />
       {formatLikeText(likeCount)}

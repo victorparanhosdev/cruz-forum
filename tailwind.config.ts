@@ -115,8 +115,7 @@ export default {
         },
       },
       minHeight: {
-        'view-without-fill': 'calc(100vh - 3rem)',
-        'view-relevantes': 'calc(100vh - 3rem)',
+        'view-relevantes': 'calc(100dvh - 3rem)',
       },
       gridTemplateColumns: {
         'view-login': '2fr 3fr',

@@ -32,14 +32,14 @@ const createTopicSchema = zod.object({
     .string()
     .min(1, {
       message: 'Titulo é obrigatório',
-    })
-    .max(60, 'O maximo é ate 60 caracteres'),
+    }).min(3, 'O minimo é de 3 caracteres')
+    .max(30, 'O maximo é ate 30 caracteres'),
   descricao: zod
     .string()
     .min(1, {
       message: 'Descrição é obrigatório',
     })
-    .max(200, 'O maximo permitido é ate 200 caracteres'),
+    .max(400, 'O maximo permitido é ate 400 caracteres'),
 })
 
 export type CreateTopicFormData = zod.infer<typeof createTopicSchema>
@@ -160,7 +160,7 @@ export const TopicDialog = ({ onCreateTopic, children }: TopicDialogProps) => {
 
         <DialogFooter padding={0} marginTop={6}>
           <DialogActionTrigger asChild>
-            <Button state="outline-negative" className="w-full">
+            <Button type="button" state="outline-negative" className="w-full">
               Cancelar
             </Button>
           </DialogActionTrigger>

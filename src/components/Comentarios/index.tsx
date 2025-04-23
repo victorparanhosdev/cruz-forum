@@ -40,9 +40,9 @@ export const Comentarios = ({
           <div>
             <h2 className="text-base">{dataComment.name}</h2>
             <div className="flex items-center gap-1">
-              <ArrowBendDownLeft size={16} />
+              <ArrowBendDownLeft size={16} className="min-w-4" />
               <span className="text-xs text-zinc-500">
-                comentário publicado{' '}
+                comentado{' '}
                 <strong className="font-semibold">
                   {formatDistanceDate(dataComment.createdAt)}
                 </strong>
