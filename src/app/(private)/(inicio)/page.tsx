@@ -84,7 +84,7 @@ export default async function Inicio(params: {
 
   return (
     <>
-      <div className="grid min-h-screen w-full gap-4 min-[1280px]:grid-cols-view-home">
+      <div className="grid min-h-[100dvh] w-full gap-4 min-[1280px]:grid-cols-view-home">
         <main className="flex h-full flex-col bg-stone-950 px-1.5 pt-24 ring-1 ring-stone-900 min-[330px]:px-4 md:rounded-xl md:pt-12">
           <h1 className="flex items-center gap-2 text-2xl font-bold md:text-3xl">
             Feed <Chats weight="bold" className="size-6 md:size-9" />
