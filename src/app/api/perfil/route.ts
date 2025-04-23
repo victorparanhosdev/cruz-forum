@@ -24,12 +24,11 @@ export interface UserDataProps {
   image: string
 }
 
-
 function extractPublicIdFromUrl(url: string | null): string | null {
-  if (!url || !url.includes('cloudinary.com')) return null;
+  if (!url || !url.includes('cloudinary.com')) return null
 
-  const matches = url.match(/\/upload\/(?:v\d+\/)?(.+?)(?:\.\w+)?$/);
-  return matches ? matches[1] : null;
+  const matches = url.match(/\/upload\/(?:v\d+\/)?(.+?)(?:\.\w+)?$/)
+  return matches ? matches[1] : null
 }
 
 export async function GET(
@@ -120,19 +119,19 @@ export async function PUT(
     }
     if (file && file.size > 0) {
       try {
-        const oldImagePublicId = extractPublicIdFromUrl(userData.image);
+        const oldImagePublicId = extractPublicIdFromUrl(userData.image)
         if (oldImagePublicId) {
           try {
             await new Promise<void>((resolve, reject) => {
               cloudinary.uploader.destroy(oldImagePublicId, (error, result) => {
                 if (error) {
-                  console.warn('Erro ao excluir imagem antiga:', error);
+                  console.warn('Erro ao excluir imagem antiga:', error)
                 }
-                resolve();
-              });
-            });
+                resolve()
+              })
+            })
           } catch (deleteError) {
-            console.warn('Erro ao excluir imagem antiga:', deleteError);
+            console.warn('Erro ao excluir imagem antiga:', deleteError)
           }
         }
 
@@ -168,7 +167,6 @@ export async function PUT(
         )
       }
     }
-
 
     if (Object.keys(updateData).length === 0) {
       return NextResponse.json(userData)

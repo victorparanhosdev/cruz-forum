@@ -93,8 +93,8 @@ export const AlertDialog = ({
 
         <DialogBody padding={0}>
           <h1 className="text-xs text-zinc-300 sm:text-sm md:text-base">
-            Tem certeza de que deseja excluir o tópico nome do tópico? Essa ação
-            é irreversível e não poderá ser desfeita.
+            Tem certeza que deseja excluir o tópico ? Essa ação é irreversível e
+            não poderá ser desfeita.
           </h1>
         </DialogBody>
 

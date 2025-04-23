@@ -25,7 +25,7 @@ export const Card = ({ dataCard, className, ...props }: CardProps) => {
           height={32}
           src={dataCard.image || '/placeholderperfil.png'}
           alt="Imagem do perfil"
-          className="size-8 rounded-full object-cover"
+          className="size-8 min-w-8 rounded-full object-cover"
           quality={40}
         />
         <div>

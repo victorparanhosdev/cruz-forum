@@ -102,7 +102,6 @@ export async function GET(
             select: {
               comments: true,
               likes: true,
-              savedBy: true,
             },
           },
           user: {
@@ -117,10 +116,8 @@ export async function GET(
 
       topics = getTopics
         .sort((a, b) => {
-          const aRelevance =
-            a._count.comments + a._count.likes + a._count.savedBy
-          const bRelevance =
-            b._count.comments + b._count.likes + b._count.savedBy
+          const aRelevance = a._count.comments + a._count.likes
+          const bRelevance = b._count.comments + b._count.likes
           return bRelevance - aRelevance
         })
         .map((item) => ({
@@ -144,7 +141,6 @@ export async function GET(
               select: {
                 comments: true,
                 likes: true,
-                savedBy: true,
               },
             },
             user: {

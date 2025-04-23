@@ -77,8 +77,20 @@ export const AlertDialogDeleteMyTopic = ({
       placement="center"
       role="alertdialog"
     >
-      <DialogTrigger {...props} className="flex cursor-pointer items-center">
-        {children}
+      <DialogTrigger
+        {...props}
+        asChild
+        className="flex cursor-pointer items-center"
+      >
+        <button
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            handleDialogClose({ open: true })
+          }}
+        >
+          {children}
+        </button>
       </DialogTrigger>
       <DialogContent
         className="mx-6 rounded-lg bg-gray-950 md:mx-auto"
@@ -92,14 +104,20 @@ export const AlertDialogDeleteMyTopic = ({
 
         <DialogBody padding={0}>
           <h1 className="text-xs text-zinc-300 sm:text-sm md:text-base">
-            Tem certeza de que deseja excluir o tópico nome do tópico? Essa ação
-            é irreversível e não poderá ser desfeita.
+            Tem certeza de que deseja excluir o tópico? Essa ação é irreversível
+            e não poderá ser desfeita.
           </h1>
         </DialogBody>
 
         <DialogFooter padding={0} marginTop={6}>
           <DialogActionTrigger asChild>
-            <Button state="outline-negative">Cancelar</Button>
+            <Button
+              onClick={(e) => e.preventDefault()}
+              type="button"
+              state="outline-negative"
+            >
+              Cancelar
+            </Button>
           </DialogActionTrigger>
 
           {isLoading ? (

@@ -1,7 +1,5 @@
 'use client'
 
-// import { fetchAPI } from '@/lib/fetchAPI'
-// import { revalidatePath } from 'next/cache'
 import { SchemaPerfilFormProps } from './PerfilForm'
 
 export async function handleSubmitPerfil({
@@ -13,15 +11,17 @@ export async function handleSubmitPerfil({
     formData.append('file', file)
     formData.append('name', name)
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/perfil`, {
-      body: formData,
-      method: 'PUT'
-    })
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/perfil`,
+      {
+        body: formData,
+        method: 'PUT',
+      },
+    )
 
     if (!response.ok) {
       return false
     }
-    // revalidatePath('/perfil')
     return true
   } catch (error) {
     console.error('Erro ao processar perfil:', error)

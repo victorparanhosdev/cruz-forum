@@ -30,6 +30,9 @@ export const FilterPopover = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname()
   const router = useRouter()
   const currentSort = params.get('_sort')
+  const currentPage = params.get('page')
+
+  const pageNumber = Number(currentPage)
 
   const { control, reset, setValue } = useForm<SchemaFilterFormValuesProps>({
     resolver: zodResolver(SchemaFilterFormValues),
@@ -39,11 +42,16 @@ export const FilterPopover = ({ children }: { children: ReactNode }) => {
   })
 
   const setFilter = (filter: string | null) => {
+    if (currentPage !== null && pageNumber >= 2) {
+      params.delete('page')
+    }
+
     if (filter === 'topic') {
       const newTopicSort = currentSort === 'topic' ? '-topic' : 'topic'
       params.set('_sort', newTopicSort)
-      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
       setValue('_sort', newTopicSort)
+
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
       setIsOpenPopover(false)
       return
     }
