@@ -93,7 +93,7 @@ export const AlertDialogDeleteMyTopic = ({
         </button>
       </DialogTrigger>
       <DialogContent
-        className="mx-6 rounded-lg bg-gray-950 md:mx-auto"
+        className="rounded-lg bg-gray-950 md:mx-auto"
         padding={6}
       >
         <DialogHeader padding={0} marginBottom={4}>
