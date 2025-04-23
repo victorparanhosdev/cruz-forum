@@ -4,9 +4,6 @@ const nextConfig: NextConfig = {
   /* config options here */
   experimental: {
     optimizePackageImports: ['@chakra-ui/react'],
-    serverActions: {
-      bodySizeLimit: '4mb',
-    },
   },
   images: {
     remotePatterns: [
@@ -27,6 +24,11 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'platform-lookaside.fbsbx.com',
         port: '',
       },
     ],

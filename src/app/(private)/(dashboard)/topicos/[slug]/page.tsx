@@ -138,7 +138,7 @@ export default async function TopicId({ params }) {
             >
               {response.title}
             </h1>
-            <div className="flex items-center gap-2 mt-1">
+            <div className="mt-1 flex items-center gap-2">
               <ArrowBendDownLeft
                 size={16}
                 aria-hidden="true"

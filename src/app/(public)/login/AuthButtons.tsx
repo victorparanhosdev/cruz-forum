@@ -83,11 +83,11 @@ export const AuthButtons = () => {
           Fazer login com o Google
         </button>
         <button
+          onClick={() => handleSignIn('facebook')}
           type="button"
           className="flex items-center justify-center gap-3 rounded-lg border border-stone-700 px-4 py-2 text-sm transition hover:enabled:bg-hover-btn-gray sm:justify-start sm:px-6"
         >
           <Image
-            onClick={() => handleSignIn('facebook')}
             alt="facebook"
             height={49}
             width={48}

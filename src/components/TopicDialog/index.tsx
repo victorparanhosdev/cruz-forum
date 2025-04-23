@@ -32,7 +32,8 @@ const createTopicSchema = zod.object({
     .string()
     .min(1, {
       message: 'Titulo é obrigatório',
-    }).min(3, 'O minimo é de 3 caracteres')
+    })
+    .min(3, 'O minimo é de 3 caracteres')
     .max(30, 'O maximo é ate 30 caracteres'),
   descricao: zod
     .string()

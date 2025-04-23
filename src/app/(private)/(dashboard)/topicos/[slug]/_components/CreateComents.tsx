@@ -86,6 +86,7 @@ export const CreateComents = ({
               className="h-10 min-w-10 rounded-full object-cover md:size-12 md:min-w-12"
             />
           </figure>
+
           <TextArea
             state="default"
             placeholder="Escreva aqui o comentário..."
