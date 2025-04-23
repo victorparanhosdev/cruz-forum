@@ -58,6 +58,7 @@ export const PerfilForm = ({
       }
       if (res) {
         session.update()
+        router.refresh()
 
         toaster.success({
           title: 'Perfil',
