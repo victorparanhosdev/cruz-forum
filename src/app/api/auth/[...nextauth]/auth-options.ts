@@ -45,7 +45,7 @@ export const authOptions: NextAuthOptions = {
         },
       },
       from: process.env.EMAIL_FROM,
-      sendVerificationRequest
+      sendVerificationRequest,
     }),
   ],
   session: {
@@ -66,7 +66,6 @@ export const authOptions: NextAuthOptions = {
           const defaultName = userData.name || userData.email.split('@')[0]
           const defaultImage = userData.image || '/placeholderperfil.png'
 
- 
           if (!userData.name || !userData.image) {
             await prisma.user.update({
               where: { id: token.sub },
@@ -76,7 +75,6 @@ export const authOptions: NextAuthOptions = {
               },
             })
           }
-
 
           session.user.name = defaultName
           session.user.image = defaultImage
