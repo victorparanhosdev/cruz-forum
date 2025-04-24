@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import {
   CaretDoubleLeft,
@@ -8,104 +8,87 @@ import {
   CaretRight,
   CaretDoubleRight,
 } from '@phosphor-icons/react'
-import { SearchTitleProps } from './page'
+import { TopicWithPaginationProps } from '@/app/api/topics/route'
 
-const PaginationSkeleton = () => {
-  return (
-    <div className="flex place-content-end items-center gap-2 pb-12">
-      <div className="h-7 w-7 animate-pulse rounded bg-stone-800" />
-      <div className="h-7 w-7 animate-pulse rounded bg-stone-800" />
-      <div className="h-7 w-7 animate-pulse rounded bg-stone-800" />
-      <div className="h-7 w-7 animate-pulse rounded bg-stone-800" />
-    </div>
-  )
-}
+const PaginationSkeleton = () => (
+  <div className="flex place-content-end items-center gap-2 pb-12">
+    {Array.from({ length: 4 }).map((_, index) => (
+      <div key={index} className="h-7 w-7 animate-pulse rounded bg-stone-800" />
+    ))}
+  </div>
+)
 
-export const PaginationControl = ({ searchTitle }: SearchTitleProps) => {
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
+export const PaginationControl = ({
+  data,
+}: {
+  data: TopicWithPaginationProps
+}) => {
   const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
   const params = useMemo(
     () => new URLSearchParams(searchParams),
     [searchParams],
   )
-
-  const [data, setData] = useState<{ meta: { totalPages: number } } | null>(
-    null,
-  )
-
-  const query = params.get('q') || ''
   const currentPage = Number(params.get('page')) || 1
 
-  useEffect(() => {
-    async function fetchData() {
-      const queryParams = new URLSearchParams()
-      if (searchTitle?.q) {
-        queryParams.set('q', query)
-        queryParams.set('page', currentPage.toString())
-      }
+  if (!data) return <PaginationSkeleton />
 
-      const url = `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics?${queryParams.toString()}`
+  const { totalPages } = data.meta
 
-      const res = await fetch(url)
-      const json = await res.json()
-      setData(json)
-    }
-
-    fetchData()
-  }, [query, currentPage, searchTitle?.q])
+  const isFirstPage = currentPage === 1
+  const isLastPage = currentPage === totalPages
+  const isPaginationDisabled = totalPages === 0
 
   const updatePage = (page: number) => {
     params.set('page', page.toString())
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  if (!data) return <PaginationSkeleton />
-
-  const { meta } = data
+  const createButton = (
+    label: string,
+    onClick: () => void,
+    disabled: boolean,
+    icon: React.ReactNode,
+  ) => (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={label}
+      className="disabled:opacity-50"
+    >
+      {icon}
+    </button>
+  )
 
   return (
     <div className="flex place-content-end items-center gap-2 pb-14">
-      <button
-        onClick={() => updatePage(1)}
-        disabled={currentPage === 1 || meta.totalPages === 0}
-        aria-label="Ir para a primeira página"
-        aria-disabled={currentPage === 1 || meta.totalPages === 0}
-        className="disabled:opacity-50"
-      >
-        <CaretDoubleLeft size={30} weight="bold" />
-      </button>
-      <button
-        onClick={() => updatePage(Math.max(currentPage - 1, 1))}
-        disabled={currentPage === 1 || meta.totalPages === 0}
-        aria-label="Página anterior"
-        aria-disabled={currentPage === 1 || meta.totalPages === 0}
-        className="disabled:opacity-50"
-      >
-        <CaretLeft size={30} weight="bold" />
-      </button>
-      <button
-        onClick={() => updatePage(Math.min(currentPage + 1, meta.totalPages))}
-        disabled={currentPage === meta.totalPages || meta.totalPages === 0}
-        aria-label="Próxima página"
-        aria-disabled={currentPage === meta.totalPages || meta.totalPages === 0}
-        className="disabled:opacity-50"
-      >
-        <CaretRight size={30} weight="bold" />
-      </button>
-      <button
-        onClick={() => updatePage(meta.totalPages)}
-        disabled={currentPage === meta.totalPages || meta.totalPages === 0}
-        aria-label="Ir para a última página"
-        aria-disabled={currentPage === meta.totalPages || meta.totalPages === 0}
-        className="disabled:opacity-50"
-      >
-        <CaretDoubleRight size={30} weight="bold" />
-      </button>
+      {createButton(
+        'Ir para a primeira página',
+        () => updatePage(1),
+        isFirstPage || isPaginationDisabled,
+        <CaretDoubleLeft size={30} weight="bold" />,
+      )}
+      {createButton(
+        'Página anterior',
+        () => updatePage(Math.max(currentPage - 1, 1)),
+        isFirstPage || isPaginationDisabled,
+        <CaretLeft size={30} weight="bold" />,
+      )}
+      {createButton(
+        'Próxima página',
+        () => updatePage(Math.min(currentPage + 1, totalPages)),
+        isLastPage || isPaginationDisabled,
+        <CaretRight size={30} weight="bold" />,
+      )}
+      {createButton(
+        'Ir para a última página',
+        () => updatePage(totalPages),
+        isLastPage || isPaginationDisabled,
+        <CaretDoubleRight size={30} weight="bold" />,
+      )}
     </div>
   )
 }

@@ -14,22 +14,26 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
-        port: '',
       },
       {
         protocol: 'https',
         hostname: 'fastly.picsum.photos',
-        port: '',
       },
       {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
-        port: '',
       },
       {
         protocol: 'https',
         hostname: 'platform-lookaside.fbsbx.com',
-        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
       },
     ],
     dangerouslyAllowSVG: true,

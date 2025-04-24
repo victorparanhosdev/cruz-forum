@@ -1,48 +1,19 @@
-import { Button, Topic, FilterPopover, TopicDialog } from '@/components'
+import { Button, FilterPopover, TopicDialog } from '@/components'
 import { CreateTopicFormData } from '@/components/TopicDialog'
 import { fetchAPI } from '@/lib/fetchAPI'
 
 import { Chats, FadersHorizontal, Plus } from '@phosphor-icons/react/dist/ssr'
 import { Metadata } from 'next'
 import { revalidateTag } from 'next/cache'
-import { Suspense } from 'react'
 
 import { SearchTopic } from './SearchTopic'
-import { SkeletonTopic } from '@/components/Topic'
 import { fetchCardFeed } from './fetchCardFeed'
-import { PaginationControl } from './PaginationControl'
-import { redirect } from 'next/navigation'
 import { Aside } from './Aside'
 import { TriggerButtonRelevant } from './_components/trigger-button-relevant'
+import { SectionFeed } from './SectionFeed'
 
 export const metadata: Metadata = {
   title: 'Feed',
-}
-
-const CardFeedContent = async ({ searchTitle }: SearchTitleProps) => {
-  const { data, meta } = await fetchCardFeed({ searchTitle })
-
-  if (Number(searchTitle?.page) > meta.totalPages) {
-    redirect('/')
-  }
-
-  return (
-    <div className="grid grid-cols-1 gap-4 min-[980px]:grid-cols-2">
-      {Array.isArray(data) && data.length > 0 ? (
-        data.map((topic) => <Topic key={topic.id} data={topic} />)
-      ) : (
-        <p className="col-span-2 py-4 text-center">Nenhum tópico encontrado</p>
-      )}
-    </div>
-  )
-}
-
-const CardFeed = ({ searchTitle }: SearchTitleProps) => {
-  return (
-    <Suspense fallback={<SkeletonTopic />}>
-      <CardFeedContent searchTitle={searchTitle} />
-    </Suspense>
-  )
 }
 
 export type SearchTitleProps = {
@@ -113,8 +84,7 @@ export default async function Inicio(params: {
             </div>
 
             <div className="grid gap-4">
-              <CardFeed searchTitle={searchParams} />
-              <PaginationControl searchTitle={searchParams} />
+              <SectionFeed searchTitle={searchParams} />
             </div>
           </section>
         </main>

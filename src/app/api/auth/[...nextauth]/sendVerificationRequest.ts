@@ -202,8 +202,8 @@ function html(params: { url: string }) {
                                     <td style="font-size:6px; line-height:10px; padding:0px 0px 0px 0px;" valign="top"
                                       align="center">
                                       <img class="max-width" border="0"
-                                        style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px; max-width:15% !important; width:15%; height:auto !important;"
-                                        width="90" alt="" data-proportionally-constrained="true" data-responsive="true"
+                                        style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px; max-width:25% !important; width:25%; height:auto !important;"
+                                        width="150" alt="" data-proportionally-constrained="true" data-responsive="true"
                                         src="http://cdn.mcauto-images-production.sendgrid.net/b899d1542fbbaf41/53a94b6b-1cbd-410a-9ace-7556169c3f96/145x103.png">
                                     </td>
                                   </tr>

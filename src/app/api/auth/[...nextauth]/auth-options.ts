@@ -3,7 +3,7 @@ import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google'
 import FacebookProvider, { FacebookProfile } from 'next-auth/providers/facebook'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import EmailProvider from 'next-auth/providers/email'
-import GitHubProvider, {GithubProfile} from "next-auth/providers/github";
+import GitHubProvider, { GithubProfile } from 'next-auth/providers/github'
 import prisma from '@/lib/prisma'
 import { sendVerificationRequest } from './sendVerificationRequest'
 
@@ -57,10 +57,10 @@ export const authOptions: NextAuthOptions = {
           id: String(profile.id),
           name: profile.name!,
           email: profile.email!,
-          image: profile.avatar_url
+          image: profile.avatar_url,
         }
-      }
-    })
+      },
+    }),
   ],
   session: {
     strategy: 'jwt',
