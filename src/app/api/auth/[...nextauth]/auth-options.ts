@@ -3,6 +3,7 @@ import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google'
 import FacebookProvider, { FacebookProfile } from 'next-auth/providers/facebook'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import EmailProvider from 'next-auth/providers/email'
+import GitHubProvider, {GithubProfile} from "next-auth/providers/github";
 import prisma from '@/lib/prisma'
 import { sendVerificationRequest } from './sendVerificationRequest'
 
@@ -47,6 +48,19 @@ export const authOptions: NextAuthOptions = {
       from: process.env.EMAIL_FROM,
       sendVerificationRequest,
     }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+      allowDangerousEmailAccountLinking: true,
+      async profile(profile: GithubProfile) {
+        return {
+          id: String(profile.id),
+          name: profile.name!,
+          email: profile.email!,
+          image: profile.avatar_url
+        }
+      }
+    })
   ],
   session: {
     strategy: 'jwt',

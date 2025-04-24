@@ -83,6 +83,20 @@ export const AuthButtons = () => {
           Fazer login com o Google
         </button>
         <button
+          onClick={() => handleSignIn('github')}
+          type="button"
+          className="flex items-center justify-center gap-3 rounded-lg border border-stone-700 px-4 py-2 text-sm transition hover:enabled:bg-hover-btn-gray sm:justify-start sm:px-6"
+        >
+          <Image
+            alt="github"
+            height={49}
+            width={48}
+            src="/github.svg"
+            className="size-8 object-cover"
+          />
+          Fazer login com o GitHub
+        </button>
+        {/* <button
           onClick={() => handleSignIn('facebook')}
           type="button"
           className="flex items-center justify-center gap-3 rounded-lg border border-stone-700 px-4 py-2 text-sm transition hover:enabled:bg-hover-btn-gray sm:justify-start sm:px-6"
@@ -95,7 +109,7 @@ export const AuthButtons = () => {
             className="size-8 object-cover"
           />
           Fazer login com o Facebook
-        </button>
+        </button> */}
       </div>
     </div>
   )
