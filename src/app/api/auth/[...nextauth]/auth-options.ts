@@ -12,6 +12,7 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      allowDangerousEmailAccountLinking: true,
       profile(profile: GoogleProfile) {
         return {
           id: profile.sub,
@@ -24,6 +25,7 @@ export const authOptions: NextAuthOptions = {
     FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+      allowDangerousEmailAccountLinking: true,
       async profile(profile: FacebookProfile) {
         return {
           id: profile.id,
@@ -43,7 +45,7 @@ export const authOptions: NextAuthOptions = {
         },
       },
       from: process.env.EMAIL_FROM,
-      sendVerificationRequest,
+      sendVerificationRequest
     }),
   ],
   session: {
