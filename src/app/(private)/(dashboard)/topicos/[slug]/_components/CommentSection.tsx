@@ -42,7 +42,7 @@ export function CommentSection({
 
   return (
     <div
-      className="grid max-h-[calc(100vh-400px)] min-h-[192px] gap-4 overflow-auto px-2"
+      className="grid max-h-[calc(100dvh-400px)] min-h-[192px] gap-4 overflow-auto px-2"
       ref={commentsContainerRef}
     >
       {Array.isArray(comments) && comments.length > 0 ? (
