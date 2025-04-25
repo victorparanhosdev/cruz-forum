@@ -38,19 +38,21 @@ const ProvidersAuth = () => {
         className="flex items-center justify-center gap-3 rounded-lg border border-stone-700 px-4 py-2 text-sm transition hover:enabled:bg-hover-btn-gray disabled:opacity-70 sm:px-6"
       >
         {loadingProvider === 'google' ? (
-          <CircleNotch size={32} className="animate-spin" />
+          <>
+            <CircleNotch size={32} className="animate-spin" /> Carregando...
+          </>
         ) : (
-          <Image
-            alt="google"
-            height={49}
-            width={48}
-            src="/google.svg"
-            className="size-8 object-cover"
-          />
+          <>
+            <Image
+              alt="google"
+              height={49}
+              width={48}
+              src="/google.svg"
+              className="size-8 object-cover"
+            />{' '}
+            Fazer login com o Google
+          </>
         )}
-        {loadingProvider === 'google'
-          ? 'Carregando...'
-          : 'Fazer login com o Google'}
       </button>
 
       <button
@@ -60,19 +62,21 @@ const ProvidersAuth = () => {
         className="flex items-center justify-center gap-3 rounded-lg border border-stone-700 px-4 py-2 text-sm transition hover:enabled:bg-hover-btn-gray disabled:opacity-70 sm:px-6"
       >
         {loadingProvider === 'github' ? (
-          <CircleNotch size={32} className="animate-spin" />
+          <>
+            <CircleNotch size={32} className="animate-spin" /> Carregando...
+          </>
         ) : (
-          <Image
-            alt="github"
-            height={49}
-            width={48}
-            src="/github.svg"
-            className="size-8 object-cover"
-          />
+          <>
+            <Image
+              alt="github"
+              height={49}
+              width={48}
+              src="/github.svg"
+              className="size-8 object-cover"
+            />{' '}
+            Fazer login com o GitHub
+          </>
         )}
-        {loadingProvider === 'github'
-          ? 'Carregando...'
-          : 'Fazer login com o GitHub'}
       </button>
 
       {/* <button
