@@ -1,10 +1,8 @@
 'use client'
-import { useIsMobile } from '@/hooks/use-mobile-relevant'
 import {
   ComponentProps,
   createContext,
   forwardRef,
-  useCallback,
   useContext,
   useMemo,
   useState,
@@ -13,8 +11,6 @@ import {
 type CardRelevantContextProps = {
   open: boolean
   setOpen: (open: boolean) => void
-  isMobile: boolean
-  toggleCardRelevant: () => void
 }
 
 const CardRelevantContext = createContext<CardRelevantContextProps | null>(null)
@@ -27,61 +23,21 @@ function useCardRelevant() {
 
   return context
 }
+const CardRelevantProvider = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
+  ({ className, style, children, ...props }, ref) => {
 
-const CARDRELEVANT_COOKIE_NAME = 'cardrelevant_state'
-const CARDRELEVANT_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
-
-const CardRelevantProvider = forwardRef<
-  HTMLDivElement,
-  ComponentProps<'div'> & {
-    defaultOpen?: boolean
-    open?: boolean
-    onOpenChange?: (open: boolean) => void
-  }
->(
-  (
-    {
-      defaultOpen = false,
-      open: openProp,
-      onOpenChange: setOpenProp,
-      className,
-      style,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
-    const isMobile = useIsMobile()
-    const [_open, _setOpen] = useState(defaultOpen)
-
-    const open = openProp ?? _open
-
-    const setOpen = useCallback(
-      (value: boolean | ((value: boolean) => boolean)) => {
-        const openState = typeof value === 'function' ? value(open) : value
-        if (setOpenProp) {
-          setOpenProp(openState)
-        } else {
-          _setOpen(openState)
-        }
-
-        document.cookie = `${CARDRELEVANT_COOKIE_NAME}=${openState}; path=/; max-age=${CARDRELEVANT_COOKIE_MAX_AGE}`
-      },
-      [setOpenProp, open],
-    )
-
-    const toggleCardRelevant = useCallback(() => {
-      return setOpen((open) => !open)
-    }, [setOpen])
+    const [open, setOpen] = useState(false)
 
     const contextValue = useMemo<CardRelevantContextProps>(
-      () => ({ open, setOpen, isMobile, toggleCardRelevant }),
-      [open, setOpen, isMobile, toggleCardRelevant],
+      () => ({ open, setOpen }),
+      [open, setOpen],
     )
 
     return (
       <CardRelevantContext.Provider value={contextValue}>
+        <div {...props} ref={ref}>
         {children}
+        </div>
       </CardRelevantContext.Provider>
     )
   },

@@ -14,6 +14,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet'
+import { useIsMobile } from '@/hooks/use-mobile-relevant'
 
 interface AsideRelevantProps extends ComponentProps<'aside'> {
   data: CardRelevantProps[]
@@ -24,14 +25,15 @@ export const AsideRelevant = ({
   data,
   ...props
 }: AsideRelevantProps) => {
-  const { isMobile, open, setOpen } = useCardRelevant()
+  const { open, setOpen } = useCardRelevant()
+  const isMobile = useIsMobile()
+
+
   if (isMobile) {
     return (
       <Sheet open={open} onOpenChange={setOpen} {...props}>
         <SheetContent
-          data-sidebar="cardrelevant"
-          data-mobile="true"
-          className="min-h-dvh w-[257px] overflow-auto bg-stone-950 px-4 pt-12 ring-1 ring-stone-900 md:bottom-4 md:right-4 md:top-4 md:min-h-view-relevantes md:rounded-xl"
+          className="h-auto max-w-72 overflow-auto rounded-bl-xl rounded-tl-xl bg-stone-950 px-4 pb-6 pt-12 ring-1 ring-stone-900 sm:max-w-72 md:inset-y-4 md:rounded-xl"
           side={'right'}
         >
           <SheetHeader className="sr-only">
@@ -42,7 +44,7 @@ export const AsideRelevant = ({
             <StarFour size={16} /> Mais Relevantes
           </h2>
 
-          <div className="flex max-h-[calc(100dvh-115px)] flex-col gap-4 overflow-y-auto">
+          <div className="flex max-h-[calc(100dvh-172px)] flex-col gap-4 overflow-y-auto">
             {data.map((dataCard: CardRelevantProps) => {
               return <Card key={dataCard.id} dataCard={dataCard} />
             })}

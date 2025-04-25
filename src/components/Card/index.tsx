@@ -31,8 +31,16 @@ export const Card = ({ dataCard, className, ...props }: CardProps) => {
         <div>
           <p className="line-clamp-1 text-sm font-medium">{dataCard.title}</p>
           <span className="flex items-center gap-1 text-[10px] text-gray-400">
-            <ArrowBendDownLeft size={16} /> ultimo comentario{' '}
-            {formatDistanceDate(dataCard.lastCommentAt)}
+            {dataCard.lastCommentAt === null ? (
+              <>
+                <ArrowBendDownLeft size={16} /> nenhum comentario
+              </>
+            ) : (
+              <>
+                <ArrowBendDownLeft size={16} /> comentado{' '}
+                {formatDistanceDate(dataCard.lastCommentAt)}
+              </>
+            )}
           </span>
         </div>
       </div>

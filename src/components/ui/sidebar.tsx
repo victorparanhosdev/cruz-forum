@@ -5,9 +5,8 @@ import { Slot } from '@radix-ui/react-slot'
 import Image from 'next/image'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Separator } from '@/components/ui/separator'
+import { Button } from '@/components'
+
 import {
   Sheet,
   SheetContent,
@@ -16,12 +15,6 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet'
 import { Skeleton } from '@/components/ui/skeleton'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
 import { CaretCircleRight } from '@phosphor-icons/react'
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state'
@@ -141,25 +134,23 @@ const SidebarProvider = React.forwardRef<
 
     return (
       <SidebarContext.Provider value={contextValue}>
-        <TooltipProvider delayDuration={0}>
-          <div
-            style={
-              {
-                '--sidebar-width': SIDEBAR_WIDTH,
-                '--sidebar-width-icon': SIDEBAR_WIDTH_ICON,
-                ...style,
-              } as React.CSSProperties
-            }
-            className={cn(
-              'group/sidebar-wrapper flex min-h-[100dvh] w-full md:p-4',
-              className,
-            )}
-            ref={ref}
-            {...props}
-          >
-            {children}
-          </div>
-        </TooltipProvider>
+        <div
+          style={
+            {
+              '--sidebar-width': SIDEBAR_WIDTH,
+              '--sidebar-width-icon': SIDEBAR_WIDTH_ICON,
+              ...style,
+            } as React.CSSProperties
+          }
+          className={cn(
+            'group/sidebar-wrapper flex min-h-[100dvh] w-full md:p-4',
+            className,
+          )}
+          ref={ref}
+          {...props}
+        >
+          {children}
+        </div>
       </SidebarContext.Provider>
     )
   },
@@ -275,7 +266,7 @@ Sidebar.displayName = 'Sidebar'
 
 const SidebarTrigger = React.forwardRef<
   React.ElementRef<typeof Button>,
-  React.ComponentProps<typeof Button>
+  Omit<React.ComponentProps<typeof Button>, 'children'>
 >(({ className, onClick, ...props }, ref) => {
   const { toggleSidebar, open, isMobile } = useSidebar()
 
@@ -370,24 +361,6 @@ const SidebarInset = React.forwardRef<
 })
 SidebarInset.displayName = 'SidebarInset'
 
-const SidebarInput = React.forwardRef<
-  React.ElementRef<typeof Input>,
-  React.ComponentProps<typeof Input>
->(({ className, ...props }, ref) => {
-  return (
-    <Input
-      ref={ref}
-      data-sidebar="input"
-      className={cn(
-        'h-8 w-full bg-background shadow-none focus-visible:ring-2 focus-visible:ring-sidebar-ring',
-        className,
-      )}
-      {...props}
-    />
-  )
-})
-SidebarInput.displayName = 'SidebarInput'
-
 const SidebarHeader = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<'div'>
@@ -417,21 +390,6 @@ const SidebarFooter = React.forwardRef<
   )
 })
 SidebarFooter.displayName = 'SidebarFooter'
-
-const SidebarSeparator = React.forwardRef<
-  React.ElementRef<typeof Separator>,
-  React.ComponentProps<typeof Separator>
->(({ className, ...props }, ref) => {
-  return (
-    <Separator
-      ref={ref}
-      data-sidebar="separator"
-      className={cn('mx-2 w-auto bg-sidebar-border', className)}
-      {...props}
-    />
-  )
-})
-SidebarSeparator.displayName = 'SidebarSeparator'
 
 const SidebarContent = React.forwardRef<
   HTMLDivElement,
@@ -554,52 +512,25 @@ const SidebarMenuButton = React.forwardRef<
   React.ComponentProps<'button'> & {
     asChild?: boolean
     isActive?: boolean
-    tooltip?: string | React.ComponentProps<typeof TooltipContent>
   }
->(
-  (
-    { asChild = false, isActive = false, tooltip, className, ...props },
-    ref,
-  ) => {
-    const Comp = asChild ? Slot : 'button'
-    const { isMobile, state } = useSidebar()
+>(({ asChild = false, isActive = false, className, ...props }, ref) => {
+  const Comp = asChild ? Slot : 'button'
 
-    const button = (
-      <Comp
-        ref={ref}
-        data-sidebar="menu-button"
-        data-active={isActive}
-        className={cn(
-          'peer/menu-button overflow-hidden transition-[width,height,padding] group-data-[collapsible=icon]:min-w-full group-data-[collapsible=icon]:[&>span:last-child]:hidden',
-          className,
-        )}
-        {...props}
-      />
-    )
+  const button = (
+    <Comp
+      ref={ref}
+      data-sidebar="menu-button"
+      data-active={isActive}
+      className={cn(
+        'peer/menu-button overflow-hidden transition-[width,height,padding] group-data-[collapsible=icon]:min-w-full group-data-[collapsible=icon]:[&>span:last-child]:hidden',
+        className,
+      )}
+      {...props}
+    />
+  )
 
-    if (!tooltip) {
-      return button
-    }
-
-    if (typeof tooltip === 'string') {
-      tooltip = {
-        children: tooltip,
-      }
-    }
-
-    return (
-      <Tooltip>
-        <TooltipTrigger asChild>{button}</TooltipTrigger>
-        <TooltipContent
-          side="right"
-          align="center"
-          hidden={state !== 'collapsed' || isMobile}
-          {...tooltip}
-        />
-      </Tooltip>
-    )
-  },
-)
+  return button
+})
 SidebarMenuButton.displayName = 'SidebarMenuButton'
 
 const SidebarMenuAction = React.forwardRef<
@@ -754,7 +685,6 @@ export {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarHeader,
-  SidebarInput,
   SidebarInset,
   SidebarMenu,
   SidebarMenuAction,
@@ -767,7 +697,6 @@ export {
   SidebarMenuSubItem,
   SidebarProvider,
   SidebarRail,
-  SidebarSeparator,
   SidebarTrigger,
   useSidebar,
 }

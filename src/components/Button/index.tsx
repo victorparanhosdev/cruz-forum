@@ -8,9 +8,9 @@ const buttonStyles = tv({
   variants: {
     state: {
       default:
-        'bg-green-950 px-4 py-2.5 enabled:hover:bg-green-800 disabled:bg-gray-400 disabled:text-gray-700',
+        'bg-green-950 px-4 py-2.5 enabled:hover:bg-green-800 disabled:opacity-70',
       'outline-negative':
-        'border border-red-900 bg-none px-4 py-2 enabled:hover:bg-error-100 disabled:border-gray-900 disabled:bg-gray-950 disabled:text-gray-800',
+        'border border-red-900 bg-none px-4 py-2 enabled:hover:bg-error-100 disabled:opacity-70 disabled:bg-error-200',
       menu: 'w-full justify-start bg-none px-4 py-2 text-start hover:bg-hover-btn-menu_card data-[state=true]:bg-green-900 data-[state=true]:font-bold',
       transparent: 'gap-1 py-2 hover:enabled:text-green-200',
     },

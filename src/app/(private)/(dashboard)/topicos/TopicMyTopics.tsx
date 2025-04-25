@@ -100,14 +100,14 @@ export const TopicMyTopic = ({ data, className, ...props }: TopicProps) => {
           {data.descricao}
         </p>
 
-        <div className="flex items-center gap-6 pt-1.5">
+        <div className="flex items-center gap-1 pt-1.5">
           <ButtonLikeTopic
             isLike={data.isAuthorLikeTopic}
             likes={data.likes}
             topicSlug={data.slug}
           />
 
-          <div className="flex items-center gap-2 py-1 text-xs">
+          <div className="flex items-end gap-1.5 py-1 text-xs">
             <ChatCircle size={20} />
             {formatCommentText(data.comments)}
           </div>

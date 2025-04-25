@@ -24,7 +24,11 @@ interface PerfilFormProps {
 }
 const SchemaPerfilForm = z.object({
   image: z.instanceof(File).optional(),
-  name: z.string().min(3, 'Digite pelo menos 3 caracteres').optional(),
+  name: z
+    .string()
+    .min(3, 'Digite pelo menos 3 caracteres')
+    .max(30, 'Máximo de 30 caracteres')
+    .optional(),
 })
 
 export type SchemaPerfilFormProps = z.infer<typeof SchemaPerfilForm>
@@ -80,16 +84,14 @@ export const PerfilForm = ({
         className="flex flex-col gap-9 py-6 sm:gap-12 lg:flex-row"
       >
         <div className="flex w-full items-center justify-center md:w-auto">
-          <div className="grid gap-2 sm:gap-6 md:flex md:grid-cols-none md:grid-rows-none md:flex-col md:items-center md:justify-center md:justify-items-center lg:min-w-[330px]">
+          <div className="grid w-full justify-center gap-2 sm:gap-6 md:flex md:grid-cols-none md:grid-rows-none md:flex-col md:items-center md:justify-center md:justify-items-center lg:min-w-[330px]">
             <ImageUploadPreview
               defaultImage={data.image}
               userName={data.name}
             />
 
             <div className="order-2 col-span-2 pt-4 text-center sm:pt-0 md:order-none">
-              <h2 className="whitespace-nowrap text-xl font-bold lg:text-2xl">
-                {data.name}
-              </h2>
+              <h2 className="text-xl font-bold xl:text-2xl">{data.name}</h2>
               <p className="text-xs text-gray-400 md:text-sm">{data.email}</p>
             </div>
 
@@ -109,7 +111,7 @@ export const PerfilForm = ({
         </div>
         <div className="h-px w-full bg-gray-800 lg:h-auto lg:w-px" />
 
-        <div className="flex flex-col gap-6 md:gap-9">
+        <div className="m-auto flex min-w-[90%] max-w-max flex-col gap-6 sm:min-w-[80%] md:gap-9 lg:m-0 lg:min-w-0">
           <h2 className="text-base font-medium md:text-lg lg:text-2xl">
             Alterar Dados:{' '}
           </h2>

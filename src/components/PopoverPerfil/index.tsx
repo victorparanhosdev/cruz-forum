@@ -5,13 +5,17 @@ import { SignOut, User } from '@phosphor-icons/react/dist/ssr'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useSidebar } from '../ui/sidebar'
+import { CircleNotch } from '@phosphor-icons/react'
 
 export const PopoverPerfil = ({ children }: { children: ReactNode }) => {
   const router = useRouter()
   const { open, isMobile, setOpenMobile } = useSidebar()
   const [isOpenPopover, setIsOpenPopover] = useState(false)
-  function handleSignOut() {
-    signOut()
+  const [isSigningOut, setIsSigningOut] = useState(false)
+
+  async function handleSignOut() {
+    setIsSigningOut(true)
+    await signOut({ callbackUrl: '/', redirect: true })
   }
 
   function handleNavigationPerfil() {
@@ -21,6 +25,7 @@ export const PopoverPerfil = ({ children }: { children: ReactNode }) => {
     }
     setIsOpenPopover(false)
   }
+
   return (
     <Popover.PopoverRoot
       positioning={{ sameWidth: open || isMobile }}
@@ -48,10 +53,12 @@ export const PopoverPerfil = ({ children }: { children: ReactNode }) => {
           <Button
             state="menu"
             onClick={handleSignOut}
-            iconLeft={SignOut}
-            className="rounded-none text-red-500 hover:bg-red-950 hover:text-red-400"
+            iconLeft={isSigningOut ? CircleNotch : SignOut}
+            className={`rounded-none text-red-500 hover:bg-red-950 hover:text-red-400`}
+            classNameIcon={`${isSigningOut ? 'animate-spin' : ''}`}
+            disabled={isSigningOut}
           >
-            Sair da conta
+            {isSigningOut ? 'Saindo...' : 'Sair da conta'}
           </Button>
         </Popover.PopoverBody>
       </Popover.PopoverContent>

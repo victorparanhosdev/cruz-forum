@@ -2,6 +2,8 @@ import { Skeleton } from '@chakra-ui/react/skeleton'
 import { AsideRelevant } from './aside-card-relevant'
 import { StarFour } from '@phosphor-icons/react/dist/ssr'
 import { cn } from '@/lib/utils'
+import { CardRelevantProvider } from './context-relevant'
+import { TriggerButtonRelevant } from './trigger-button-relevant'
 
 export type CardRelevantProps = {
   id: string
@@ -21,7 +23,7 @@ export function AsideRelevantesSkeleton({
     <aside
       {...props}
       className={cn(
-        'h-view-relevantes fixed bottom-4 right-4 top-4 w-[257px] overflow-auto rounded-xl bg-stone-950 px-4 pt-12 ring-1 ring-stone-900',
+        'h-view-relevantes fixed bottom-4 right-4 top-4 hidden w-[257px] overflow-auto rounded-xl bg-stone-950 px-4 pt-12 ring-1 ring-stone-900 min-[1280px]:block',
         className,
       )}
     >
@@ -32,7 +34,7 @@ export function AsideRelevantesSkeleton({
       <div className="flex flex-col gap-4">
         {Array.from({ length: 5 }).map((_, index) => (
           <Skeleton asChild key={index}>
-            <div className="flex min-h-24 cursor-pointer gap-2.5 rounded-lg border border-stone-700 bg-stone-800 px-3 py-2" />
+            <div className="flex min-h-[68px] cursor-pointer gap-2.5 rounded-lg border border-stone-700 bg-stone-800 px-3 py-2" />
           </Skeleton>
         ))}
       </div>
@@ -44,10 +46,18 @@ export const CardRelevantContent = async () => {
   const url = `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/topics/relevant`
 
   const data: CardRelevantProps[] = await fetch(url, {
-    next: { tags: ['feed'] },
+    next: {
+      revalidate: 60,
+      tags: ['feed'],
+    },
   })
     .then((res) => res.json())
     .catch(console.error)
 
-  return <AsideRelevant data={data} />
+  return (
+    <CardRelevantProvider>
+      <AsideRelevant data={data} />
+      <TriggerButtonRelevant />
+    </CardRelevantProvider>
+  )
 }

@@ -107,7 +107,8 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    verifyRequest: '/auth/verify-request',
-    error: '/auth/error',
+    signIn: '/',
+    error: '/',
+    verifyRequest: '/',
   },
 }

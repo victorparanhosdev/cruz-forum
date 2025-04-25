@@ -1,10 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useFormContext } from 'react-hook-form'
 import Image from 'next/image'
 import { PencilSimpleLine } from '@phosphor-icons/react'
-import { Label } from '@/components'
 
 interface ImageUploadPreviewProps {
   defaultImage?: string
@@ -17,6 +16,8 @@ export function ImageUploadPreview({
 }: ImageUploadPreviewProps) {
   const { setValue } = useFormContext()
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(defaultImage)
+  const imgRef = useRef<HTMLImageElement | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     return () => {
@@ -35,8 +36,15 @@ export function ImageUploadPreview({
     }
   }
 
+  const handleImageClick = () => {
+    fileInputRef.current?.click()
+  }
+
   return (
     <div className="relative h-fit w-fit">
+      <label htmlFor="upload-photo" className="sr-only">
+        Selecionar foto de perfil
+      </label>
       <input
         type="file"
         name="upload-photo"
@@ -44,25 +52,46 @@ export function ImageUploadPreview({
         className="sr-only"
         accept="image/*"
         onChange={handleFileChange}
+        ref={fileInputRef}
+        aria-label="Selecionar foto de perfil"
       />
-      <Image
-        src={previewUrl || '/default-avatar.png'}
-        alt={`Foto do perfil de ${userName}`}
-        width={208}
-        height={208}
-        className="sm:min-w-size-32 size-24 min-w-24 rounded-full object-cover sm:size-32 md:size-44 md:min-w-44"
-        priority
-        quality={80}
-      />
-      <Label
-        htmlFor="upload-photo"
+
+      <div
+        className="cursor-pointer"
+        onClick={handleImageClick}
+        role="button"
+        aria-label="Selecionar nova foto de perfil"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            handleImageClick()
+            e.preventDefault()
+          }
+        }}
+      >
+        <Image
+          src={previewUrl || '/default-avatar.png'}
+          alt={`Foto do perfil de ${userName}`}
+          width={208}
+          height={208}
+          className="size-24 min-w-24 rounded-full object-cover sm:size-32 sm:min-w-32 md:size-44 md:min-w-44"
+          priority
+          quality={80}
+          ref={imgRef}
+        />
+      </div>
+
+      <button
+        onClick={handleImageClick}
         className="absolute bottom-0 right-1 mb-0 flex cursor-pointer items-center rounded-full bg-green-950 p-1.5 sm:right-3 md:right-5"
+        aria-label="Editar foto de perfil"
+        type="button"
       >
         <PencilSimpleLine
           className="size-3 text-green-200 sm:size-4 md:size-5"
           weight="fill"
         />
-      </Label>
+      </button>
     </div>
   )
 }

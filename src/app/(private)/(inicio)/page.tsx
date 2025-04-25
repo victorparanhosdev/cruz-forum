@@ -16,8 +16,6 @@ import {
   CardRelevantContent,
   AsideRelevantesSkeleton,
 } from './card-relevant-content'
-import { TriggerButtonRelevant } from './trigger-button-relevant'
-import { CardRelevantProvider } from './context-relevant'
 
 export const metadata: Metadata = {
   title: 'Feed',
@@ -97,12 +95,10 @@ export default async function Inicio(params: {
             </div>
           </section>
         </main>
-        <CardRelevantProvider>
-          <Suspense fallback={<AsideRelevantesSkeleton />}>
-            <CardRelevantContent />
-          </Suspense>
-          <TriggerButtonRelevant />
-        </CardRelevantProvider>
+
+        <Suspense fallback={<AsideRelevantesSkeleton />}>
+          <CardRelevantContent />
+        </Suspense>
       </div>
     </>
   )

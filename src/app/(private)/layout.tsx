@@ -1,5 +1,5 @@
 import { Navigation } from '@/components'
-import { SidebarTriggerMobile } from '@/components/ui/SidebarTriggerMobile'
+import { SidebarTriggerMobile } from '@/components/ui/sidebarTriggerMobile'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ReactNode } from 'react'
