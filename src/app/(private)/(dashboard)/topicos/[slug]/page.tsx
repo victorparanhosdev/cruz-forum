@@ -2,7 +2,7 @@ import { ButtonSavedTopic } from '@/components'
 import { AlertDialog } from '@/components/AlertDialog'
 import { ArrowBendDownLeft, Trash } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
-import { CreateComents } from './_components/CreateComents'
+
 import { Metadata } from 'next'
 import { fetchAPI } from '@/lib/fetchAPI'
 import { revalidateTag } from 'next/cache'
@@ -10,10 +10,12 @@ import { Suspense } from 'react'
 
 import { redirect } from 'next/navigation'
 import { TopicCommentsProps } from '@/app/api/topics/[slug]/comments/route'
-import { CommentSection } from './_components/CommentSection'
+
 import { formatDistanceDate } from '@/lib/formatDistanceDate'
-import { BackButton } from '../../_components/BackButton'
 import { Skeleton } from '@chakra-ui/react'
+import { BackButton } from '@/app/(private)/_components/BackButton'
+import { CommentSection } from './comment-section'
+import { CreateComents } from './createcomment'
 
 export const metadata: Metadata = {
   title: 'Topico',

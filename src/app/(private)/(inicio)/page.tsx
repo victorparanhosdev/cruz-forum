@@ -8,9 +8,16 @@ import { revalidateTag } from 'next/cache'
 
 import { SearchTopic } from './SearchTopic'
 import { fetchCardFeed } from './fetchCardFeed'
-import { Aside } from './Aside'
-import { TriggerButtonRelevant } from './_components/trigger-button-relevant'
+
 import { SectionFeed } from './SectionFeed'
+import { Suspense } from 'react'
+import { SkeletonCards } from '../_components/SkeletonCards'
+import {
+  CardRelevantContent,
+  AsideRelevantesSkeleton,
+} from './card-relevant-content'
+import { TriggerButtonRelevant } from './trigger-button-relevant'
+import { CardRelevantProvider } from './context-relevant'
 
 export const metadata: Metadata = {
   title: 'Feed',
@@ -84,13 +91,19 @@ export default async function Inicio(params: {
             </div>
 
             <div className="grid gap-4">
-              <SectionFeed searchTitle={searchParams} />
+              <Suspense fallback={<SkeletonCards />}>
+                <SectionFeed searchTitle={searchParams} />
+              </Suspense>
             </div>
           </section>
         </main>
-        <Aside />
+        <CardRelevantProvider>
+          <Suspense fallback={<AsideRelevantesSkeleton />}>
+            <CardRelevantContent />
+          </Suspense>
+          <TriggerButtonRelevant />
+        </CardRelevantProvider>
       </div>
-      <TriggerButtonRelevant />
     </>
   )
 }

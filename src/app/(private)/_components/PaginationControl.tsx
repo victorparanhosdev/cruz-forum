@@ -1,27 +1,35 @@
 'use client'
-
-import { useMemo } from 'react'
-import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import {
   CaretDoubleLeft,
+  CaretDoubleRight,
   CaretLeft,
   CaretRight,
-  CaretDoubleRight,
 } from '@phosphor-icons/react'
-import { TopicWithPaginationProps } from '@/app/api/topics/route'
+import { usePathname, useSearchParams, useRouter } from 'next/navigation'
+import { useMemo } from 'react'
 
-const PaginationSkeleton = () => (
-  <div className="flex place-content-end items-center gap-2 pb-12">
+export const SkeletonButtonPagination = () => (
+  <div className="flex place-content-end items-center gap-2 pb-14">
     {Array.from({ length: 4 }).map((_, index) => (
-      <div key={index} className="h-7 w-7 animate-pulse rounded bg-stone-800" />
+      <div
+        key={index}
+        className="h-[30px] w-[30px] animate-pulse rounded bg-stone-800"
+      />
     ))}
   </div>
 )
 
+export interface PaginationControlProps {
+  currentPage: number
+  perPage: number
+  totalItems: number
+  totalPages: number
+}
+
 export const PaginationControl = ({
-  data,
+  metaPage,
 }: {
-  data: TopicWithPaginationProps
+  metaPage: PaginationControlProps
 }) => {
   const router = useRouter()
   const pathname = usePathname()
@@ -33,9 +41,7 @@ export const PaginationControl = ({
   )
   const currentPage = Number(params.get('page')) || 1
 
-  if (!data) return <PaginationSkeleton />
-
-  const { totalPages } = data.meta
+  const { totalPages } = metaPage
 
   const isFirstPage = currentPage === 1
   const isLastPage = currentPage === totalPages

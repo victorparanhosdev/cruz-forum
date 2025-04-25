@@ -1,40 +1,21 @@
 import { Button, FilterPopover } from '@/components'
-import { SkeletonTopic, Topic } from '@/components/Topic'
 import {
   BookmarkSimple,
   FadersHorizontal,
 } from '@phosphor-icons/react/dist/ssr'
 import { Metadata } from 'next'
 import { Suspense } from 'react'
-import { PaginationControl } from './PaginationControl'
 import { SearchTitleProps } from '../../(inicio)/page'
 import { fetchCardSalvos } from './fetchCardSalvos'
-import { redirect } from 'next/navigation'
 import { SearchSalvos } from './SearchSalvos'
-import { BackButton } from '../_components/BackButton'
+import { SectionSalvos } from './SectionSalvos'
+import { BackButton } from '../../_components/BackButton'
+import { SkeletonCards } from '../../_components/SkeletonCards'
 
 export const metadata: Metadata = {
   title: 'Salvos',
 }
 export const dynamic = 'force-dynamic'
-
-async function ComponentSavedTopicFeed({ searchTitle }: SearchTitleProps) {
-  const { data: postsData, meta } = await fetchCardSalvos({ searchTitle })
-
-  if (Number(searchTitle?.page) > meta.totalPages) {
-    redirect('/salvos')
-  }
-
-  return (
-    <div className="grid grid-cols-1 gap-4 min-[980px]:grid-cols-2">
-      {Array.isArray(postsData) && postsData.length > 0 ? (
-        postsData.map((topic) => <Topic key={topic.id} data={topic} />)
-      ) : (
-        <p className="col-span-2 py-4 text-center">Nenhum tópico encontrado</p>
-      )}
-    </div>
-  )
-}
 
 const CounterPagination = async ({ searchTitle }: SearchTitleProps) => {
   const { meta } = await fetchCardSalvos({ searchTitle })
@@ -74,11 +55,9 @@ export default async function Salvos(params: {
         </div>
 
         <div className="grid gap-4">
-          <Suspense fallback={<SkeletonTopic />}>
-            <ComponentSavedTopicFeed searchTitle={searchParams} />
+          <Suspense fallback={<SkeletonCards />}>
+            <SectionSalvos searchTitle={searchParams} />
           </Suspense>
-
-          <PaginationControl searchTitle={searchParams} />
         </div>
       </section>
     </main>

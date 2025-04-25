@@ -1,4 +1,4 @@
-import { CardRelevantProps } from '@/app/(private)/(inicio)/Aside'
+import { CardRelevantProps } from '@/app/(private)/(inicio)/card-relevant-content'
 import { formatDistanceDate } from '@/lib/formatDistanceDate'
 import { ArrowBendDownLeft } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'

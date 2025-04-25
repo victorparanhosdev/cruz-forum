@@ -7,7 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { HTMLAttributes } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Skeleton } from '@chakra-ui/react'
+
 import { formatDistanceDate } from '@/lib/formatDistanceDate'
 import { AlertDialogDeleteMyTopic } from './AlertDialogDeleteMyTopic'
 import { fetchAPI } from '@/lib/fetchAPI'
@@ -43,20 +43,6 @@ async function handleDeleteTopic(topicSlug: number) {
   } finally {
     revalidateTag('mytopics')
   }
-}
-
-export const SkeletonTopic = () => {
-  return (
-    <div className="grid min-h-[650px] gap-x-6 gap-y-4 md:grid-cols-2">
-      {Array.from({ length: 6 }).map((_, index) => {
-        return (
-          <Skeleton asChild key={index}>
-            <div className="grid h-[188px] gap-4 rounded-xl border border-stone-700 bg-topico-200 px-6 py-4 transition-colors hover:bg-topico-100" />
-          </Skeleton>
-        )
-      })}
-    </div>
-  )
 }
 
 function formatCommentText(count: number): string {
