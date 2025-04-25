@@ -72,23 +72,59 @@ ou
 yarn
 ```
 
+#### Passos para instalação com Docker
+
+Você pode subir todo o ambiente (PostgreSQL e Prisma) utilizando o Docker:
+
+```
+docker-compose up
+```
+
+Ou, para rodar em segundo plano:
+
+```
+docker-compose up -d
+```
+
 - Configure as variáveis de ambiente no arquivo .env:
 
 ```
 DATABASE_URL="postgresql://myuser:mypassword@localhost:5431/mydatabase"
+
 NEXTAUTH_URL="http://localhost:3000"
+NEXT_PUBLIC_NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET=
+
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
-AUTH_SECRET=""
-AUTH_GITHUB_ID=""
-AUTH_GITHUB_SECRET=""
+
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+EMAIL_SERVER_USER=
+EMAIL_SERVER_PASSWORD=
+EMAIL_SERVER_HOST=
+EMAIL_SERVER_PORT=
+EMAIL_FROM=
+
+FACEBOOK_CLIENT_ID=
+FACEBOOK_CLIENT_SECRET=
+
+GITHUB_ID=
+GITHUB_SECRET=
 ```
 
 - Rode as migrações do banco de dados:
 
 ```
 npx prisma migrate dev
+```
+
+- Popular o banco de dados:
+
+```
+npx prisma db seed
 ```
 
 - Inicie o servidor de desenvolvimento:
@@ -101,44 +137,6 @@ yarn dev
 
 - A aplicação estará disponível em: http://localhost:3000
 
-## 🏗️ Estrutura do Projeto
+### 👨‍💻 Autor
 
-```
-cruz-forum/
-├── prisma/             # Configurações do banco de dados
-├── public/             # Arquivos públicos estáticos
-└── src/
-└── app/
-├── (private)/  # Rotas privadas (requer autenticação)
-│   ├── dashboard/      # Página do painel do usuário
-│   ├── (inicio)/       # Página inicial após login
-│   └── login/          # Página de login
-│       ├── AuthButtons.tsx    # Componente de botões de autenticação
-│       └── page.tsx           # Página de login
-├── api/                # Rotas de API
-│   ├── auth/           # Endpoints de autenticação
-│   ├── comments/       # Endpoints de comentários
-│   └── topics/         # Endpoints de tópicos
-├── lib/                # Bibliotecas e utilitários
-├── providers/          # Componentes de provedor de contexto
-├── types/              # Definições de tipos TypeScript
-├── middleware.ts       # Middleware da aplicação
-└── arquivos de configuração/
-├── .gitignore          # Configurações de arquivos ignorados pelo Git
-├── prettier.json       # Configurações do Prettier
-├── docker-compose.yml  # Configuração do Docker
-├── eslint.config.mjs   # Configurações do ESLint
-├── jest.config.ts      # Configurações do Jest
-├── jest.setup.ts       # Setup de testes
-├── next-env.d.ts       # Tipos de ambiente do Next.js
-├── next.config.mjs     # Configurações do Next.js
-├── package-lock.json   # Lock de dependências
-├── package.json        # Dependências e scripts
-├── postcss.config.mjs  # Configurações do PostCSS
-├── README.md           # Documentação do projeto
-├── tailwind.config.js  # Configurações do Tailwind CSS
-└── tsconfig.json       # Configurações do TypeScript
-```
-
-👨‍💻 Autor
 Desenvolvido por Victor Paranhos.

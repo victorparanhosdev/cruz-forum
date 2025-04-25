@@ -25,7 +25,6 @@ function useCardRelevant() {
 }
 const CardRelevantProvider = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
   ({ className, style, children, ...props }, ref) => {
-
     const [open, setOpen] = useState(false)
 
     const contextValue = useMemo<CardRelevantContextProps>(
@@ -36,7 +35,7 @@ const CardRelevantProvider = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
     return (
       <CardRelevantContext.Provider value={contextValue}>
         <div {...props} ref={ref}>
-        {children}
+          {children}
         </div>
       </CardRelevantContext.Provider>
     )

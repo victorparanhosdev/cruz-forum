@@ -107,16 +107,18 @@ export const AuthButtons = () => {
 
   async function handleFormEmailSubmit({ email }: SchemaFormEmailProps) {
     try {
-      const response = await signIn('email', { email, callbackUrl: '/' })
-  
+      const response = await signIn('email', {
+        email,
+        callbackUrl: '/',
+        redirect: false,
+      })
+
       if (!response.ok) {
-   
         return toaster.error({
           description: response.error,
           duration: 3000,
         })
       }
-  
 
       toaster.success({
         title: 'Confira seu e-mail!',
@@ -125,7 +127,6 @@ export const AuthButtons = () => {
         duration: 4000,
       })
     } catch (error) {
-
       toaster.error({
         description: 'Ocorreu um erro ao tentar enviar o e-mail.',
         duration: 3000,

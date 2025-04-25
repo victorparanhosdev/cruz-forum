@@ -6,7 +6,7 @@ import { useIsMobile } from '@/hooks/use-mobile-relevant'
 export const TriggerButtonRelevant = () => {
   const { setOpen } = useCardRelevant()
   const isMobile = useIsMobile()
-  
+
   if (!isMobile) {
     return null
   }

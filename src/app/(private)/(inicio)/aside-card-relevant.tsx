@@ -28,7 +28,6 @@ export const AsideRelevant = ({
   const { open, setOpen } = useCardRelevant()
   const isMobile = useIsMobile()
 
-
   if (isMobile) {
     return (
       <Sheet open={open} onOpenChange={setOpen} {...props}>
