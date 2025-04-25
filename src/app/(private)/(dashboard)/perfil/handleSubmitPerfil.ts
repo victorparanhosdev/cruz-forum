@@ -2,14 +2,24 @@
 
 import { SchemaPerfilFormProps } from './PerfilForm'
 
+type HandleSubmitPerfilResponse = boolean | { messageFileSize: string }
+
 export async function handleSubmitPerfil({
   image: file,
   name,
-}: SchemaPerfilFormProps): Promise<boolean> {
+}: SchemaPerfilFormProps): Promise<HandleSubmitPerfilResponse> {
   try {
     const formData = new FormData()
     formData.append('file', file)
     formData.append('name', name)
+    const files = formData.get('file') as File
+    const fileSizeImagem = 5 * 1024 * 1024 // 5MB
+
+    if (files && files.size > fileSizeImagem) {
+      return {
+        messageFileSize: 'O tamanho máximo permitido para imagens é de 5 MB',
+      }
+    }
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/perfil`,

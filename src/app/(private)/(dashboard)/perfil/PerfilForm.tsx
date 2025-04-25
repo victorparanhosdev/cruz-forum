@@ -53,22 +53,28 @@ export const PerfilForm = ({
     image,
     name,
   }: SchemaPerfilFormProps) {
-    await handleSubmitPerfil({ image, name }).then((res) => {
-      if (!res) {
-        toaster.error({
-          title: 'Perfil',
-          description: 'Não foi possivel atualizar',
-        })
-      }
-      if (res) {
-        session.update()
-        router.refresh()
+    const res = await handleSubmitPerfil({ image, name })
 
-        toaster.success({
-          title: 'Perfil',
-          description: 'Perfil atualizado com sucesso!',
-        })
-      }
+    if (typeof res === 'object' && 'messageFileSize' in res) {
+      return toaster.error({
+        title: 'Perfil',
+        description: res.messageFileSize,
+      })
+    }
+
+    if (!res) {
+      return toaster.error({
+        title: 'Perfil',
+        description: 'Não foi possível atualizar',
+      })
+    }
+
+    session.update()
+    router.refresh()
+
+    toaster.success({
+      title: 'Perfil',
+      description: 'Perfil atualizado com sucesso!',
     })
   }
 
@@ -156,7 +162,10 @@ export const PerfilForm = ({
             </Button>
 
             {methods.formState.isSubmitting ? (
-              <Button className="min-h-11 min-w-[120px]">
+              <Button
+                className="min-h-11 min-w-[120px]"
+                disabled={methods.formState.isSubmitting}
+              >
                 <CircleNotch
                   className="h-full w-full animate-spin text-white"
                   size={20}

@@ -192,3 +192,10 @@ export async function PUT(
     )
   }
 }
+
+export const config = {
+  api: {
+    bodyParser: false,
+    responseLimit: '5mb',
+  },
+}

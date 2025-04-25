@@ -24,8 +24,6 @@ const ProvidersAuth = () => {
       await signIn(provider, { callbackUrl: '/' })
     } catch (error) {
       console.log(error)
-    } finally {
-      setLoadingProvider(null)
     }
   }
 
